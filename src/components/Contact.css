@@ -1,0 +1,69 @@
+.contact {
+    padding: 100px 0;
+    background-color: #0a0a0a;
+    color: var(--color-text);
+    text-align: center;
+}
+
+.contact .section-title {
+    color: var(--color-text);
+}
+
+.contact .section-title::after {
+    background-color: var(--color-secondary);
+}
+
+.contact-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-message {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 40px;
+    color: #ccc;
+}
+
+.contact-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #00d4ff 0%, #005bea 100%);
+    color: white;
+    padding: 15px 40px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 50px;
+}
+
+.contact-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+}
+
+.contact-sns p {
+    margin-bottom: 15px;
+    color: #999;
+}
+
+.sns-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.sns-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.sns-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: white;
+}

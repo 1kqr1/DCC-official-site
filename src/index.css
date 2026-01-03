@@ -1,0 +1,35 @@
+:root {
+  --color-bg: #0a0a0a;
+  --color-text: #e0e0e0;
+  --color-primary: #00ff9d; /* Neon Green */
+  --color-secondary: #00d2ff; /* Neon Blue */
+  --color-accent: #ff0055;
+  --color-glass: rgba(255, 255, 255, 0.05);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+  
+  --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Roboto Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
