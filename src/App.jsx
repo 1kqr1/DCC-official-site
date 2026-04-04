@@ -6,7 +6,7 @@ import './index.css';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/DCC-official-site">
       <div className="app-container">
         <Header />
         <main>
