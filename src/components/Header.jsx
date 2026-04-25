@@ -21,6 +21,7 @@ const Header = () => {
                         <li><HashLink smooth to="/#contact" className="nav-link">Contact</HashLink></li>
                     </ul>
                 </nav>
+                <HashLink smooth to="/#contact" className="join-btn">Join DCC</HashLink>
             </div>
         </header>
     );

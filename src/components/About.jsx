@@ -1,49 +1,67 @@
 import React from 'react';
-import aboutImage from '../assets/activity-study.jpg';
+import { HashLink } from 'react-router-hash-link';
+import imgProgramming from '../assets/activity-webapp.jpg';
+import img3d from '../assets/activity-3d.jpg';
+import imgDigital from '../assets/activity-hp-new.jpg';
+import imgMeeting from '../assets/activity-study.jpg';
 import './About.css';
 
 const About = () => {
     return (
         <section id="about" className="about">
             <div className="container">
-                <h2 className="section-title">Who We Are</h2>
                 <div className="about-content">
-                    <div className="about-image-container">
-                        <img src={aboutImage} alt="DCC Members" className="about-image" />
+                    <div className="about-left">
+                        <span className="section-label">ABOUT</span>
+                        <h2 className="about-heading">誰もがクリエイターに<br />なれる場所。</h2>
+                        <p className="about-desc">
+                            DCCは周南公立大学情報科学部の学生による学生団体です。
+                            コンピュータサイエンスを自由に学び、自由に遊ぶサークルです。
+                        </p>
+                        <p className="about-desc">
+                            アプリ開発、3Dプリンター、デジタルアート制作など、
+                            活動分野は様々です。新たな技術やアイデアを追求し、
+                            一緒に成長していくことを楽しみにしています。
+                        </p>
+                        <HashLink smooth to="/#activities" className="about-btn">
+                            もっと知る <span className="btn-arrow">→</span>
+                        </HashLink>
                     </div>
-                    <div className="about-text-container">
-                        <div className="about-text">
-                            <p>
-                                DCCは周南公立大学<strong>情報科学部</strong>の学生による学生団体です。
-                                私たちは、コンピュータサイエンス（CS）を自由に学び、自由に遊ぶサークルです。
-                            </p>
-                            <p>
-                                アプリケーション開発、3Dプリンター、HP制作、デジタルアート制作など、活動分野は様々です。
-                                新たな技術やアイデアを追求し、一緒に成長していくことを楽しみにしています。
-                            </p>
-                        </div>
-                        <div className="about-stats">
-                            <div className="stat-item">
-                                <span className="stat-number">20+</span>
-                                <span className="stat-label">メンバー</span>
+                    <div className="about-right">
+                        <div className="about-grid">
+                            <div className="about-grid-item">
+                                <img src={imgProgramming} alt="プログラミング" />
+                                <div className="about-grid-label">
+                                    <span className="label-main">プログラミング</span>
+                                    <span className="label-sub">Programming</span>
+                                </div>
                             </div>
-                            <div className="stat-item">
-                                <span className="stat-number stat-infinity">♾️</span>
-                                <span className="stat-label">可能性</span>
+                            <div className="about-grid-item">
+                                <img src={img3d} alt="3D制作" />
+                                <div className="about-grid-label">
+                                    <span className="label-main">3D制作</span>
+                                    <span className="label-sub">3D Modeling</span>
+                                </div>
                             </div>
-                            <div className="stat-item">
-                                <span className="stat-number">Weekly</span>
-                                <span className="stat-label">勉強会</span>
+                            <div className="about-grid-item">
+                                <img src={imgDigital} alt="デジタルアート" />
+                                <div className="about-grid-label">
+                                    <span className="label-main">デジタルアート</span>
+                                    <span className="label-sub">Digital Art</span>
+                                </div>
                             </div>
-                            <div className="stat-item">
-                                <span className="stat-number">Monthly</span>
-                                <span className="stat-label">定例会</span>
+                            <div className="about-grid-item">
+                                <img src={imgMeeting} alt="ミーティング" />
+                                <div className="about-grid-label">
+                                    <span className="label-main">ミーティング</span>
+                                    <span className="label-sub">Meeting</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section >
+        </section>
     );
 };
 
