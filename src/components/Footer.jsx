@@ -41,7 +41,7 @@ const Footer = () => {
                             </svg>
                         </a>
                     </div>
-                    <p className="copyright">&copy; Digital Creators Club.</p>
+                    <p className="copyright">&copy; Digital Creators Community.</p>
                 </div>
             </div>
         </footer>

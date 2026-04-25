@@ -1,9 +1,9 @@
 import React from 'react';
 import { HashLink } from 'react-router-hash-link';
-import imgProgramming from '../assets/activity-webapp.jpg';
-import img3d from '../assets/activity-3d.jpg';
-import imgDigital from '../assets/activity-hp-new.jpg';
-import imgMeeting from '../assets/activity-study.jpg';
+import imgProgramming from '../assets/dcc-programming.jpg';
+import img3d from '../assets/dcc-3d-objects.jpg';
+import imgDigital from '../assets/dcc-digital-art.jpg';
+import imgMeeting from '../assets/dcc-meeting.jpg';
 import './About.css';
 
 const About = () => {

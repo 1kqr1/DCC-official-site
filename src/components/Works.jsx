@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import './Works.css';
-import img3d from '../assets/activity-3d.jpg';
-import imgWebapp from '../assets/activity-webapp.jpg';
-import imgDigital from '../assets/activity-hp-new-02.png';
-import imgMobile from '../assets/activity-hp-new.jpg';
-import imgMotion from '../assets/activity-books.jpg';
+import img3dPrinter from '../assets/dcc-3d-printer.jpg';
+import imgProgramming from '../assets/dcc-programming.jpg';
+import imgDigitalArt from '../assets/dcc-digital-art.jpg';
+import imgStudy from '../assets/dcc-study.jpg';
+import imgVr from '../assets/dcc-vr.jpg';
 
 const works = [
-    { title: '3D Game', sub: 'Unity', img: img3d },
-    { title: 'Web Application', sub: 'HTML / CSS / JS', img: imgWebapp },
-    { title: 'Digital Art', sub: 'Illustration', img: imgDigital },
-    { title: 'Mobile App', sub: 'Flutter', img: imgMobile },
-    { title: 'Motion Graphic', sub: 'After Effects', img: imgMotion },
+    { title: '3D Modeling', sub: '3Dプリンター', img: img3dPrinter },
+    { title: 'Web Application', sub: 'HTML / CSS / JS', img: imgProgramming },
+    { title: 'Digital Art', sub: 'イラスト・デザイン', img: imgDigitalArt },
+    { title: '勉強会', sub: 'ハッカソン・LT会', img: imgStudy },
+    { title: 'VR体験', sub: 'KAT VR', img: imgVr },
 ];
 
 const Works = () => {

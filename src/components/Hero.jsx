@@ -36,7 +36,7 @@ const Hero = () => {
                     <span className="block highlight glitch" data-text="DCC">DCC</span>
                 </h1>
                 <p className="hero-subtitle">
-                    Digital Creators Club. <br />
+                    Digital Creators Community. <br />
                     パソコンで遊ぶ、<span className="text-gradient">デジタル秘密基地。</span>
                 </p>
 
