@@ -14,13 +14,6 @@ const Contact = () => {
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSew9o6Btnqyyf1_NvSGiaOzRfKoLBAz_BJmGAkZvOiGpo0HOQ/viewform?usp=dialog" className="contact-button" target="_blank" rel="noopener noreferrer">
                         お問い合わせはこちら
                     </a>
-                    <div className="contact-sns">
-                        <p>SNSでも情報発信中！</p>
-                        <div className="sns-links">
-                            <a href="#" className="sns-link twitter">X</a>
-                            <a href="#" className="sns-link instagram">Instagram</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
