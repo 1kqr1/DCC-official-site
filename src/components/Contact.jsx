@@ -9,7 +9,7 @@ const Contact = () => {
                 <div className="contact-content">
                     <p className="contact-message">
                         DCCへの入部希望、見学依頼、その他ご質問などございましたら、<br />
-                        お気軽に以下のメールアドレスまたはSNSのDMよりご連絡ください。
+                        お気軽に以下のお問い合わせフォームよりご連絡ください。
                     </p>
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSew9o6Btnqyyf1_NvSGiaOzRfKoLBAz_BJmGAkZvOiGpo0HOQ/viewform?usp=dialog" className="contact-button" target="_blank" rel="noopener noreferrer">
                         お問い合わせはこちら

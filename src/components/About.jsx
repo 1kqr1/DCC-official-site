@@ -1,8 +1,8 @@
 import React from 'react';
 import { HashLink } from 'react-router-hash-link';
 import imgProgramming from '../assets/dcc-programming.jpg';
-import img3d from '../assets/dcc-3d-objects.jpg';
-import imgDigital from '../assets/dcc-digital-art.jpg';
+import img3d from '../assets/IMG_0031.jpg';
+import imgDigital from '../assets/IMG_20260425_153752268.jpg';
 import imgMeeting from '../assets/20260428_144619.jpg';
 import './About.css';
 
@@ -40,7 +40,7 @@ const About = () => {
                                 <img src={img3d} alt="3D制作" />
                                 <div className="about-grid-label">
                                     <span className="label-main">3D制作</span>
-                                    <span className="label-sub">3D Modeling</span>
+                                    <span className="label-sub">3D Printing</span>
                                 </div>
                             </div>
                             <div className="about-grid-item">
@@ -51,9 +51,9 @@ const About = () => {
                                 </div>
                             </div>
                             <div className="about-grid-item">
-                                <img src={imgMeeting} alt="ミーティング" />
+                                <img src={imgMeeting} alt="定例会" />
                                 <div className="about-grid-label">
-                                    <span className="label-main">ミーティング</span>
+                                    <span className="label-main">定例会</span>
                                     <span className="label-sub">Meeting</span>
                                 </div>
                             </div>

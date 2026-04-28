@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import './Works.css';
-import img3dPrinter from '../assets/dcc-3d-printer.jpg';
-import imgProgramming from '../assets/dcc-programming.jpg';
-import imgDigitalArt from '../assets/dcc-digital-art.jpg';
+import img3d from '../assets/IMG_0031.jpg';
+import imgUnity from '../assets/IMG_3169.jpg';
+import imgMusic from '../assets/IMG_20260425_153752268.jpg';
 import imgStudy from '../assets/20260428_144812.jpg';
 import imgVr from '../assets/dcc-vr.jpg';
 
 const works = [
-    { title: '3D Modeling', sub: '3Dプリンター', img: img3dPrinter },
-    { title: 'Web Application', sub: 'HTML / CSS / JS', img: imgProgramming },
-    { title: 'Digital Art', sub: 'イラスト・デザイン', img: imgDigitalArt },
+    { title: '3D制作', sub: '3Dプリンター', img: img3d },
+    { title: 'ゲーム開発', sub: 'Unity', img: imgUnity },
+    { title: '音楽・映像制作', sub: 'VoiSona / DTM', img: imgMusic },
     { title: '勉強会', sub: 'ハッカソン・LT会', img: imgStudy },
     { title: 'VR体験', sub: 'KAT VR', img: imgVr },
 ];
@@ -28,7 +28,7 @@ const Works = () => {
                 <div className="works-header">
                     <div>
                         <span className="section-label">WORKS</span>
-                        <h2 className="works-heading">制作作品</h2>
+                        <h2 className="works-heading">活動・制作</h2>
                     </div>
                     <div className="works-nav">
                         <button className="works-nav-btn" onClick={prev} disabled={current === 0}>‹</button>
@@ -61,7 +61,7 @@ const Works = () => {
                         rel="noopener noreferrer"
                         className="works-all-link"
                     >
-                        すべての作品を見る <span>→</span>
+                        すべての活動を見る <span>→</span>
                     </a>
                 </div>
             </div>
