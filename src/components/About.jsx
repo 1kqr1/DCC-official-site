@@ -3,7 +3,7 @@ import { HashLink } from 'react-router-hash-link';
 import imgProgramming from '../assets/dcc-programming.jpg';
 import img3d from '../assets/dcc-3d-objects.jpg';
 import imgDigital from '../assets/dcc-digital-art.jpg';
-import imgMeeting from '../assets/dcc-meeting.jpg';
+import imgMeeting from '../assets/20260428_144619.jpg';
 import './About.css';
 
 const About = () => {

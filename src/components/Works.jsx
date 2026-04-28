@@ -3,7 +3,7 @@ import './Works.css';
 import img3dPrinter from '../assets/dcc-3d-printer.jpg';
 import imgProgramming from '../assets/dcc-programming.jpg';
 import imgDigitalArt from '../assets/dcc-digital-art.jpg';
-import imgStudy from '../assets/dcc-study.jpg';
+import imgStudy from '../assets/20260428_144812.jpg';
 import imgVr from '../assets/dcc-vr.jpg';
 
 const works = [
