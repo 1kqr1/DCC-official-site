@@ -1,12 +1,27 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
+    <link rel="icon" type="image/jpeg" href="./favicon.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dcc-lp</title>
-    <script type="module" crossorigin src="./assets/index-CcNUf4fm.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DF4AEvU4.css">
+    <title>DCC - Digital Creators Community</title>
+    <!--
+      404.html から引き継いだパスを History API で復元する（SPA 直リンク対応）。
+      参考: https://github.com/rafgraph/spa-github-pages
+    -->
+    <script>
+      (function () {
+        var l = window.location;
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function (s) {
+            return s.replace(/~and~/g, '&');
+          }).join('?');
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/DCC-official-site/assets/index-CL3qGelP.js"></script>
+    <link rel="stylesheet" crossorigin href="/DCC-official-site/assets/index-C1iv-YV9.css">
   </head>
   <body>
     <div id="root"></div>
