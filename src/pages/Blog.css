@@ -1,0 +1,264 @@
+/* ===== 共通 ===== */
+.blog,
+.blog-post {
+    padding: 140px 0 120px;
+    min-height: 100vh;
+    background-color: var(--color-bg);
+}
+
+.container-narrow {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* ===== 一覧ページ ===== */
+.blog-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.blog-heading {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    margin: 0.5rem 0 1rem;
+}
+
+.blog-sub {
+    color: var(--color-text);
+    opacity: 0.6;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.blog-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-glass);
+    border: 1px solid var(--color-glass-border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--color-primary);
+}
+
+.blog-card-img-wrap {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.blog-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.blog-card:hover .blog-card-img {
+    transform: scale(1.05);
+}
+
+.blog-card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    flex: 1;
+}
+
+.blog-card-date {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-primary);
+}
+
+.blog-card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.blog-card-excerpt {
+    font-size: 0.9rem;
+    opacity: 0.65;
+    flex: 1;
+}
+
+.blog-card-tags,
+.blog-post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin-top: 0.4rem;
+}
+
+.blog-tag {
+    font-size: 0.75rem;
+    color: var(--color-secondary);
+    opacity: 0.9;
+}
+
+.blog-empty {
+    text-align: center;
+    opacity: 0.6;
+    padding: 3rem 0;
+}
+
+/* ===== 戻るリンク ===== */
+.blog-back {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: var(--color-primary);
+    margin-bottom: 2rem;
+    transition: opacity 0.3s ease;
+}
+
+.blog-back:hover {
+    opacity: 0.7;
+}
+
+.blog-back-bottom {
+    margin-top: 3rem;
+    margin-bottom: 0;
+}
+
+/* ===== 記事ページ ===== */
+.blog-post-header {
+    margin-bottom: 2rem;
+}
+
+.blog-post-date {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-primary);
+}
+
+.blog-post-title {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1.35;
+    margin: 0.75rem 0 1rem;
+}
+
+.blog-post-author {
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+.blog-post-hero {
+    width: 100%;
+    border-radius: 16px;
+    margin-bottom: 2.5rem;
+}
+
+/* Markdown 本文 */
+.blog-post-body {
+    font-size: 1.02rem;
+    line-height: 1.9;
+    color: var(--color-text);
+}
+
+.blog-post-body h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-glass-border);
+}
+
+.blog-post-body h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 2rem 0 0.75rem;
+}
+
+.blog-post-body p {
+    margin: 1.2rem 0;
+}
+
+.blog-post-body ul,
+.blog-post-body ol {
+    margin: 1.2rem 0;
+    padding-left: 1.5rem;
+}
+
+.blog-post-body li {
+    margin: 0.4rem 0;
+    list-style: revert;
+}
+
+.blog-post-body a {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.blog-post-body img {
+    max-width: 100%;
+    border-radius: 12px;
+    margin: 1.5rem 0;
+}
+
+.blog-post-body blockquote {
+    border-left: 3px solid var(--color-primary);
+    padding: 0.5rem 1.25rem;
+    margin: 1.5rem 0;
+    background: var(--color-glass);
+    border-radius: 0 8px 8px 0;
+    opacity: 0.9;
+}
+
+.blog-post-body code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--color-glass);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+}
+
+.blog-post-body pre {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--color-glass-border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+}
+
+.blog-post-body pre code {
+    background: none;
+    padding: 0;
+}
+
+.blog-post-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+
+.blog-post-body th,
+.blog-post-body td {
+    border: 1px solid var(--color-glass-border);
+    padding: 0.6rem 0.9rem;
+    text-align: left;
+}
+
+.blog-notfound {
+    text-align: center;
+    padding: 4rem 0;
+}
+
+@media (max-width: 600px) {
+    .blog,
+    .blog-post {
+        padding: 110px 0 80px;
+    }
+}

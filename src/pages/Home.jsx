@@ -3,7 +3,6 @@ import Hero from '../components/Hero';
 import About from '../components/About';
 import Activities from '../components/Activities';
 import Works from '../components/Works';
-import Stats from '../components/Stats';
 import Room from '../components/Room';
 import FAQ from '../components/FAQ';
 import Contact from '../components/Contact';
@@ -15,7 +14,6 @@ const Home = () => {
             <About />
             <Activities />
             <Works />
-            <Stats />
             <Room />
             <FAQ />
             <Contact />

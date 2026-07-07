@@ -1,10 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { HashLink } from 'react-router-hash-link';
 import logo from '../assets/logo-white.png';
 import './Header.css';
 
+const navItems = [
+    { to: '/#hero', label: 'Home' },
+    { to: '/#about', label: 'About' },
+    { to: '/#activities', label: 'Activities' },
+    { to: '/#works', label: 'Works' },
+    { to: '/#room', label: 'Room' },
+    { to: '/blog', label: 'Blog' },
+    { to: '/#faq', label: 'FAQ' },
+    { to: '/#contact', label: 'Contact' },
+];
+
 const Header = () => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const close = () => setIsOpen(false);
+
+    // メニューを開いている間は背面のスクロールを止める
+    useEffect(() => {
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+        return () => { document.body.style.overflow = ''; };
+    }, [isOpen]);
+
     return (
+        <>
         <header className="header">
             <div className="header-container">
                 <div className="logo">
@@ -12,18 +34,53 @@ const Header = () => {
                 </div>
                 <nav className="nav">
                     <ul className="nav-list">
-                        <li><HashLink smooth to="/#hero" className="nav-link">Home</HashLink></li>
-                        <li><HashLink smooth to="/#about" className="nav-link">About</HashLink></li>
-                        <li><HashLink smooth to="/#activities" className="nav-link">Activities</HashLink></li>
-                        <li><HashLink smooth to="/#works" className="nav-link">Works</HashLink></li>
-                        <li><HashLink smooth to="/#room" className="nav-link">Room</HashLink></li>
-                        <li><HashLink smooth to="/#faq" className="nav-link">FAQ</HashLink></li>
-                        <li><HashLink smooth to="/#contact" className="nav-link">Contact</HashLink></li>
+                        {navItems.map((item) => (
+                            <li key={item.to}>
+                                <HashLink smooth to={item.to} className="nav-link">{item.label}</HashLink>
+                            </li>
+                        ))}
                     </ul>
                 </nav>
                 <HashLink smooth to="/#contact" className="join-btn">Join DCC</HashLink>
+
+                <button
+                    type="button"
+                    className={`nav-toggle ${isOpen ? 'open' : ''}`}
+                    aria-label={isOpen ? 'メニューを閉じる' : 'メニューを開く'}
+                    aria-expanded={isOpen}
+                    aria-controls="mobile-menu"
+                    onClick={() => setIsOpen((v) => !v)}
+                >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </header>
+
+            <div
+                id="mobile-menu"
+                className={`mobile-menu ${isOpen ? 'open' : ''}`}
+                onClick={close}
+            >
+                <nav className="mobile-nav">
+                    {navItems.map((item) => (
+                        <HashLink
+                            key={item.to}
+                            smooth
+                            to={item.to}
+                            className="mobile-nav-link"
+                            onClick={close}
+                        >
+                            {item.label}
+                        </HashLink>
+                    ))}
+                    <HashLink smooth to="/#contact" className="mobile-join-btn" onClick={close}>
+                        Join DCC
+                    </HashLink>
+                </nav>
+            </div>
+        </>
     );
 };
 

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { HashLink } from 'react-router-hash-link';
-import logoAccent from '../assets/logo-accent.png';
 import heroBg from '../assets/hero-bg.mp4';
 import './Hero.css';
 

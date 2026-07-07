@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Works.css';
 import img3d from '../assets/IMG_0031.jpg';
 import imgUnity from '../assets/IMG_3169.jpg';
@@ -55,14 +56,9 @@ const Works = () => {
                     </div>
                 </div>
                 <div className="works-footer">
-                    <a
-                        href="https://www.notion.so/2b7725dc34d68078929ffb2fb9b349dd?source=copy_link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="works-all-link"
-                    >
+                    <Link to="/blog" className="works-all-link">
                         すべての活動を見る <span>→</span>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </section>
