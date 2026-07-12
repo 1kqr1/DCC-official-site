@@ -16,6 +16,7 @@ const navItems = [
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
 
     const close = () => setIsOpen(false);
 
@@ -25,9 +26,17 @@ const Header = () => {
         return () => { document.body.style.overflow = ''; };
     }, [isOpen]);
 
+    // スクロールしたらヘッダーに背景を付ける
+    useEffect(() => {
+        const onScroll = () => setScrolled(window.scrollY > 24);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
+
     return (
         <>
-        <header className="header">
+        <header className={`header ${scrolled ? 'scrolled' : ''}`}>
             <div className="header-container">
                 <div className="logo">
                     <img src={logo} alt="DCC Logo" className="logo-img" />

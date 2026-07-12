@@ -13,15 +13,21 @@ const Blog = () => {
     return (
         <section className="blog">
             <div className="container">
-                <div className="blog-header">
-                    <span className="section-label">BLOG</span>
+                <div className="blog-header" data-reveal>
+                    <span className="section-label">Blog</span>
                     <h1 className="blog-heading">活動ブログ</h1>
                     <p className="blog-sub">DCCの日々の活動やイベントの様子をお届けします。</p>
                 </div>
 
                 <div className="blog-grid">
-                    {posts.map((post) => (
-                        <Link to={`/blog/${post.slug}`} className="blog-card" key={post.slug}>
+                    {posts.map((post, i) => (
+                        <Link
+                            to={`/blog/${post.slug}`}
+                            className="blog-card"
+                            key={post.slug}
+                            data-reveal
+                            style={{ '--reveal-delay': `${i * 0.07}s` }}
+                        >
                             {post.thumbnail && (
                                 <div className="blog-card-img-wrap">
                                     <img

@@ -6,14 +6,21 @@ import imgDigital from '../assets/IMG_20260425_153752268.jpg';
 import imgMeeting from '../assets/20260428_144619.jpg';
 import './About.css';
 
+const gridItems = [
+    { img: imgProgramming, main: 'プログラミング', sub: 'Programming' },
+    { img: img3d, main: '3D制作', sub: '3D Printing' },
+    { img: imgDigital, main: 'デジタルアート', sub: 'Digital Art' },
+    { img: imgMeeting, main: '定例会', sub: 'Meeting' },
+];
+
 const About = () => {
     return (
         <section id="about" className="about">
             <div className="container">
                 <div className="about-content">
-                    <div className="about-left">
-                        <span className="section-label">ABOUT</span>
-                        <h2 className="about-heading">誰もがクリエイターに<br />なれる場所。</h2>
+                    <div className="about-left" data-reveal>
+                        <span className="section-label">01 — About</span>
+                        <h2 className="section-heading">誰もがクリエイターに<br />なれる場所。</h2>
                         <p className="about-desc">
                             DCCは周南公立大学情報科学部の学生による学生団体です。
                             コンピュータサイエンスを自由に学び、自由に遊ぶサークルです。
@@ -29,34 +36,20 @@ const About = () => {
                     </div>
                     <div className="about-right">
                         <div className="about-grid">
-                            <div className="about-grid-item">
-                                <img src={imgProgramming} alt="プログラミング" />
-                                <div className="about-grid-label">
-                                    <span className="label-main">プログラミング</span>
-                                    <span className="label-sub">Programming</span>
+                            {gridItems.map((item, i) => (
+                                <div
+                                    className="about-grid-item"
+                                    key={item.sub}
+                                    data-reveal
+                                    style={{ '--reveal-delay': `${i * 0.08}s` }}
+                                >
+                                    <img src={item.img} alt={item.main} loading="lazy" />
+                                    <div className="about-grid-label">
+                                        <span className="label-main">{item.main}</span>
+                                        <span className="label-sub">{item.sub}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="about-grid-item">
-                                <img src={img3d} alt="3D制作" />
-                                <div className="about-grid-label">
-                                    <span className="label-main">3D制作</span>
-                                    <span className="label-sub">3D Printing</span>
-                                </div>
-                            </div>
-                            <div className="about-grid-item">
-                                <img src={imgDigital} alt="デジタルアート" />
-                                <div className="about-grid-label">
-                                    <span className="label-main">デジタルアート</span>
-                                    <span className="label-sub">Digital Art</span>
-                                </div>
-                            </div>
-                            <div className="about-grid-item">
-                                <img src={imgMeeting} alt="定例会" />
-                                <div className="about-grid-label">
-                                    <span className="label-main">定例会</span>
-                                    <span className="label-sub">Meeting</span>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </div>

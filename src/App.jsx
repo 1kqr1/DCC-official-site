@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import RevealManager from './components/RevealManager';
 import Home from './pages/Home';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
@@ -10,6 +11,7 @@ function App() {
   return (
     <Router basename="/DCC-official-site">
       <div className="app-container">
+        <RevealManager />
         <Header />
         <main>
           <Routes>

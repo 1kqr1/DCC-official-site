@@ -18,6 +18,14 @@
     margin-bottom: 4rem;
 }
 
+.blog-header .section-label {
+    justify-content: center;
+}
+
+.blog-header .section-label::before {
+    display: none;
+}
+
 .blog-heading {
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 800;

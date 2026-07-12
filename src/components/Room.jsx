@@ -26,14 +26,14 @@ const Room = () => {
     return (
         <section id="room" className="room">
             <div className="container">
-                <div className="room-header">
-                    <span className="section-label">ROOM</span>
-                    <h2 className="room-heading">快適な活動環境</h2>
+                <div className="room-header" data-reveal>
+                    <span className="section-label">04 — Room</span>
+                    <h2 className="section-heading">快適な活動環境</h2>
                     <p className="room-sub">11号館 2F 第1実習室 — メンバーが自由に使える専用スペース</p>
                 </div>
 
                 <div className="room-body">
-                    <div className="room-carousel-wrap">
+                    <div className="room-carousel-wrap" data-reveal>
                         <div className="room-carousel-inner">
                             <img src={images[current]} alt={`部室 ${current + 1}`} className="room-img" />
                             <button className="room-btn room-btn-prev" onClick={prev}>‹</button>
@@ -52,7 +52,12 @@ const Room = () => {
 
                     <div className="room-amenities">
                         {amenities.map((item, i) => (
-                            <div className="amenity-card" key={i}>
+                            <div
+                                className="amenity-card"
+                                key={i}
+                                data-reveal
+                                style={{ '--reveal-delay': `${i * 0.06}s` }}
+                            >
                                 <span className="amenity-icon">{item.icon}</span>
                                 <p className="amenity-label">{item.label}</p>
                                 <p className="amenity-sub">{item.sub}</p>

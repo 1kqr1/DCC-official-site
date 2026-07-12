@@ -26,17 +26,17 @@ const Works = () => {
     return (
         <section id="works" className="works">
             <div className="container">
-                <div className="works-header">
+                <div className="works-header" data-reveal>
                     <div>
-                        <span className="section-label">WORKS</span>
-                        <h2 className="works-heading">活動・制作</h2>
+                        <span className="section-label">03 — Works</span>
+                        <h2 className="section-heading">活動・制作</h2>
                     </div>
                     <div className="works-nav">
-                        <button className="works-nav-btn" onClick={prev} disabled={current === 0}>‹</button>
-                        <button className="works-nav-btn" onClick={next} disabled={current === max}>›</button>
+                        <button className="works-nav-btn" onClick={prev} disabled={current === 0} aria-label="前へ">‹</button>
+                        <button className="works-nav-btn" onClick={next} disabled={current === max} aria-label="次へ">›</button>
                     </div>
                 </div>
-                <div className="works-carousel-wrap">
+                <div className="works-carousel-wrap" data-reveal style={{ '--reveal-delay': '0.1s' }}>
                     <div
                         className="works-carousel"
                         style={{ transform: `translateX(calc(-${current} * (100% / ${visible} + 1rem)))` }}

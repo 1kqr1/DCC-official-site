@@ -3,6 +3,11 @@ import { HashLink } from 'react-router-hash-link';
 import heroBg from '../assets/hero-bg.mp4';
 import './Hero.css';
 
+const keywords = [
+    'PROGRAMMING', 'UNITY', 'BLENDER', '3D PRINTING', 'VR',
+    'DTM', 'WEB DEV', 'GAME JAM', 'DIGITAL ART', 'AI',
+];
+
 const Hero = () => {
     const videoRef = useRef(null);
 
@@ -26,10 +31,11 @@ const Hero = () => {
                     <source src={heroBg} type="video/mp4" />
                 </video>
                 <div className="hero-overlay"></div>
-                {/* <img src={logoAccent} alt="" className="hero-bg-logo" /> */}
+                <div className="hero-grid-overlay"></div>
             </div>
 
             <div className="hero-content">
+                <p className="hero-kicker">Shunan Public University — Student Creators</p>
                 <h1 className="hero-title">
                     <span className="block">We are</span>
                     <span className="block highlight glitch" data-text="DCC">DCC</span>
@@ -40,7 +46,7 @@ const Hero = () => {
                 </p>
 
                 <div className="hero-actions">
-                    <a href="#about" className="btn btn-primary">詳しく見る</a>
+                    <HashLink smooth to="/#about" className="btn btn-primary">詳しく見る</HashLink>
                     <HashLink smooth to="/#works" className="btn btn-secondary">活動報告</HashLink>
                 </div>
             </div>
@@ -49,7 +55,17 @@ const Hero = () => {
                 <span>Scroll</span>
                 <div className="scroll-line"></div>
             </div>
-        </section >
+
+            <div className="hero-marquee" aria-hidden="true">
+                <div className="marquee-track">
+                    {[...keywords, ...keywords].map((word, i) => (
+                        <span className="marquee-item" key={i}>
+                            {word} <span className="marquee-dot">•</span>
+                        </span>
+                    ))}
+                </div>
+            </div>
+        </section>
     );
 };
 

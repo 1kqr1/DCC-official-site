@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import './FAQ.css';
 
-const FAQItem = ({ question, answer }) => {
+const FAQItem = ({ question, answer, index }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className={`faq-item ${isOpen ? 'open' : ''}`} onClick={() => setIsOpen(!isOpen)}>
+        <div
+            className={`faq-item ${isOpen ? 'open' : ''}`}
+            onClick={() => setIsOpen(!isOpen)}
+            data-reveal
+            style={{ '--reveal-delay': `${index * 0.06}s` }}
+        >
             <div className="faq-question">
-                {question}
-                <span className="faq-toggle">{isOpen ? '−' : '+'}</span>
+                <span className="faq-q-num">Q{index + 1}</span>
+                <span className="faq-q-text">{question}</span>
+                <span className="faq-toggle" aria-hidden="true">+</span>
             </div>
             <div className="faq-answer">
                 <p>{answer}</p>
@@ -25,7 +31,7 @@ const FAQ = () => {
         },
         {
             question: "活動頻度はどのくらいですか？",
-            answer: "全体での定例会は週に1回（現在は月曜日の2限）行っています。それ以外は自由活動で、自分のペースで部室に来て作業できます!"
+            answer: "全体での定例会は週に1回（現在は月曜日の2限)行っています。それ以外は自由活動で、自分のペースで部室に来て作業できます!"
         },
         {
             question: "兼部は可能ですか？",
@@ -40,10 +46,13 @@ const FAQ = () => {
     return (
         <section id="faq" className="faq">
             <div className="container">
-                <h2 className="section-title">FAQ</h2>
+                <div className="faq-header" data-reveal>
+                    <span className="section-label">05 — FAQ</span>
+                    <h2 className="section-heading">よくある質問</h2>
+                </div>
                 <div className="faq-list">
                     {faqs.map((faq, index) => (
-                        <FAQItem key={index} question={faq.question} answer={faq.answer} />
+                        <FAQItem key={index} index={index} question={faq.question} answer={faq.answer} />
                     ))}
                 </div>
             </div>

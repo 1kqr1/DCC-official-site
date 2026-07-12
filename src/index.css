@@ -1,14 +1,26 @@
 :root {
-  --color-bg: #0a0a0a;
-  --color-text: #e0e0e0;
+  /* カラートークン */
+  --color-bg: #05060a;
+  --color-bg-elev: #0a0c12;
+  --color-text: #e8eaf0;
+  --color-text-muted: #9aa0ae;
+  --color-text-dim: #5c6270;
   --color-primary: #00d4ff;
   --color-secondary: #8b5cf6;
-  --color-accent: #ff0055;
-  --color-glass: rgba(255, 255, 255, 0.05);
-  --color-glass-border: rgba(255, 255, 255, 0.1);
-  
-  --font-main: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'Roboto Mono', monospace;
+  --color-accent: #ff2e63;
+  --gradient-brand: linear-gradient(120deg, #00d4ff 0%, #7c9dff 55%, #8b5cf6 100%);
+  --color-glass: rgba(255, 255, 255, 0.04);
+  --color-glass-border: rgba(255, 255, 255, 0.09);
+
+  /* タイポグラフィ */
+  --font-display: 'Space Grotesk', 'Noto Sans JP', system-ui, sans-serif;
+  --font-main: 'Noto Sans JP', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
+
+  /* 寸法 */
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --section-pad: clamp(90px, 12vw, 150px);
 }
 
 * {
@@ -17,12 +29,23 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-main);
-  line-height: 1.6;
+  line-height: 1.7;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
 }
 
 a {
@@ -32,4 +55,113 @@ a {
 
 ul {
   list-style: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+::selection {
+  background: rgba(0, 212, 255, 0.28);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e222c;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2a2f3c;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ===== 共通レイアウト ===== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+}
+
+/* セクション見出しラベル（例: 01 — About） */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 1.1rem;
+}
+
+.section-label::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--color-primary));
+}
+
+.section-heading {
+  font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.18;
+  color: var(--color-text);
+}
+
+/* グラデーション文字 */
+.text-gradient {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ===== スクロール連動リビール ===== */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+[data-reveal][data-revealed] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }

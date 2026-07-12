@@ -3,6 +3,7 @@ import './Activities.css';
 
 const activities = [
     {
+        num: '01',
         icon: (
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="16 18 22 12 16 6" />
@@ -13,6 +14,7 @@ const activities = [
         desc: 'Web・スマホアプリなど、アイデアを形にしていきます。',
     },
     {
+        num: '02',
         icon: (
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
@@ -22,6 +24,7 @@ const activities = [
         desc: 'BlenderやUnityを使った3D作品や映像を制作します。',
     },
     {
+        num: '03',
         icon: (
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
@@ -35,6 +38,7 @@ const activities = [
         desc: 'イラストや映像、音楽など、表現の幅を広げています。',
     },
     {
+        num: '04',
         icon: (
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
@@ -52,14 +56,22 @@ const Activities = () => {
     return (
         <section id="activities" className="activities">
             <div className="container">
-                <div className="activities-header">
-                    <span className="section-label">ACTIVITIES</span>
-                    <h2 className="activities-heading">活動内容</h2>
+                <div className="activities-header" data-reveal>
+                    <span className="section-label">02 — Activities</span>
+                    <h2 className="section-heading">活動内容</h2>
                 </div>
                 <div className="activities-strip">
                     {activities.map((item, index) => (
-                        <div className="activity-item" key={index}>
-                            <div className="activity-icon">{item.icon}</div>
+                        <div
+                            className="activity-item"
+                            key={item.num}
+                            data-reveal
+                            style={{ '--reveal-delay': `${index * 0.08}s` }}
+                        >
+                            <div className="activity-top">
+                                <div className="activity-icon">{item.icon}</div>
+                                <span className="activity-num">{item.num}</span>
+                            </div>
                             <div className="activity-body">
                                 <h3 className="activity-title">{item.title}</h3>
                                 <p className="activity-desc">{item.desc}</p>
