@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://1kqr1.github.io/DCC-official-site/",
+  "homepage": "https://shu-dcc.net/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

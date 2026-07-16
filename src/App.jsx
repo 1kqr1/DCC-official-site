@@ -9,7 +9,7 @@ import './index.css';
 
 function App() {
   return (
-    <Router basename="/DCC-official-site">
+    <Router>
       <div className="app-container">
         <RevealManager />
         <Header />
