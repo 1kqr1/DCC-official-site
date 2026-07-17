@@ -226,6 +226,17 @@
     }
 }
 
+/* 縦が狭い端末（横向きスマホ・小型ノートなど）では、
+   中央のボタン群と Scroll 表示が重なるため Scroll を隠す。
+   ワイド幅ではタイトルが最大サイズになり重なりが約824pxまで発生するため、
+   余裕を見て850pxを閾値にする。下端のマーキーが「続きがある」ことを示すので
+   体験上の問題はない。 */
+@media (max-height: 850px) {
+    .hero-scroll {
+        display: none;
+    }
+}
+
 /* ===== Glitch Effect ===== */
 .glitch {
     position: relative;
