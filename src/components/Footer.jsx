@@ -4,15 +4,11 @@ import logo from '../assets/logo-white.png';
 import { DISCORD_INVITE } from '../config';
 import './Footer.css';
 
+// ヘッダーのタブと同じ構成に揃える（LPの各セクションはスクロールで閲覧）
 const footerLinks = [
     { to: '/#hero', label: 'home' },
-    { to: '/#about', label: 'about' },
-    { to: '/#activities', label: 'activities' },
-    { to: '/#works', label: 'works' },
     { to: '/business', label: 'business' },
-    { to: '/#room', label: 'room' },
     { to: '/blog', label: 'blog' },
-    { to: '/#faq', label: 'faq' },
     { to: '/#contact', label: 'contact' },
 ];
 
