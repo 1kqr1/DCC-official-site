@@ -1,6 +1,7 @@
 import React from 'react';
 import Hero from '../components/Hero';
 import About from '../components/About';
+import Message from '../components/Message';
 import Activities from '../components/Activities';
 import Works from '../components/Works';
 import Room from '../components/Room';
@@ -12,6 +13,7 @@ const Home = () => {
         <>
             <Hero />
             <About />
+            <Message />
             <Activities />
             <Works />
             <Room />

@@ -1,0 +1,125 @@
+.message {
+    padding: var(--section-pad) 0;
+}
+
+.message-card {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 2.6rem;
+    align-items: start;
+    margin-top: 2.8rem;
+    padding: 2.4rem;
+    background: var(--color-glass);
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--radius-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.message-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--gradient-brand);
+    opacity: 0.7;
+}
+
+/* アバター */
+.message-avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: linear-gradient(150deg, rgba(0, 212, 255, 0.12), rgba(139, 92, 246, 0.12));
+    border: 1px solid var(--color-glass-border);
+    display: grid;
+    place-items: center;
+}
+
+.message-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.message-avatar-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-text-dim);
+}
+
+.message-avatar-placeholder svg {
+    width: 46px;
+    height: 46px;
+}
+
+.message-avatar-placeholder em {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    font-style: normal;
+}
+
+/* 本文 */
+.message-body {
+    position: relative;
+}
+
+.message-quote {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    color: var(--syn-comment);
+    opacity: 0.6;
+    line-height: 1;
+}
+
+.message-quote-end {
+    margin-top: 1.2rem;
+}
+
+.message-text {
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    line-height: 1.95;
+    margin: 0.7rem 0;
+}
+
+.message-author {
+    margin-top: 1.4rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+}
+
+.message-name {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.message-role {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: var(--color-primary);
+}
+
+@media (max-width: 640px) {
+    .message-card {
+        grid-template-columns: 1fr;
+        gap: 1.6rem;
+        padding: 1.8rem;
+    }
+
+    .message-avatar {
+        width: 110px;
+        height: 110px;
+    }
+}

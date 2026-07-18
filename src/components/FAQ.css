@@ -4,46 +4,64 @@
 }
 
 .faq-header {
-    text-align: center;
     margin-bottom: 3rem;
 }
 
-.faq-header .section-label {
-    justify-content: center;
-}
-
-.faq-header .section-label::before {
-    display: none;
-}
-
-.faq-list {
-    max-width: 780px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 0.9rem;
-}
-
-.faq-item {
-    background: var(--color-glass);
+/* エディタで faq.md を開いた風のウィンドウ */
+.faq-window {
+    max-width: 860px;
     border: 1px solid var(--color-glass-border);
     border-radius: var(--radius-md);
+    background: var(--color-bg-elev);
     overflow: hidden;
+}
+
+.faq-window-bar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0.75rem 1.1rem;
+    border-bottom: 1px solid var(--color-glass-border);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.fw-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+}
+
+.fw-r { background: #ff5f57; }
+.fw-y { background: #febc2e; }
+.fw-g { background: #28c840; }
+
+.fw-title {
+    margin-left: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-dim);
+}
+
+/* Q&A 行 */
+.faq-item {
     cursor: pointer;
-    transition: border-color 0.3s ease, background 0.3s ease;
+    transition: background 0.3s ease;
+}
+
+.faq-item + .faq-item {
+    border-top: 1px solid var(--color-glass-border);
 }
 
 .faq-item:hover {
-    border-color: rgba(139, 92, 246, 0.45);
-    background: rgba(139, 92, 246, 0.04);
+    background: rgba(139, 92, 246, 0.05);
 }
 
 .faq-item.open {
-    border-color: rgba(139, 92, 246, 0.45);
+    background: rgba(139, 92, 246, 0.04);
 }
 
 .faq-question {
-    padding: 1.2rem 1.4rem;
+    padding: 1.15rem 1.3rem;
     font-weight: 600;
     color: var(--color-text);
     display: flex;
@@ -56,7 +74,7 @@
     font-family: var(--font-mono);
     font-size: 0.75rem;
     letter-spacing: 0.1em;
-    color: var(--color-secondary);
+    color: var(--syn-var);
     flex-shrink: 0;
 }
 
@@ -65,9 +83,10 @@
 }
 
 .faq-toggle {
-    font-size: 1.4rem;
-    font-weight: 300;
-    color: var(--color-secondary);
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--syn-var);
     line-height: 1;
     transition: transform 0.3s ease;
     flex-shrink: 0;
@@ -77,6 +96,7 @@
     transform: rotate(45deg);
 }
 
+/* 回答はターミナル出力風（> 付き） */
 .faq-answer {
     max-height: 0;
     overflow: hidden;
@@ -85,7 +105,7 @@
 
 .faq-item.open .faq-answer {
     max-height: 240px;
-    padding: 0 1.4rem 1.3rem;
+    padding: 0 1.3rem 1.25rem;
 }
 
 .faq-answer p {
@@ -93,7 +113,13 @@
     line-height: 1.9;
     font-size: 0.92rem;
     margin: 0;
-    padding-left: calc(0.75rem + 1rem + 8px);
+    padding-left: 3.55rem;
+}
+
+.faq-answer p::before {
+    content: '> ';
+    font-family: var(--font-mono);
+    color: var(--color-green);
 }
 
 @media (max-width: 600px) {

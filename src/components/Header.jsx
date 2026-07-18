@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { HashLink } from 'react-router-hash-link';
-import logo from '../assets/logo-white.png';
+import { useLocation } from 'react-router-dom';
+import { DISCORD_INVITE } from '../config';
 import './Header.css';
 
-const navItems = [
-    { to: '/#hero', label: 'Home' },
-    { to: '/#about', label: 'About' },
-    { to: '/#activities', label: 'Activities' },
-    { to: '/#works', label: 'Works' },
-    { to: '/#room', label: 'Room' },
-    { to: '/blog', label: 'Blog' },
-    { to: '/#faq', label: 'FAQ' },
-    { to: '/#contact', label: 'Contact' },
+// エディタのファイルタブに見立てたナビゲーション（LPの各セクションはスクロールで閲覧）
+const navTabs = [
+    { to: '/#hero', file: 'home', ext: 'tsx', color: 'var(--syn-func)' },
+    { to: '/business', file: 'business', ext: 'tsx', color: 'var(--syn-func)' },
+    { to: '/blog', file: 'blog', ext: 'md', color: 'var(--syn-var)' },
+    { to: '/#contact', file: 'contact', ext: 'sh', color: 'var(--syn-string)' },
 ];
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
+    const location = useLocation();
 
     const close = () => setIsOpen(false);
 
@@ -26,46 +24,61 @@ const Header = () => {
         return () => { document.body.style.overflow = ''; };
     }, [isOpen]);
 
-    // スクロールしたらヘッダーに背景を付ける
-    useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 24);
-        onScroll();
-        window.addEventListener('scroll', onScroll, { passive: true });
-        return () => window.removeEventListener('scroll', onScroll);
-    }, []);
+    const isActive = (tab) => {
+        if (tab.to === '/blog') return location.pathname.startsWith('/blog');
+        if (tab.to === '/business') return location.pathname.startsWith('/business');
+        return location.pathname === '/' && tab.file === 'home';
+    };
 
     return (
         <>
-        <header className={`header ${scrolled ? 'scrolled' : ''}`}>
-            <div className="header-container">
-                <div className="logo">
-                    <img src={logo} alt="DCC Logo" className="logo-img" />
-                </div>
-                <nav className="nav">
-                    <ul className="nav-list">
-                        {navItems.map((item) => (
-                            <li key={item.to}>
-                                <HashLink smooth to={item.to} className="nav-link">{item.label}</HashLink>
-                            </li>
-                        ))}
-                    </ul>
-                </nav>
-                <HashLink smooth to="/#contact" className="join-btn">Join DCC</HashLink>
+            <header className="header">
+                <div className="header-bar">
+                    <div className="win-dots" aria-hidden="true">
+                        <span className="dot dot-r"></span>
+                        <span className="dot dot-y"></span>
+                        <span className="dot dot-g"></span>
+                    </div>
 
-                <button
-                    type="button"
-                    className={`nav-toggle ${isOpen ? 'open' : ''}`}
-                    aria-label={isOpen ? 'メニューを閉じる' : 'メニューを開く'}
-                    aria-expanded={isOpen}
-                    aria-controls="mobile-menu"
-                    onClick={() => setIsOpen((v) => !v)}
-                >
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </header>
+                    <nav className="tabs" aria-label="メインナビゲーション">
+                        {navTabs.map((tab) => (
+                            <HashLink
+                                key={tab.to}
+                                smooth
+                                to={tab.to}
+                                className={`tab ${isActive(tab) ? 'active' : ''}`}
+                            >
+                                <span className="tab-dot" style={{ background: tab.color }}></span>
+                                <span className="tab-name">
+                                    {tab.file}<span className="tab-ext">.{tab.ext}</span>
+                                </span>
+                            </HashLink>
+                        ))}
+                    </nav>
+
+                    <a
+                        href={DISCORD_INVITE}
+                        className="cli-btn"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        <span className="cli-prompt">$</span> join --dcc
+                    </a>
+
+                    <button
+                        type="button"
+                        className={`nav-toggle ${isOpen ? 'open' : ''}`}
+                        aria-label={isOpen ? 'メニューを閉じる' : 'メニューを開く'}
+                        aria-expanded={isOpen}
+                        aria-controls="mobile-menu"
+                        onClick={() => setIsOpen((v) => !v)}
+                    >
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </header>
 
             <div
                 id="mobile-menu"
@@ -73,20 +86,27 @@ const Header = () => {
                 onClick={close}
             >
                 <nav className="mobile-nav">
-                    {navItems.map((item) => (
+                    {navTabs.map((tab) => (
                         <HashLink
-                            key={item.to}
+                            key={tab.to}
                             smooth
-                            to={item.to}
+                            to={tab.to}
                             className="mobile-nav-link"
                             onClick={close}
                         >
-                            {item.label}
+                            <span className="tab-dot" style={{ background: tab.color }}></span>
+                            {tab.file}<span className="tab-ext">.{tab.ext}</span>
                         </HashLink>
                     ))}
-                    <HashLink smooth to="/#contact" className="mobile-join-btn" onClick={close}>
-                        Join DCC
-                    </HashLink>
+                    <a
+                        href={DISCORD_INVITE}
+                        className="mobile-join-btn"
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={close}
+                    >
+                        <span className="cli-prompt">$</span> join --dcc
+                    </a>
                 </nav>
             </div>
         </>

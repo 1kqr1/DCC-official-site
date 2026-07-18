@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { DISCORD_INVITE } from '../config';
 import './Room.css';
 
 import roomFridge from '../assets/room-fridge.jpg';
@@ -27,9 +28,12 @@ const Room = () => {
         <section id="room" className="room">
             <div className="container">
                 <div className="room-header" data-reveal>
-                    <span className="section-label">04 — Room</span>
-                    <h2 className="section-heading">快適な活動環境</h2>
-                    <p className="room-sub">11号館 2F 第1実習室 — メンバーが自由に使える専用スペース</p>
+                    <span className="section-label">05 // PERK</span>
+                    <h2 className="section-heading">Discordに入ると、<br />使える。</h2>
+                    <p className="room-sub">
+                        メンバーになれば、この部室と機材も自由に使えます。<br />
+                        11号館 2F 第1実習室 — オンラインもリアルも、DCCの活動拠点です。
+                    </p>
                 </div>
 
                 <div className="room-body">
@@ -64,6 +68,13 @@ const Room = () => {
                             </div>
                         ))}
                     </div>
+                </div>
+
+                <div className="room-cta" data-reveal>
+                    <p className="room-cta-text">この環境を使えるのは、Discordメンバーだけ。</p>
+                    <a href={DISCORD_INVITE} className="btn-cli" target="_blank" rel="noreferrer">
+                        <span className="cli-prompt">$</span> Discordに参加して使う <span className="arrow">→</span>
+                    </a>
                 </div>
             </div>
         </section>

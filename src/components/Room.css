@@ -17,6 +17,30 @@
     color: var(--color-text-dim);
 }
 
+/* Discord 参加 CTA */
+.room-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.room-cta-text {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.room-cta .arrow {
+    transition: transform 0.25s ease;
+}
+
+.room-cta .btn-cli:hover .arrow {
+    transform: translateX(4px);
+}
+
 .room-body {
     display: grid;
     grid-template-columns: 1fr 1fr;

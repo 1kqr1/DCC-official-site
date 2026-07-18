@@ -19,16 +19,17 @@ const About = () => {
             <div className="container">
                 <div className="about-content">
                     <div className="about-left" data-reveal>
-                        <span className="section-label">01 — About</span>
-                        <h2 className="section-heading">誰もがクリエイターに<br />なれる場所。</h2>
+                        <span className="section-label">01 // ABOUT</span>
+                        <h2 className="section-heading">本拠地は、<br />Discord。</h2>
                         <p className="about-desc">
-                            DCCは周南公立大学情報科学部の学生による学生団体です。
-                            コンピュータサイエンスを自由に学び、自由に遊ぶサークルです。
+                            DCCは、周南公立大学の学生を中心とした
+                            <span className="tok-cyan">Discordベースのクリエイターコミュニティ</span>です。
+                            プログラミング・3D・デジタルアートなど、
+                            好きなものづくりを楽しむ仲間がオンラインで集まっています。
                         </p>
                         <p className="about-desc">
-                            アプリ開発、3Dプリンター、デジタルアート制作など、
-                            活動分野は様々です。新たな技術やアイデアを追求し、
-                            一緒に成長していくことを楽しみにしています。
+                            活動の中心はDiscord。入部届も部費もなく、参加すればその日からメンバーです。
+                            さらに、大学の部室や機材も自由に使えます。
                         </p>
                         <HashLink smooth to="/#activities" className="about-btn">
                             もっと知る <span className="btn-arrow">→</span>
