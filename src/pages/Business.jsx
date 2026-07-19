@@ -1,6 +1,6 @@
 import React from 'react';
 import { HashLink } from 'react-router-hash-link';
-import { BUSINESS_FORM_URL, DISCORD_INVITE } from '../config';
+import { BUSINESS_FORM_URL } from '../config';
 import './Business.css';
 
 const offers = [
@@ -52,9 +52,6 @@ const Business = () => {
                         <HashLink smooth to="/business#contact-form" className="btn-cli">
                             <span className="cli-prompt">$</span> お問い合わせ
                         </HashLink>
-                        <a href={DISCORD_INVITE} className="btn-ghost" target="_blank" rel="noreferrer">
-                            Discordを見る <span className="arrow">→</span>
-                        </a>
                     </div>
                 </div>
             </section>
