@@ -15,6 +15,8 @@ const navTabs = [
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation();
+    // 企業ページは Discord に入れない前提なので join ボタンを隠す
+    const isBusiness = location.pathname.startsWith('/business');
 
     const close = () => setIsOpen(false);
 
@@ -56,14 +58,16 @@ const Header = () => {
                         ))}
                     </nav>
 
-                    <a
-                        href={DISCORD_INVITE}
-                        className="cli-btn"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        <span className="cli-prompt">$</span> join --dcc
-                    </a>
+                    {!isBusiness && (
+                        <a
+                            href={DISCORD_INVITE}
+                            className="cli-btn"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            <span className="cli-prompt">$</span> join --dcc
+                        </a>
+                    )}
 
                     <button
                         type="button"
@@ -98,15 +102,17 @@ const Header = () => {
                             {tab.file}<span className="tab-ext">.{tab.ext}</span>
                         </HashLink>
                     ))}
-                    <a
-                        href={DISCORD_INVITE}
-                        className="mobile-join-btn"
-                        target="_blank"
-                        rel="noreferrer"
-                        onClick={close}
-                    >
-                        <span className="cli-prompt">$</span> join --dcc
-                    </a>
+                    {!isBusiness && (
+                        <a
+                            href={DISCORD_INVITE}
+                            className="mobile-join-btn"
+                            target="_blank"
+                            rel="noreferrer"
+                            onClick={close}
+                        >
+                            <span className="cli-prompt">$</span> join --dcc
+                        </a>
+                    )}
                 </nav>
             </div>
         </>
