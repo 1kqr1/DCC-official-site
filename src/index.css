@@ -8,6 +8,13 @@
   --color-primary: #00d4ff;
   --color-secondary: #8b5cf6;
   --color-accent: #ff2e63;
+  --color-green: #3ddc97;
+  /* シンタックスハイライト用 */
+  --syn-keyword: #ff5c8a;
+  --syn-func: #00d4ff;
+  --syn-var: #b78bff;
+  --syn-string: #3ddc97;
+  --syn-comment: #5c6270;
   --gradient-brand: linear-gradient(120deg, #00d4ff 0%, #7c9dff 55%, #8b5cf6 100%);
   --color-glass: rgba(255, 255, 255, 0.04);
   --color-glass-border: rgba(255, 255, 255, 0.09);

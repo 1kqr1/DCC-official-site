@@ -7,7 +7,7 @@ const Contact = () => {
             <div className="contact-glow" aria-hidden="true"></div>
             <div className="container">
                 <div className="contact-inner" data-reveal>
-                    <span className="section-label">06 — Contact</span>
+                    <span className="section-label">07 // CONTACT</span>
                     <h2 className="contact-heading">
                         Let's create<br /><span className="text-gradient">together.</span>
                     </h2>

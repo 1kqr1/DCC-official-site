@@ -4,101 +4,136 @@
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: transparent;
-    border-bottom: 1px solid transparent;
-    transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+    background: rgba(10, 12, 18, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-glass-border);
 }
 
-.header.scrolled {
-    background: rgba(5, 6, 10, 0.72);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-bottom-color: var(--color-glass-border);
-}
-
-.header-container {
-    max-width: 1200px;
+.header-bar {
+    display: flex;
+    align-items: stretch;
+    height: 52px;
+    max-width: 1320px;
     margin: 0 auto;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding-right: 1rem;
 }
 
-.logo {
+/* macOS 風の信号ドット */
+.win-dots {
     display: flex;
     align-items: center;
+    gap: 8px;
+    padding: 0 1.1rem;
+    flex: 0 0 auto;
 }
 
-.logo-img {
-    height: 38px;
-    width: auto;
+.win-dots .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
 }
 
-.nav-list {
+.dot-r { background: #ff5f57; }
+.dot-y { background: #febc2e; }
+.dot-g { background: #28c840; }
+
+/* ファイルタブ */
+.tabs {
     display: flex;
-    gap: 2rem;
-    list-style: none;
+    align-items: stretch;
+    flex: 1 1 auto;
+    overflow-x: auto;
+    scrollbar-width: none;
 }
 
-.nav-link {
-    font-family: var(--font-display);
-    font-size: 0.88rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
+.tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0 0.72rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-text-dim);
+    white-space: nowrap;
+    border-right: 1px solid rgba(255, 255, 255, 0.04);
+    border-top: 2px solid transparent;
+    transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.tab:first-child {
+    border-left: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.tab:hover {
+    color: var(--color-text-muted);
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.tab.active {
     color: var(--color-text);
-    opacity: 0.75;
-    transition: all 0.3s ease;
-    position: relative;
+    background: var(--color-bg);
+    border-top-color: var(--color-primary);
 }
 
-.nav-link:hover {
-    opacity: 1;
-    color: var(--color-primary);
+.tab-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 2px;
+    flex: 0 0 auto;
+    opacity: 0.9;
 }
 
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--gradient-brand);
-    transition: width 0.3s ease;
+.tab-ext {
+    color: var(--color-text-dim);
 }
 
-.nav-link:hover::after {
-    width: 100%;
+.tab.active .tab-ext {
+    color: var(--color-text-muted);
 }
 
-.join-btn {
-    font-family: var(--font-display);
-    padding: 0.55rem 1.4rem;
-    border: 1px solid rgba(0, 212, 255, 0.45);
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
+/* $ join --dcc ボタン */
+.cli-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    align-self: center;
+    flex: 0 0 auto;
+    margin-left: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(0, 212, 255, 0.4);
+    border-radius: 7px;
     color: var(--color-primary);
     white-space: nowrap;
-    transition: all 0.3s ease;
+    transition: background 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
-.join-btn:hover {
-    background: var(--color-primary);
+.cli-btn:hover {
+    background: rgba(0, 212, 255, 0.12);
     border-color: var(--color-primary);
-    color: #04121a;
-    box-shadow: 0 0 24px rgba(0, 212, 255, 0.35);
+    box-shadow: 0 0 18px rgba(0, 212, 255, 0.25);
 }
 
-/* ハンバーガーボタン（デフォルトは非表示） */
+.cli-prompt {
+    color: var(--color-green);
+    font-weight: 700;
+}
+
+/* ハンバーガー（デフォルト非表示） */
 .nav-toggle {
     display: none;
     flex-direction: column;
     justify-content: center;
     gap: 5px;
     width: 40px;
-    height: 40px;
+    align-self: center;
     padding: 0;
     background: transparent;
     border: none;
@@ -108,7 +143,7 @@
 
 .nav-toggle span {
     display: block;
-    width: 24px;
+    width: 22px;
     height: 2px;
     margin: 0 auto;
     background: var(--color-text);
@@ -116,19 +151,11 @@
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.nav-toggle.open span:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-}
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-.nav-toggle.open span:nth-child(2) {
-    opacity: 0;
-}
-
-.nav-toggle.open span:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-}
-
-/* モバイルメニュー本体（デフォルトは非表示） */
+/* モバイルメニュー */
 .mobile-menu {
     position: fixed;
     inset: 0;
@@ -151,14 +178,16 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1.75rem;
+    gap: 1.4rem;
     height: 100%;
 }
 
 .mobile-nav-link {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
     color: var(--color-text);
     opacity: 0.9;
     transition: color 0.3s ease;
@@ -168,14 +197,21 @@
     color: var(--color-primary);
 }
 
+.mobile-nav-link .tab-dot {
+    width: 9px;
+    height: 9px;
+}
+
 .mobile-join-btn {
-    font-family: var(--font-display);
-    margin-top: 0.5rem;
-    padding: 0.7rem 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+    padding: 0.7rem 1.6rem;
+    font-family: var(--font-mono);
     border: 1px solid var(--color-primary);
-    border-radius: 50px;
+    border-radius: 8px;
     font-size: 1rem;
-    font-weight: 600;
     color: var(--color-primary);
     transition: all 0.3s ease;
 }
@@ -185,16 +221,31 @@
     color: #04121a;
 }
 
+.mobile-join-btn:hover .cli-prompt {
+    color: #04121a;
+}
+
 @media (max-width: 900px) {
-    .nav {
+    .tabs {
         display: none;
     }
 
-    .header .join-btn {
-        display: none;
+    .cli-btn {
+        margin-left: auto;
     }
 
     .nav-toggle {
         display: flex;
+        margin-left: 0.75rem;
+    }
+}
+
+@media (max-width: 520px) {
+    .cli-btn {
+        display: none;
+    }
+
+    .nav-toggle {
+        margin-left: auto;
     }
 }

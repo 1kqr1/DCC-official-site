@@ -33,7 +33,7 @@ const BlogPost = () => {
             <section className="blog">
                 <div className="container blog-notfound">
                     <h1>記事が見つかりませんでした</h1>
-                    <Link to="/blog" className="blog-back">← ブログ一覧へ戻る</Link>
+                    <Link to="/blog" className="blog-back">cd ../blog</Link>
                 </div>
             </section>
         );
@@ -42,10 +42,12 @@ const BlogPost = () => {
     return (
         <article className="blog-post">
             <div className="container container-narrow">
-                <Link to="/blog" className="blog-back">← ブログ一覧へ戻る</Link>
+                <Link to="/blog" className="blog-back">cd ../blog</Link>
 
                 <header className="blog-post-header">
-                    <time className="blog-post-date">{formatDate(post.date)}</time>
+                    <time className="blog-post-date">
+                        <span className="blog-date-mark">//</span> {formatDate(post.date)}
+                    </time>
                     <h1 className="blog-post-title">{post.title}</h1>
                     <div className="blog-post-meta">
                         {post.author && <span className="blog-post-author">{post.author}</span>}
@@ -69,7 +71,7 @@ const BlogPost = () => {
                     </ReactMarkdown>
                 </div>
 
-                <Link to="/blog" className="blog-back blog-back-bottom">← ブログ一覧へ戻る</Link>
+                <Link to="/blog" className="blog-back blog-back-bottom">cd ../blog</Link>
             </div>
         </article>
     );

@@ -4,51 +4,35 @@ import './Activities.css';
 const activities = [
     {
         num: '01',
-        icon: (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="16 18 22 12 16 6" />
-                <polyline points="8 6 2 12 8 18" />
-            </svg>
-        ),
+        varName: 'app',
+        fn: 'develop',
         title: 'アプリ開発',
         desc: 'Web・スマホアプリなど、アイデアを形にしていきます。',
+        tags: ['React', 'Unity', 'Swift'],
     },
     {
         num: '02',
-        icon: (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-            </svg>
-        ),
+        varName: 'model',
+        fn: 'create3D',
         title: '3D・デザイン制作',
         desc: 'BlenderやUnityを使った3D作品や映像を制作します。',
+        tags: ['Blender', 'Unity', 'Fusion360'],
     },
     {
         num: '03',
-        icon: (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
-                <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
-                <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
-                <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
-                <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
-            </svg>
-        ),
+        varName: 'art',
+        fn: 'design',
         title: 'デジタルアート',
         desc: 'イラストや映像、音楽など、表現の幅を広げています。',
+        tags: ['Procreate', 'Photoshop', 'TouchDesigner'],
     },
     {
         num: '04',
-        icon: (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                <circle cx="9" cy="7" r="4" />
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-            </svg>
-        ),
+        varName: 'community',
+        fn: 'connect',
         title: '勉強会・交流',
         desc: '定期的に勉強会やLT会を開催し、知識や経験を共有します。',
+        tags: ['Discord', 'LT会', 'もくもく会'],
     },
 ];
 
@@ -57,7 +41,7 @@ const Activities = () => {
         <section id="activities" className="activities">
             <div className="container">
                 <div className="activities-header" data-reveal>
-                    <span className="section-label">02 — Activities</span>
+                    <span className="section-label">03 // ACTIVITIES</span>
                     <h2 className="section-heading">活動内容</h2>
                 </div>
                 <div className="activities-strip">
@@ -69,12 +53,22 @@ const Activities = () => {
                             style={{ '--reveal-delay': `${index * 0.08}s` }}
                         >
                             <div className="activity-top">
-                                <div className="activity-icon">{item.icon}</div>
+                                <span className="activity-file">{item.varName}.ts</span>
                                 <span className="activity-num">{item.num}</span>
                             </div>
+                            <code className="activity-code">
+                                <span className="tok-keyword">const</span>{' '}
+                                <span className="tok-var">{item.varName}</span> ={' '}
+                                <span className="tok-func">{item.fn}</span>()
+                            </code>
                             <div className="activity-body">
                                 <h3 className="activity-title">{item.title}</h3>
                                 <p className="activity-desc">{item.desc}</p>
+                            </div>
+                            <div className="activity-tags">
+                                {item.tags.map((t) => (
+                                    <span className="activity-tag" key={t}>{t}</span>
+                                ))}
                             </div>
                         </div>
                     ))}

@@ -5,6 +5,7 @@ import RevealManager from './components/RevealManager';
 import Home from './pages/Home';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
+import Business from './pages/Business';
 import './index.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/business" element={<Business />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
           </Routes>

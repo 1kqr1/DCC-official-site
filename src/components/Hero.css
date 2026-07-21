@@ -1,303 +1,264 @@
 .hero {
     position: relative;
-    height: 100vh;
-    min-height: 640px;
-    width: 100%;
+    min-height: 540px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding: 108px 0 76px;
     overflow: hidden;
-    padding-top: 60px;
-}
-
-.hero-bg {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: radial-gradient(circle at center, #12141c 0%, var(--color-bg) 100%);
-}
-
-.hero-video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.55;
-}
-
-.hero-overlay {
-    position: absolute;
-    inset: 0;
     background:
-        radial-gradient(ellipse at center, rgba(5, 6, 10, 0.25) 0%, rgba(5, 6, 10, 0.78) 100%),
-        linear-gradient(to bottom, rgba(5, 6, 10, 0.35), rgba(5, 6, 10, 0.2) 50%, var(--color-bg) 100%);
-    z-index: 1;
+        radial-gradient(ellipse at 20% 0%, rgba(0, 212, 255, 0.06), transparent 55%),
+        radial-gradient(ellipse at 90% 100%, rgba(139, 92, 246, 0.07), transparent 55%),
+        var(--color-bg);
 }
 
-/* 薄いグリッド線オーバーレイ */
+/* 薄いグリッド線 */
 .hero-grid-overlay {
     position: absolute;
     inset: 0;
-    z-index: 2;
+    z-index: 0;
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-    background-size: 72px 72px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
-    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+        linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse at 40% 40%, black 20%, transparent 78%);
+    -webkit-mask-image: radial-gradient(ellipse at 40% 40%, black 20%, transparent 78%);
     pointer-events: none;
 }
 
-.hero-content {
+.hero-inner {
     position: relative;
-    text-align: center;
-    z-index: 3;
+    z-index: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
     padding: 0 2rem;
 }
 
-.hero-kicker {
+/* コード行の共通レイアウト（行番号 + 内容） */
+.row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.6rem;
+}
+
+.ln {
+    flex: 0 0 2.2rem;
+    text-align: right;
     font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--color-primary);
-    margin-bottom: 1.75rem;
-    opacity: 0.9;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--color-text-dim);
+    opacity: 0.45;
+    user-select: none;
+    padding-top: 0.35em;
 }
 
-.hero-title {
-    font-size: clamp(3.4rem, 10vw, 7rem);
+.lc {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.row-blank {
+    height: 1.1rem;
+}
+
+.row-comment .lc {
+    font-family: var(--font-mono);
+    font-size: clamp(0.8rem, 1.6vw, 0.95rem);
+    color: var(--syn-comment);
+    padding-top: 0.35em;
+}
+
+/* 見出し */
+.hero-h1 {
+    margin: 0;
+}
+
+.hero-h1 .title {
+    font-family: var(--font-display);
     font-weight: 700;
-    line-height: 1.02;
+    font-size: clamp(2.7rem, 7.5vw, 5rem);
+    line-height: 1.1;
     letter-spacing: -0.03em;
-    margin-bottom: 1rem;
+    color: var(--color-text);
 }
 
-.hero-title .block {
-    display: block;
+.tok-cyan {
+    color: var(--color-primary);
 }
 
-.hero-title .highlight {
-    color: transparent;
-    background: linear-gradient(135deg, #fff 10%, var(--color-primary) 90%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    filter: drop-shadow(0 0 28px rgba(0, 212, 255, 0.35));
+.tok-str {
+    color: var(--syn-string);
 }
 
-.hero-subtitle {
-    font-size: clamp(1rem, 2.4vw, 1.2rem);
-    margin: 1.75rem 0 2.75rem;
-    line-height: 1.9;
+/* サブテキスト */
+.hero-sub .row {
+    align-items: baseline;
+}
+
+.hero-sub .sub {
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
     color: var(--color-text-muted);
+    line-height: 1.75;
+    padding-top: 0.15em;
+}
+
+/* ボタン行 */
+.row-actions {
+    margin-top: 0.4rem;
 }
 
 .hero-actions {
-    display: flex;
-    justify-content: center;
-    gap: 1.25rem;
-    margin-top: 1rem;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
 }
 
-.btn {
-    font-family: var(--font-display);
-    padding: 1rem 2.4rem;
-    border-radius: 50px;
-    font-weight: 600;
+.btn-cli,
+.btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono);
     font-size: 0.95rem;
-    letter-spacing: 0.04em;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
+    font-weight: 500;
+    padding: 0.85rem 1.6rem;
+    border-radius: 9px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
 }
 
-.btn-primary {
+.btn-cli {
     background: var(--color-primary);
     color: #04121a;
-    box-shadow: 0 0 24px rgba(0, 212, 255, 0.35);
-    border: 1px solid transparent;
+    border: 1px solid var(--color-primary);
+    box-shadow: 0 0 0 rgba(0, 212, 255, 0);
 }
 
-.btn-primary:hover {
+.btn-cli .cli-prompt {
+    color: #033;
+    font-weight: 700;
+}
+
+.btn-cli:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 42px rgba(0, 212, 255, 0.55);
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.35);
 }
 
-.btn-secondary {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--color-glass-border);
+.btn-ghost {
+    background: transparent;
     color: var(--color-text);
-    backdrop-filter: blur(6px);
+    border: 1px solid var(--color-glass-border);
 }
 
-.btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.4);
+.btn-ghost:hover {
+    border-color: rgba(0, 212, 255, 0.4);
+    background: rgba(0, 212, 255, 0.05);
 }
 
-.hero-scroll {
-    position: absolute;
-    bottom: 4.5rem;
-    left: 50%;
-    transform: translateX(-50%);
+.btn-ghost .arrow {
+    transition: transform 0.25s ease;
+}
+
+.btn-ghost:hover .arrow {
+    transform: translateX(4px);
+}
+
+/* Discord サーバーカード */
+.discord-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.1rem;
+    margin-top: 2.6rem;
+    margin-left: calc(2.2rem + 1.6rem);
+    padding: 1.05rem 1.3rem;
+    border: 1px solid rgba(88, 101, 242, 0.4);
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, rgba(88, 101, 242, 0.16), rgba(88, 101, 242, 0.05));
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.discord-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(88, 101, 242, 0.7);
+    box-shadow: 0 12px 34px rgba(88, 101, 242, 0.28);
+}
+
+.discord-glyph {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 11px;
+    background: #5865f2;
+    color: #fff;
+    flex: 0 0 auto;
+}
+
+.discord-glyph svg {
+    width: 26px;
+    height: 26px;
+}
+
+.discord-meta {
     display: flex;
     flex-direction: column;
+    gap: 0.25rem;
+}
+
+.discord-label {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.discord-sublabel {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--color-text-muted);
+}
+
+.discord-cta {
+    display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    opacity: 0.6;
+    gap: 0.35rem;
+    margin-left: 0.6rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: 8px;
+    background: #5865f2;
+    color: #fff;
     font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    z-index: 3;
-}
-
-.scroll-line {
-    width: 1px;
-    height: 42px;
-    background: linear-gradient(to bottom, var(--color-text), transparent);
-}
-
-/* ===== 技術キーワードのマーキー ===== */
-.hero-marquee {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    border-top: 1px solid var(--color-glass-border);
-    background: rgba(5, 6, 10, 0.55);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    overflow: hidden;
-    z-index: 3;
-    padding: 0.8rem 0;
-}
-
-.marquee-track {
-    display: flex;
-    width: max-content;
-    animation: marquee 36s linear infinite;
-}
-
-.marquee-item {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.82rem;
     font-weight: 500;
-    letter-spacing: 0.22em;
-    color: var(--color-text-dim);
     white-space: nowrap;
-    padding-right: 1.2rem;
 }
 
-.marquee-dot {
-    color: var(--color-primary);
-    padding-left: 1.2rem;
-    opacity: 0.7;
+.discord-cta .arrow {
+    transition: transform 0.25s ease;
 }
 
-@keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+.discord-card:hover .discord-cta .arrow {
+    transform: translateX(3px);
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .marquee-track {
-        animation: none;
-    }
-}
-
-@media (max-width: 768px) {
-    .hero-actions {
-        flex-direction: column;
-        align-items: center;
+@media (max-width: 560px) {
+    .row {
+        gap: 1rem;
     }
 
-    .btn {
-        width: min(320px, 100%);
-        text-align: center;
+    .ln {
+        flex-basis: 1.4rem;
+        font-size: 0.8rem;
     }
 
-    .hero-scroll {
-        display: none;
+    .discord-card {
+        margin-left: 0;
+        flex-wrap: wrap;
+        gap: 0.9rem;
     }
-}
 
-/* 縦が狭い端末（横向きスマホ・小型ノートなど）では、
-   中央のボタン群と Scroll 表示が重なるため Scroll を隠す。
-   ワイド幅ではタイトルが最大サイズになり重なりが約824pxまで発生するため、
-   余裕を見て850pxを閾値にする。下端のマーキーが「続きがある」ことを示すので
-   体験上の問題はない。 */
-@media (max-height: 850px) {
-    .hero-scroll {
-        display: none;
+    .discord-cta {
+        margin-left: 0;
     }
-}
-
-/* ===== Glitch Effect ===== */
-.glitch {
-    position: relative;
-}
-
-.glitch::before,
-.glitch::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    color: white;
-}
-
-.glitch::before {
-    left: 2px;
-    text-shadow: -1px 0 #ff00c1;
-    clip: rect(44px, 450px, 56px, 0);
-    animation: glitch-anim 5s infinite linear alternate-reverse;
-}
-
-.glitch::after {
-    left: -2px;
-    text-shadow: -1px 0 #00fff9;
-    clip: rect(44px, 450px, 56px, 0);
-    animation: glitch-anim2 5s infinite linear alternate-reverse;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .glitch::before,
-    .glitch::after {
-        display: none;
-    }
-}
-
-@keyframes glitch-anim {
-    0% { clip: rect(30px, 9999px, 10px, 0); }
-    10% { clip: rect(12px, 9999px, 98px, 0); }
-    20% { clip: rect(12px, 9999px, 16px, 0); }
-    30% { clip: rect(95px, 9999px, 43px, 0); }
-    40% { clip: rect(32px, 9999px, 89px, 0); }
-    50% { clip: rect(2px, 9999px, 54px, 0); }
-    60% { clip: rect(98px, 9999px, 34px, 0); }
-    70% { clip: rect(54px, 9999px, 98px, 0); }
-    80% { clip: rect(67px, 9999px, 43px, 0); }
-    90% { clip: rect(12px, 9999px, 32px, 0); }
-    100% { clip: rect(21px, 9999px, 98px, 0); }
-}
-
-@keyframes glitch-anim2 {
-    0% { clip: rect(65px, 9999px, 100px, 0); }
-    10% { clip: rect(79px, 9999px, 85px, 0); }
-    20% { clip: rect(67px, 9999px, 61px, 0); }
-    30% { clip: rect(1px, 9999px, 66px, 0); }
-    40% { clip: rect(23px, 9999px, 98px, 0); }
-    50% { clip: rect(98px, 9999px, 23px, 0); }
-    60% { clip: rect(54px, 9999px, 12px, 0); }
-    70% { clip: rect(12px, 9999px, 34px, 0); }
-    80% { clip: rect(34px, 9999px, 54px, 0); }
-    90% { clip: rect(54px, 9999px, 12px, 0); }
-    100% { clip: rect(12px, 9999px, 34px, 0); }
 }

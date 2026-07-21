@@ -28,7 +28,7 @@ const Works = () => {
             <div className="container">
                 <div className="works-header" data-reveal>
                     <div>
-                        <span className="section-label">03 — Works</span>
+                        <span className="section-label">04 // WORKS</span>
                         <h2 className="section-heading">活動・制作</h2>
                     </div>
                     <div className="works-nav">

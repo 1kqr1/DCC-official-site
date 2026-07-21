@@ -14,9 +14,9 @@ const Blog = () => {
         <section className="blog">
             <div className="container">
                 <div className="blog-header" data-reveal>
-                    <span className="section-label">Blog</span>
+                    <span className="section-label">// BLOG</span>
                     <h1 className="blog-heading">活動ブログ</h1>
-                    <p className="blog-sub">DCCの日々の活動やイベントの様子をお届けします。</p>
+                    <p className="blog-sub">// DCCの日々の活動やイベントの様子をお届けします。</p>
                 </div>
 
                 <div className="blog-grid">
@@ -39,7 +39,9 @@ const Blog = () => {
                                 </div>
                             )}
                             <div className="blog-card-body">
-                                <time className="blog-card-date">{formatDate(post.date)}</time>
+                                <time className="blog-card-date">
+                                    <span className="blog-date-mark">//</span> {formatDate(post.date)}
+                                </time>
                                 <h2 className="blog-card-title">{post.title}</h2>
                                 {post.excerpt && <p className="blog-card-excerpt">{post.excerpt}</p>}
                                 {Array.isArray(post.tags) && (
