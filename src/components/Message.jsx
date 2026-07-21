@@ -1,15 +1,16 @@
 import React from 'react';
 import './Message.css';
 
-// TODO: 実際の部長メッセージ・お名前・写真に差し替え
+// TODO: body（本文）は仮テキスト。本人の文章と写真をもらったら差し替える
 const PRESIDENT = {
-    name: 'お名前',
+    name: '郡谷孝裕',
     role: 'DCC 部長',
     photo: null, // 画像パスを入れると写真表示に切り替わる
+    isDraft: true, // 本文が仮の間だけ「（仮）」を表示
     body: [
-        'はじめまして、DCC部長の（お名前）です。',
-        'DCCは「パソコンで遊ぶ」をモットーに、プログラミング・3D・デジタルアートなど、興味のあることを自由に楽しむ学生コミュニティです。',
-        'ふだんはDiscordを中心にオンラインで集まっていて、学年も経験も関係なく、誰でも気軽に参加できます。少しでも気になったら、ぜひ覗いてみてください。',
+        'はじめまして、DCC部長の郡谷孝裕です。',
+        'DCCは「パソコンで遊ぶ」をモットーに、プログラミング・3D・デジタルアートなど、興味のあることを自由に楽しむDiscordベースのコミュニティです。',
+        '学年も経験も関係なく、誰でも気軽に参加できます。少しでも気になったら、ぜひ一度のぞいてみてください。',
     ],
 };
 
@@ -18,7 +19,10 @@ const Message = () => {
         <section id="message" className="message">
             <div className="container">
                 <span className="section-label">02 // MESSAGE</span>
-                <h2 className="section-heading">部長からのメッセージ</h2>
+                <h2 className="section-heading">
+                    部長からのメッセージ
+                    {PRESIDENT.isDraft && <span className="message-draft">（仮）</span>}
+                </h2>
 
                 <div className="message-card" data-reveal>
                     <div className="message-avatar">

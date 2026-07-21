@@ -2,6 +2,22 @@
     padding: var(--section-pad) 0;
 }
 
+/* 本文が仮のあいだ出す「（仮）」バッジ */
+.message-draft {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 0.7rem;
+    padding: 0.2rem 0.55rem;
+    border: 1px solid rgba(254, 188, 46, 0.4);
+    border-radius: 6px;
+    background: rgba(254, 188, 46, 0.1);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: #febc2e;
+}
+
 .message-card {
     display: grid;
     grid-template-columns: 160px 1fr;
