@@ -1,0 +1,122 @@
+.perks {
+    padding: var(--section-pad) 0;
+    background-color: var(--color-bg-elev);
+    border-top: 1px solid var(--color-glass-border);
+    border-bottom: 1px solid var(--color-glass-border);
+}
+
+.perks-header {
+    margin-bottom: 3rem;
+}
+
+.perks-header .section-heading {
+    margin-bottom: 0.5rem;
+}
+
+.perks-sub {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--syn-comment);
+}
+
+.perks-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.perk-card {
+    position: relative;
+    padding: 1.7rem 1.5rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+
+.perk-card:not(.is-draft):hover {
+    border-color: rgba(0, 212, 255, 0.35);
+    background: rgba(0, 212, 255, 0.04);
+    transform: translateY(-4px);
+}
+
+.perk-card.is-draft {
+    opacity: 0.75;
+    border-style: dashed;
+}
+
+.perk-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.perk-num {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    color: var(--color-text-dim);
+}
+
+.perk-draft-badge {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    padding: 0.18rem 0.5rem;
+    border-radius: 5px;
+    border: 1px solid rgba(254, 188, 46, 0.4);
+    background: rgba(254, 188, 46, 0.1);
+    color: #febc2e;
+    letter-spacing: 0.04em;
+}
+
+.perk-code {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.perk-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.perk-desc {
+    font-size: 0.83rem;
+    color: var(--color-text-muted);
+    line-height: 1.8;
+    flex: 1;
+}
+
+.perk-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    align-self: flex-start;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-primary);
+}
+
+.perk-cta .arrow {
+    transition: transform 0.25s ease;
+}
+
+.perk-card:hover .perk-cta .arrow {
+    transform: translateX(3px);
+}
+
+@media (max-width: 900px) {
+    .perks-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .perks-grid {
+        grid-template-columns: 1fr;
+    }
+}

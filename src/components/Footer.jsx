@@ -7,6 +7,7 @@ import './Footer.css';
 // ヘッダーのタブと同じ構成に揃える（LPの各セクションはスクロールで閲覧）
 const footerLinks = [
     { to: '/#hero', label: 'home' },
+    { to: '/members', label: 'members' },
     { to: '/business', label: 'business' },
     { to: '/blog', label: 'blog' },
     { to: '/#contact', label: 'contact' },

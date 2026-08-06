@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Business from './pages/Business';
+import Members from './pages/Members';
+import MemberProfile from './pages/MemberProfile';
 import './index.css';
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/business" element={<Business />} />
+            <Route path="/members" element={<Members />} />
+            <Route path="/members/:slug" element={<MemberProfile />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
           </Routes>

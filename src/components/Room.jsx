@@ -28,7 +28,7 @@ const Room = () => {
         <section id="room" className="room">
             <div className="container">
                 <div className="room-header" data-reveal>
-                    <span className="section-label">05 // PERK</span>
+                    <span className="section-label">06 // PERK</span>
                     <h2 className="section-heading">Discordに入ると、<br />使える。</h2>
                     <p className="room-sub">
                         メンバーになれば、この部室と機材も自由に使えます。<br />
