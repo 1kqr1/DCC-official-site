@@ -1,9 +1,8 @@
 import React from 'react';
 import { HashLink } from 'react-router-hash-link';
-import { DISCORD_INVITE } from '../config';
+import { DISCORD_INVITE, DCC_AI_URL, DCC_GIT_URL } from '../config';
 import './Perks.css';
 
-// DCC AI / DCC git は詳細確認中のため仮表示（本文・リンクは確定次第差し替え）
 const perks = [
     {
         n: '01',
@@ -25,17 +24,17 @@ const perks = [
         n: '03',
         fn: 'ai()',
         title: 'DCC AI',
-        desc: '詳細確認中です。決まり次第こちらに追記します。',
-        cta: null,
-        draft: true,
+        desc: 'DCC Hub内で使えるAI機能。トークンの利用量なども確認できます。',
+        cta: { label: '開く', href: DCC_AI_URL, external: true },
+        draft: false,
     },
     {
         n: '04',
         fn: 'git()',
         title: 'DCC git',
-        desc: '詳細確認中です。決まり次第こちらに追記します。',
-        cta: null,
-        draft: true,
+        desc: 'DCC Hub内のgit環境。部員同士でコードを管理・共有できます。',
+        cta: { label: '開く', href: DCC_GIT_URL, external: true },
+        draft: false,
     },
 ];
 
