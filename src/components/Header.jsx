@@ -7,6 +7,7 @@ import './Header.css';
 // エディタのファイルタブに見立てたナビゲーション（LPの各セクションはスクロールで閲覧）
 const navTabs = [
     { to: '/#hero', file: 'home', ext: 'tsx', color: 'var(--syn-func)' },
+    { to: '/members', file: 'members', ext: 'tsx', color: 'var(--color-accent)' },
     { to: '/business', file: 'business', ext: 'tsx', color: 'var(--syn-func)' },
     { to: '/blog', file: 'blog', ext: 'md', color: 'var(--syn-var)' },
     { to: '/#contact', file: 'contact', ext: 'sh', color: 'var(--syn-string)' },
@@ -29,6 +30,7 @@ const Header = () => {
     const isActive = (tab) => {
         if (tab.to === '/blog') return location.pathname.startsWith('/blog');
         if (tab.to === '/business') return location.pathname.startsWith('/business');
+        if (tab.to === '/members') return location.pathname.startsWith('/members');
         return location.pathname === '/' && tab.file === 'home';
     };
 

@@ -8,3 +8,12 @@ export const DISCORD_INVITE = 'https://discord.gg/Gah94cTxw4';
 //   BUSINESS_FORM_URL … 企業向け（協賛・制作依頼・採用・コラボ）
 export const CONTACT_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSew9o6Btnqyyf1_NvSGiaOzRfKoLBAz_BJmGAkZvOiGpo0HOQ/viewform?usp=dialog';
 export const BUSINESS_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSe_n7f6xLXdWX4COJg7bZ_O_NuyGHDm0v8dvHQhThSoNLvMng/viewform';
+
+// DCC Hub（app.shu-dcc.net）内の各機能
+export const DCC_AI_URL = 'https://app.shu-dcc.net/ai';
+export const DCC_GIT_URL = 'https://app.shu-dcc.net/git#/';
+
+// 部員ポートフォリオ（DCC Login連携、部員が自分で編集できるアプリ）
+// /members はここの公開APIからデータを読み込んで表示する
+export const PORTFOLIO_API_URL = 'https://dcc-portfolio.s1kqr1s.workers.dev';
+export const PORTFOLIO_EDIT_URL = 'https://dcc-portfolio.s1kqr1s.workers.dev/edit';

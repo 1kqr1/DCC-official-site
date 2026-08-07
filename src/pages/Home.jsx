@@ -4,6 +4,7 @@ import About from '../components/About';
 import Message from '../components/Message';
 import Activities from '../components/Activities';
 import Works from '../components/Works';
+import Perks from '../components/Perks';
 import Room from '../components/Room';
 import FAQ from '../components/FAQ';
 import Contact from '../components/Contact';
@@ -16,6 +17,7 @@ const Home = () => {
             <Message />
             <Activities />
             <Works />
+            <Perks />
             <Room />
             <FAQ />
             <Contact />

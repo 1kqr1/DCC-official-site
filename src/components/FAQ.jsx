@@ -47,7 +47,7 @@ const FAQ = () => {
         <section id="faq" className="faq">
             <div className="container">
                 <div className="faq-header" data-reveal>
-                    <span className="section-label">06 // FAQ</span>
+                    <span className="section-label">07 // FAQ</span>
                     <h2 className="section-heading">よくある質問</h2>
                 </div>
 
