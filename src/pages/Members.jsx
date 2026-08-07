@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { members, avatarUrl } from '../members/members';
+import { fetchMembers } from '../members/api';
+import { PORTFOLIO_EDIT_URL } from '../config';
 import './Members.css';
 
 const AvatarPlaceholder = () => (
@@ -13,6 +14,15 @@ const AvatarPlaceholder = () => (
 );
 
 const Members = () => {
+    const [members, setMembers] = useState(null);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        fetchMembers()
+            .then(setMembers)
+            .catch((err) => setError(err.message));
+    }, []);
+
     return (
         <section className="members-page">
             <div className="container">
@@ -20,43 +30,48 @@ const Members = () => {
                     <span className="section-label">// MEMBERS</span>
                     <h1 className="members-heading">部員紹介</h1>
                     <p className="members-sub">// DCCで活動しているメンバーと、その作品を紹介します。</p>
+                    <a href={PORTFOLIO_EDIT_URL} className="members-edit-link" target="_blank" rel="noreferrer">
+                        $ 自分のプロフィールを編集する →
+                    </a>
                 </div>
 
-                <div className="members-grid">
-                    {members.map((m, i) => (
-                        <Link
-                            to={`/members/${m.slug}`}
-                            className="member-card"
-                            key={m.slug}
-                            data-reveal
-                            style={{ '--reveal-delay': `${i * 0.06}s` }}
-                        >
-                            <div className="member-avatar">
-                                {m.avatar ? (
-                                    <img src={avatarUrl(m.avatar)} alt={m.name} loading="lazy" />
-                                ) : (
+                {error && <p className="members-empty">読み込みに失敗しました（{error}）。時間を置いて再度お試しください。</p>}
+
+                {!error && members === null && <p className="members-empty">読み込み中...</p>}
+
+                {members && members.length > 0 && (
+                    <div className="members-grid">
+                        {members.map((m, i) => (
+                            <Link
+                                to={`/members/${m.id}`}
+                                className="member-card"
+                                key={m.id}
+                                data-reveal
+                                style={{ '--reveal-delay': `${i * 0.06}s` }}
+                            >
+                                <div className="member-avatar">
                                     <AvatarPlaceholder />
-                                )}
-                            </div>
-                            <div className="member-body">
-                                <p className="member-name">{m.name}</p>
-                                <p className="member-meta">
-                                    {[m.grade, m.field].filter(Boolean).join(' / ')}
-                                </p>
-                                {Array.isArray(m.skills) && m.skills.length > 0 && (
-                                    <div className="member-skills">
-                                        {m.skills.slice(0, 3).map((s) => (
-                                            <span className="member-skill" key={s}>{s}</span>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-                        </Link>
-                    ))}
-                </div>
+                                </div>
+                                <div className="member-body">
+                                    <p className="member-name">{m.name}</p>
+                                    <p className="member-meta">
+                                        {[m.grade, m.field].filter(Boolean).join(' / ')}
+                                    </p>
+                                    {Array.isArray(m.skills) && m.skills.length > 0 && (
+                                        <div className="member-skills">
+                                            {m.skills.slice(0, 3).map((s) => (
+                                                <span className="member-skill" key={s}>{s}</span>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                )}
 
-                {members.length === 0 && (
-                    <p className="members-empty">まだ登録されているメンバーがいません。</p>
+                {members && members.length === 0 && (
+                    <p className="members-empty">まだ公開しているメンバーがいません。</p>
                 )}
             </div>
         </section>

@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import { getMember, avatarUrl, visibleWorks } from '../members/members';
+import { fetchMember } from '../members/api';
 import './Members.css';
 
 const AvatarPlaceholder = () => (
@@ -16,13 +14,41 @@ const AvatarPlaceholder = () => (
 
 const MemberProfile = () => {
     const { slug } = useParams();
-    const member = getMember(slug);
+    const [member, setMember] = useState(undefined); // undefined=読み込み中, null=見つからない
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         window.scrollTo(0, 0);
+        let ignore = false;
+        fetchMember(slug)
+            .then((data) => { if (!ignore) setMember(data); })
+            .catch((err) => { if (!ignore) setError(err.message); });
+        return () => { ignore = true; };
     }, [slug]);
 
-    if (!member) {
+    if (error) {
+        return (
+            <section className="members-page">
+                <div className="container members-notfound">
+                    <h1>読み込みに失敗しました</h1>
+                    <p className="muted">{error}</p>
+                    <Link to="/members" className="members-back">cd ../members</Link>
+                </div>
+            </section>
+        );
+    }
+
+    if (member === undefined) {
+        return (
+            <section className="members-page">
+                <div className="container members-notfound">
+                    <p className="muted">読み込み中...</p>
+                </div>
+            </section>
+        );
+    }
+
+    if (member === null) {
         return (
             <section className="members-page">
                 <div className="container members-notfound">
@@ -33,7 +59,7 @@ const MemberProfile = () => {
         );
     }
 
-    const works = visibleWorks(member);
+    const works = member.works || [];
 
     return (
         <article className="member-profile">
@@ -42,8 +68,8 @@ const MemberProfile = () => {
 
                 <header className="member-profile-header" data-reveal>
                     <div className="member-avatar member-avatar-lg">
-                        {member.avatar ? (
-                            <img src={avatarUrl(member.avatar)} alt={member.name} />
+                        {member.avatarUrl ? (
+                            <img src={member.avatarUrl} alt={member.name} />
                         ) : (
                             <AvatarPlaceholder />
                         )}
@@ -55,16 +81,16 @@ const MemberProfile = () => {
                         </p>
                         {member.bio && <p className="member-profile-bio">{member.bio}</p>}
 
-                        {(member.github || member.x || member.discord) && (
+                        {(member.links?.github || member.links?.x || member.links?.discord) && (
                             <div className="member-links">
-                                {member.github && (
-                                    <a href={member.github} target="_blank" rel="noreferrer" className="member-link">GitHub</a>
+                                {member.links.github && (
+                                    <a href={member.links.github} target="_blank" rel="noreferrer" className="member-link">GitHub</a>
                                 )}
-                                {member.x && (
-                                    <a href={member.x} target="_blank" rel="noreferrer" className="member-link">X</a>
+                                {member.links.x && (
+                                    <a href={member.links.x} target="_blank" rel="noreferrer" className="member-link">X</a>
                                 )}
-                                {member.discord && (
-                                    <a href={member.discord} target="_blank" rel="noreferrer" className="member-link">Discord</a>
+                                {member.links.discord && (
+                                    <a href={member.links.discord} target="_blank" rel="noreferrer" className="member-link">Discord</a>
                                 )}
                             </div>
                         )}
@@ -79,12 +105,6 @@ const MemberProfile = () => {
                     </div>
                 </header>
 
-                {member.content && (
-                    <div className="member-profile-body">
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{member.content}</ReactMarkdown>
-                    </div>
-                )}
-
                 <div className="member-works">
                     <span className="section-label">// WORKS</span>
                     <h2 className="member-works-heading">作品</h2>
@@ -95,7 +115,7 @@ const MemberProfile = () => {
                                 <div className="member-work-card" key={i}>
                                     {w.category && <span className="member-work-category">{w.category}</span>}
                                     <h3 className="member-work-title">{w.title}</h3>
-                                    {w.desc && <p className="member-work-desc">{w.desc}</p>}
+                                    {w.description && <p className="member-work-desc">{w.description}</p>}
                                     {w.url && (
                                         <a href={w.url} target="_blank" rel="noreferrer" className="member-work-link">
                                             見る <span className="arrow">→</span>
