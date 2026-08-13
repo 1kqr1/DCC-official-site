@@ -13,7 +13,7 @@ export const BUSINESS_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSe_n7
 export const DCC_AI_URL = 'https://app.shu-dcc.net/ai';
 export const DCC_GIT_URL = 'https://app.shu-dcc.net/git#/';
 
-// 部員ポートフォリオ（DCC Login連携、部員が自分で編集できるアプリ）
-// /members はここの公開APIからデータを読み込んで表示する
-export const PORTFOLIO_API_URL = 'https://dcc-portfolio.s1kqr1s.workers.dev';
-export const PORTFOLIO_EDIT_URL = 'https://dcc-portfolio.s1kqr1s.workers.dev/edit';
+// 部員ポータル（DCC Login連携、部員が自分で編集できるアプリ。プロフィール編集・活動ブログ）
+// /members と /blog はここの公開APIからデータを読み込んで表示する
+export const PORTFOLIO_API_URL = 'https://dcc-portal.s1kqr1s.workers.dev';
+export const PORTFOLIO_EDIT_URL = 'https://dcc-portal.s1kqr1s.workers.dev/edit';
