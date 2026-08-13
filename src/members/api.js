@@ -1,4 +1,4 @@
-// 部員ポートフォリオ（dcc-portfolio）の公開APIから読み込む。
+// 部員ポータル（dcc-portal）の公開APIから読み込む。
 // 部員本人が「公開する」に設定したプロフィール・作品だけが返ってくる。
 import { PORTFOLIO_API_URL } from '../config';
 
