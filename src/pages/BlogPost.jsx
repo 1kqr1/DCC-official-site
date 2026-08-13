@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import { getPost, thumbnailUrl } from '../blog/posts';
+import { fetchPost } from '../blog/api';
 import './Blog.css';
 
 const formatDate = (d) => {
@@ -11,29 +9,86 @@ const formatDate = (d) => {
     return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
 };
 
-// 本文中の相対パス画像（![](foo.jpg)）を public/blog-images/ 基準に解決する
-const mdComponents = {
-    img: ({ src = '', alt }) => {
-        const isAbsolute = /^(https?:)?\/\//.test(src) || src.startsWith('/');
-        const resolved = isAbsolute ? src : thumbnailUrl(src);
-        return <img src={resolved} alt={alt} loading="lazy" />;
-    },
+const TextBlock = ({ text }) => (
+    <>
+        {text.split(/\n{2,}/).map((para, i) => (
+            <p key={i}>
+                {para.split('\n').map((line, j, arr) => (
+                    <React.Fragment key={j}>
+                        {line}
+                        {j < arr.length - 1 && <br />}
+                    </React.Fragment>
+                ))}
+            </p>
+        ))}
+    </>
+);
+
+const Block = ({ block }) => {
+    switch (block.type) {
+        case 'heading':
+            return <h2>{block.text}</h2>;
+        case 'text':
+            return <TextBlock text={block.text} />;
+        case 'image':
+            return (
+                <figure>
+                    <img src={block.url} alt={block.alt} loading="lazy" />
+                    {block.alt && <figcaption>{block.alt}</figcaption>}
+                </figure>
+            );
+        default:
+            return null;
+    }
 };
 
 const BlogPost = () => {
     const { slug } = useParams();
-    const post = getPost(slug);
+    const [post, setPost] = useState(null);
+    const [notFound, setNotFound] = useState(false);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         window.scrollTo(0, 0);
+        setPost(null);
+        setNotFound(false);
+        setError(null);
+        fetchPost(slug)
+            .then((data) => {
+                if (!data) setNotFound(true);
+                else setPost(data);
+            })
+            .catch((err) => setError(err.message));
     }, [slug]);
 
-    if (!post) {
+    if (notFound) {
         return (
             <section className="blog">
                 <div className="container blog-notfound">
                     <h1>記事が見つかりませんでした</h1>
                     <Link to="/blog" className="blog-back">cd ../blog</Link>
+                </div>
+            </section>
+        );
+    }
+
+    if (error) {
+        return (
+            <section className="blog">
+                <div className="container blog-notfound">
+                    <h1>読み込みに失敗しました</h1>
+                    <p className="muted">{error}</p>
+                    <Link to="/blog" className="blog-back">cd ../blog</Link>
+                </div>
+            </section>
+        );
+    }
+
+    if (!post) {
+        return (
+            <section className="blog">
+                <div className="container blog-notfound">
+                    <p>読み込み中...</p>
                 </div>
             </section>
         );
@@ -46,29 +101,29 @@ const BlogPost = () => {
 
                 <header className="blog-post-header">
                     <time className="blog-post-date">
-                        <span className="blog-date-mark">//</span> {formatDate(post.date)}
+                        <span className="blog-date-mark">//</span> {formatDate(post.publishedAt)}
                     </time>
                     <h1 className="blog-post-title">{post.title}</h1>
                     <div className="blog-post-meta">
-                        {post.author && <span className="blog-post-author">{post.author}</span>}
+                        {post.authorName && <span className="blog-post-author">{post.authorName}</span>}
                         {Array.isArray(post.tags) && post.tags.map((tag) => (
                             <span className="blog-tag" key={tag}>#{tag}</span>
                         ))}
                     </div>
                 </header>
 
-                {post.thumbnail && (
+                {post.thumbnailUrl && (
                     <img
-                        src={thumbnailUrl(post.thumbnail)}
+                        src={post.thumbnailUrl}
                         alt={post.title}
                         className="blog-post-hero"
                     />
                 )}
 
                 <div className="blog-post-body">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdComponents}>
-                        {post.content}
-                    </ReactMarkdown>
+                    {post.blocks.map((block, i) => (
+                        <Block block={block} key={i} />
+                    ))}
                 </div>
 
                 <Link to="/blog" className="blog-back blog-back-bottom">cd ../blog</Link>
