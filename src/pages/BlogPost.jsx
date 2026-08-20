@@ -42,23 +42,35 @@ const Block = ({ block }) => {
     }
 };
 
+// 記事が切り替わったら key で中身ごと作り直す。
+// 同じ画面を使い回すと、URLは新しい記事なのに前の記事のデータがまだ残っている状態で
+// 一度描画されてしまい、前の記事が一瞬見えることがある。
 const BlogPost = () => {
     const { slug } = useParams();
+    return <BlogPostView key={slug} slug={slug} />;
+};
+
+const BlogPostView = ({ slug }) => {
     const [post, setPost] = useState(null);
     const [notFound, setNotFound] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        setPost(null);
-        setNotFound(false);
-        setError(null);
+
+        // 読み込み中に別のページへ移った場合、返ってきた結果は捨てる
+        let cancelled = false;
         fetchPost(slug)
             .then((data) => {
+                if (cancelled) return;
                 if (!data) setNotFound(true);
                 else setPost(data);
             })
-            .catch((err) => setError(err.message));
+            .catch((err) => {
+                if (!cancelled) setError(err.message);
+            });
+
+        return () => { cancelled = true; };
     }, [slug]);
 
     if (notFound) {
