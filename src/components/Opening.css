@@ -1,0 +1,307 @@
+/* ===== オープニング =====
+   タイムライン（Opening.jsx の PLAY_MS と揃えること）
+
+   0.00s  ウィンドウの枠が現れる
+   0.35s  $ npm run dev が打ち込まれる
+   0.85s  > ready in 312ms
+   1.25s  タブが zsh → home.tsx に切り替わる（枠はそのまま）
+   1.50s  本文が行番号つきで上から順に現れる
+   2.20s  「クリエイター」がシアンに色づく
+   2.60s  全体がフェードアウト（JSX側でタイマー管理）
+*/
+
+.opening {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg);
+    padding: 24px;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+.opening.is-closing {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ===== ウィンドウ ===== */
+.opening-window {
+    width: min(760px, 100%);
+    border: 1px solid var(--color-glass-border);
+    border-radius: 12px;
+    background: var(--color-bg);
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    animation: opening-window-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes opening-window-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.985);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.opening-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: var(--color-bg-elev);
+    border-bottom: 1px solid var(--color-glass-border);
+}
+
+.opening-dots {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.opening-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    display: block;
+}
+
+.opening-dot-r { background: #ff5f57; }
+.opening-dot-y { background: #febc2e; }
+.opening-dot-g { background: #28c840; }
+
+/* 2つのタブを同じ場所に重ねて、切り替えても枠が動かないようにする */
+.opening-tabs {
+    display: grid;
+    justify-items: start;
+}
+
+.opening-tab {
+    grid-area: 1 / 1;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--color-glass-border);
+    background: var(--color-bg);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--color-text);
+    white-space: nowrap;
+}
+
+.opening-tab-shell {
+    animation: opening-tab-out 0.2s ease 1.25s both;
+}
+
+.opening-tab-file {
+    animation: opening-tab-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) 1.3s both;
+}
+
+.opening-tab-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--syn-func);
+    flex-shrink: 0;
+}
+
+@keyframes opening-tab-out {
+    from { opacity: 1; transform: none; }
+    to { opacity: 0; transform: translateY(-4px); }
+}
+
+@keyframes opening-tab-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+}
+
+/* ===== 本文（ターミナルとエディタを重ねて高さを固定） ===== */
+.opening-body {
+    display: grid;
+    padding: 22px 24px;
+    min-height: 190px;
+    font-family: var(--font-mono);
+    font-size: clamp(0.78rem, 2.4vw, 0.9rem);
+    line-height: 2.1;
+}
+
+.opening-terminal,
+.opening-code {
+    grid-area: 1 / 1;
+    align-self: start;
+    min-width: 0;
+}
+
+/* --- 第1幕: ターミナル --- */
+.opening-terminal {
+    animation: opening-fade-out 0.2s ease 1.25s both;
+}
+
+@keyframes opening-fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.opening-cmd {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    color: var(--color-text);
+}
+
+.opening-prompt {
+    color: var(--color-green);
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+/* 等幅フォントなので ch 単位で文字数ぶんきっちり伸ばせる（npm run dev = 11文字） */
+.opening-typed {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: bottom;
+    animation: opening-type 0.45s steps(11, end) 0.35s both;
+}
+
+@keyframes opening-type {
+    from { width: 0; }
+    to { width: 11ch; }
+}
+
+.opening-caret {
+    display: inline-block;
+    width: 8px;
+    height: 1.05em;
+    background: var(--syn-func);
+    translate: 0 0.15em;
+    animation:
+        opening-caret-blink 0.75s steps(1, end) 0.35s 2,
+        opening-fade-out 0.15s ease 1.15s forwards;
+}
+
+@keyframes opening-caret-blink {
+    0%, 50% { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
+}
+
+.opening-ready {
+    color: var(--color-text-muted);
+    animation: opening-line-in 0.25s ease 0.85s both;
+}
+
+.opening-arrow {
+    color: var(--color-green);
+}
+
+/* --- 第2幕: エディタ --- */
+.opening-code {
+    /* 1.5秒までは各行のアニメーションが both で隠してくれるので、ここでは何もしない */
+    min-width: 0;
+}
+
+.opening-row {
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+    /* --i は行ごとの並び順。0.09秒ずつずらして上から現れる */
+    animation: opening-line-in 0.34s cubic-bezier(0.16, 1, 0.3, 1) calc(1.5s + var(--i) * 0.09s) both;
+}
+
+@keyframes opening-line-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+}
+
+.opening-row-blank {
+    height: 2.1em;
+}
+
+.opening-ln {
+    flex-shrink: 0;
+    width: 1.5em;
+    text-align: right;
+    color: #454a56;
+    font-size: 0.82em;
+    user-select: none;
+}
+
+.opening-lc {
+    min-width: 0;
+}
+
+.opening-comment {
+    color: var(--syn-comment);
+}
+
+.opening-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 4.4vw, 1.7rem);
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.5;
+}
+
+/* 最後にシンタックスハイライトが効く瞬間 */
+.opening-token {
+    color: var(--color-text);
+    animation: opening-token-highlight 0.3s ease 2.2s forwards;
+}
+
+@keyframes opening-token-highlight {
+    to {
+        color: var(--syn-func);
+        text-shadow: 0 0 22px rgba(0, 212, 255, 0.45);
+    }
+}
+
+/* ===== スキップの案内 ===== */
+.opening-skip {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    translate: -50% 0;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-text-dim);
+    animation: opening-line-in 0.4s ease 1.6s both;
+}
+
+.opening-skip-sp {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .opening-body {
+        padding: 18px 16px;
+        min-height: 210px;
+    }
+
+    .opening-row {
+        gap: 10px;
+    }
+
+    /* スマホでは「クリック」ではなく「タップ」と案内する */
+    .opening-skip-pc {
+        display: none;
+    }
+
+    .opening-skip-sp {
+        display: inline;
+    }
+}
+
+/* 「動きを減らす」設定の人にはそもそも表示しない（JSX側で弾いているが、念のため） */
+@media (prefers-reduced-motion: reduce) {
+    .opening {
+        display: none;
+    }
+}
