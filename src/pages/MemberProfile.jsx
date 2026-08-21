@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchMember } from '../members/api';
+import { useSeo } from '../seo';
 import './Members.css';
 
 const AvatarPlaceholder = () => (
@@ -25,6 +26,16 @@ const MemberProfile = () => {
             .catch((err) => { if (!ignore) setError(err.message); });
         return () => { ignore = true; };
     }, [slug]);
+
+    // 読み込み中・見つからない場合は本人名を出せないので、一覧と同じ見出しに寄せる
+    useSeo({
+        title: member ? member.name : member === null ? 'メンバーが見つかりませんでした' : '部員紹介',
+        description: member
+            ? member.bio || [member.grade, member.field].filter(Boolean).join(' / ')
+            : undefined,
+        path: `/members/${slug}`,
+        image: member?.avatarUrl,
+    });
 
     if (error) {
         return (

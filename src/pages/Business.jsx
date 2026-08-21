@@ -1,6 +1,7 @@
 import React from 'react';
 import { HashLink } from 'react-router-hash-link';
 import { BUSINESS_FORM_URL } from '../config';
+import { useSeo } from '../seo';
 import './Business.css';
 
 const offers = [
@@ -33,6 +34,12 @@ const offers = [
 const skills = ['React', 'TypeScript', 'Unity', 'Blender', 'Fusion360', 'Figma', 'Procreate', 'TouchDesigner', 'Python', 'AI'];
 
 const Business = () => {
+    useSeo({
+        title: '企業・団体の方へ',
+        description: '学生クリエイターと一緒につくる。DCCへの協賛・制作依頼・インターン・コラボレーションについてご案内します。',
+        path: '/business',
+    });
+
     return (
         <div className="business">
             {/* ===== イントロ ===== */}

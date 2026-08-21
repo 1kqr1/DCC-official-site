@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchPosts } from '../blog/api';
+import { useSeo } from '../seo';
 import './Blog.css';
 
 const formatDate = (d) => {
@@ -12,6 +13,12 @@ const formatDate = (d) => {
 const Blog = () => {
     const [posts, setPosts] = useState(null);
     const [error, setError] = useState(null);
+
+    useSeo({
+        title: '活動ブログ',
+        description: 'DCCの日々の活動やイベントの様子をお届けします。',
+        path: '/blog',
+    });
 
     useEffect(() => {
         fetchPosts()

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchPost } from '../blog/api';
+import { useSeo } from '../seo';
 import './Blog.css';
 
 const formatDate = (d) => {
@@ -72,6 +73,14 @@ const BlogPostView = ({ slug }) => {
 
         return () => { cancelled = true; };
     }, [slug]);
+
+    // 読み込み中・失敗時は記事名が分からないので、汎用の見出しにフォールバックする
+    useSeo({
+        title: post ? post.title : notFound ? '記事が見つかりませんでした' : '活動ブログ',
+        description: post?.excerpt,
+        path: `/blog/${slug}`,
+        image: post?.thumbnailUrl,
+    });
 
     if (notFound) {
         return (

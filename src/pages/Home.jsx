@@ -8,8 +8,11 @@ import Perks from '../components/Perks';
 import Room from '../components/Room';
 import FAQ from '../components/FAQ';
 import Contact from '../components/Contact';
+import { useSeo } from '../seo';
 
 const Home = () => {
+    useSeo({ path: '/' });
+
     return (
         <>
             <Hero />
