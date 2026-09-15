@@ -18,7 +18,7 @@ function App() {
         <Opening />
         <RevealManager />
         <Header />
-        <main>
+        <main id="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/business" element={<Business />} />
