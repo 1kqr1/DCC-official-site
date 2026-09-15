@@ -1,120 +1,96 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { HashLink } from 'react-router-hash-link';
-import { useLocation } from 'react-router-dom';
+import logo from '../assets/logo-white.png';
 import { DISCORD_INVITE } from '../config';
 import './Header.css';
 
-// エディタのファイルタブに見立てたナビゲーション（LPの各セクションはスクロールで閲覧）
-const navTabs = [
-    { to: '/#hero', file: 'home', ext: 'tsx', color: 'var(--syn-func)' },
-    { to: '/members', file: 'members', ext: 'tsx', color: 'var(--color-accent)' },
-    { to: '/business', file: 'business', ext: 'tsx', color: 'var(--syn-func)' },
-    { to: '/blog', file: 'blog', ext: 'md', color: 'var(--syn-var)' },
-    { to: '/#contact', file: 'contact', ext: 'sh', color: 'var(--syn-string)' },
+const navigation = [
+    { to: '/#about', label: '[01] ABOUT' },
+    { to: '/#projects', label: '[02] PROJECTS' },
+    { to: '/#members', label: '[03] MEMBERS' },
+    { to: '/#news', label: '[04] NEWS' },
+    { to: '/#join', label: '[05] JOIN' },
 ];
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const location = useLocation();
-    // 企業ページは Discord に入れない前提なので join ボタンを隠す
-    const isBusiness = location.pathname.startsWith('/business');
 
-    const close = () => setIsOpen(false);
-
-    // メニューを開いている間は背面のスクロールを止める
     useEffect(() => {
-        document.body.style.overflow = isOpen ? 'hidden' : '';
-        return () => { document.body.style.overflow = ''; };
+        if (!isOpen) return undefined;
+
+        const previousOverflow = document.body.style.overflow;
+        const closeOnEscape = (event) => {
+            if (event.key === 'Escape') setIsOpen(false);
+        };
+
+        document.body.style.overflow = 'hidden';
+        window.addEventListener('keydown', closeOnEscape);
+
+        return () => {
+            document.body.style.overflow = previousOverflow;
+            window.removeEventListener('keydown', closeOnEscape);
+        };
     }, [isOpen]);
 
-    const isActive = (tab) => {
-        if (tab.to === '/blog') return location.pathname.startsWith('/blog');
-        if (tab.to === '/business') return location.pathname.startsWith('/business');
-        if (tab.to === '/members') return location.pathname.startsWith('/members');
-        return location.pathname === '/' && tab.file === 'home';
-    };
+    const closeMenu = () => setIsOpen(false);
 
     return (
         <>
-            <header className="header">
-                <div className="header-bar">
-                    <div className="win-dots" aria-hidden="true">
-                        <span className="dot dot-r"></span>
-                        <span className="dot dot-y"></span>
-                        <span className="dot dot-g"></span>
-                    </div>
+            <a className="skip-link" href="#main-content">本文へスキップ</a>
+            <header className="site-header">
+                <div className="site-header__inner">
+                    <HashLink smooth to="/#top" className="site-brand" aria-label="DCC トップへ">
+                        <img src={logo} alt="DCC" className="site-brand__logo" />
+                        <span className="site-brand__copy">
+                            <span>DIGITAL CREATORS COMMUNITY</span>
+                            <small>CREATIVE DEVELOPMENT ENVIRONMENT</small>
+                        </span>
+                    </HashLink>
 
-                    <nav className="tabs" aria-label="メインナビゲーション">
-                        {navTabs.map((tab) => (
-                            <HashLink
-                                key={tab.to}
-                                smooth
-                                to={tab.to}
-                                className={`tab ${isActive(tab) ? 'active' : ''}`}
-                            >
-                                <span className="tab-dot" style={{ background: tab.color }}></span>
-                                <span className="tab-name">
-                                    {tab.file}<span className="tab-ext">.{tab.ext}</span>
-                                </span>
+                    <nav className="site-header__nav" aria-label="メインナビゲーション">
+                        {navigation.map((item) => (
+                            <HashLink key={item.to} smooth to={item.to} className="site-header__link">
+                                {item.label}
                             </HashLink>
                         ))}
                     </nav>
 
-                    {!isBusiness && (
-                        <a
-                            href={DISCORD_INVITE}
-                            className="cli-btn"
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            <span className="cli-prompt">$</span> join --dcc
+                    <div className="site-header__tools">
+                        <span className="header-search" aria-hidden="true">
+                            <span className="header-search__icon">⌕</span>
+                            Search DCC
+                            <kbd>⌘ K</kbd>
+                        </span>
+                        <a href={DISCORD_INVITE} className="header-join" target="_blank" rel="noreferrer">
+                            JOIN <span aria-hidden="true">↗</span>
                         </a>
-                    )}
+                    </div>
 
                     <button
                         type="button"
-                        className={`nav-toggle ${isOpen ? 'open' : ''}`}
+                        className={`site-menu-toggle${isOpen ? ' is-open' : ''}`}
                         aria-label={isOpen ? 'メニューを閉じる' : 'メニューを開く'}
                         aria-expanded={isOpen}
-                        aria-controls="mobile-menu"
-                        onClick={() => setIsOpen((v) => !v)}
+                        aria-controls="dcc-mobile-menu"
+                        onClick={() => setIsOpen((current) => !current)}
                     >
-                        <span></span>
                         <span></span>
                         <span></span>
                     </button>
                 </div>
             </header>
 
-            <div
-                id="mobile-menu"
-                className={`mobile-menu ${isOpen ? 'open' : ''}`}
-                onClick={close}
-            >
-                <nav className="mobile-nav">
-                    {navTabs.map((tab) => (
-                        <HashLink
-                            key={tab.to}
-                            smooth
-                            to={tab.to}
-                            className="mobile-nav-link"
-                            onClick={close}
-                        >
-                            <span className="tab-dot" style={{ background: tab.color }}></span>
-                            {tab.file}<span className="tab-ext">.{tab.ext}</span>
+            <div id="dcc-mobile-menu" className={`site-mobile-menu${isOpen ? ' is-open' : ''}`}>
+                <nav aria-label="モバイルナビゲーション">
+                    {navigation.map((item) => (
+                        <HashLink key={item.to} smooth to={item.to} className="site-mobile-menu__link" onClick={closeMenu}>
+                            {item.label}
+                            <span aria-hidden="true">↘</span>
                         </HashLink>
                     ))}
-                    {!isBusiness && (
-                        <a
-                            href={DISCORD_INVITE}
-                            className="mobile-join-btn"
-                            target="_blank"
-                            rel="noreferrer"
-                            onClick={close}
-                        >
-                            <span className="cli-prompt">$</span> join --dcc
-                        </a>
-                    )}
+                    <a href={DISCORD_INVITE} className="site-mobile-menu__join" target="_blank" rel="noreferrer" onClick={closeMenu}>
+                        $ ./join.sh <span aria-hidden="true">↗</span>
+                    </a>
                 </nav>
             </div>
         </>

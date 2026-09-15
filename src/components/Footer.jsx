@@ -1,57 +1,56 @@
 import React from 'react';
 import { HashLink } from 'react-router-hash-link';
 import logo from '../assets/logo-white.png';
-import { DISCORD_INVITE } from '../config';
+import { BUSINESS_FORM_URL, DISCORD_INVITE } from '../config';
 import './Footer.css';
 
-// ヘッダーのタブと同じ構成に揃える（LPの各セクションはスクロールで閲覧）
 const footerLinks = [
-    { to: '/#hero', label: 'home' },
-    { to: '/members', label: 'members' },
-    { to: '/business', label: 'business' },
-    { to: '/blog', label: 'blog' },
-    { to: '/#contact', label: 'contact' },
+    { to: '/#about', label: 'About' },
+    { to: '/#projects', label: 'Projects' },
+    { to: '/#members', label: 'Members' },
+    { to: '/#news', label: 'News' },
+    { to: '/#join', label: 'Join DCC' },
 ];
 
-const Footer = () => {
-    return (
-        <footer className="footer">
-            <div className="container">
-                <div className="footer-top">
-                    <div className="footer-brand">
-                        <img src={logo} alt="DCC" className="footer-logo-img" />
-                        <p className="footer-tagline">// パソコンで遊ぶ、デジタル秘密基地。</p>
-                        <a href={DISCORD_INVITE} className="footer-join" target="_blank" rel="noreferrer">
-                            <span className="footer-prompt">$</span> join --dcc
-                        </a>
-                    </div>
-                    <nav className="footer-nav" aria-label="フッターナビゲーション">
-                        {footerLinks.map((link) => (
-                            <HashLink key={link.label} smooth to={link.to} className="footer-nav-link">
-                                {link.label}
-                            </HashLink>
-                        ))}
-                    </nav>
-                </div>
-
-                {/* エディタのステータスバー風 */}
-                <div className="footer-statusbar">
-                    <div className="fs-group">
-                        <span className="fs-item fs-branch">git:(<em>main</em>)</span>
-                        <span className="fs-item">UTF-8</span>
-                        <span className="fs-item">LF</span>
-                        <a href={DISCORD_INVITE} className="fs-item fs-online" target="_blank" rel="noreferrer">
-                            <i className="fs-dot"></i> online — Discord
-                        </a>
-                    </div>
-                    <div className="fs-group">
-                        <span className="fs-item">© Digital Creators Community</span>
-                        <span className="fs-item">Shunan Public University</span>
-                    </div>
-                </div>
+const Footer = () => (
+    <footer className="site-footer">
+        <div className="site-footer__status" aria-label="サイトステータス">
+            <div className="site-footer__status-group">
+                <span className="site-footer__branch"><i aria-hidden="true">⑂</i> dcc</span>
+                <span><i className="status-ok" aria-hidden="true">✓</i> 0</span>
+                <span>△ 0</span>
             </div>
-        </footer>
-    );
-};
+            <div className="site-footer__status-group">
+                <span>UTF-8</span>
+                <span>LF</span>
+                <span>HTML</span>
+            </div>
+        </div>
+
+        <div className="site-footer__body">
+            <div className="site-footer__brand">
+                <img src={logo} alt="DCC" />
+                <p>つくるで、世界をひらく。<br />周南公立大学発のクリエイターコミュニティ。</p>
+            </div>
+
+            <nav className="site-footer__nav" aria-label="フッターナビゲーション">
+                {footerLinks.map((link) => (
+                    <HashLink key={link.to} smooth to={link.to}>{link.label}</HashLink>
+                ))}
+            </nav>
+
+            <div className="site-footer__links">
+                <a href={DISCORD_INVITE} target="_blank" rel="noreferrer">Discord ↗</a>
+                <a href={BUSINESS_FORM_URL} target="_blank" rel="noreferrer">For business ↗</a>
+            </div>
+        </div>
+
+        <div className="site-footer__legal">
+            <span>© DCC</span>
+            <span>Shunan Public University</span>
+            <span>Digital Creators Community</span>
+        </div>
+    </footer>
+);
 
 export default Footer;
