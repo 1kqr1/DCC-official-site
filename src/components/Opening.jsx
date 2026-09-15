@@ -93,7 +93,7 @@ const Opening = () => {
                     <span className="opening-tabs">
                         <span className="opening-tab opening-tab-shell">zsh</span>
                         <span className="opening-tab opening-tab-file">
-                            <span className="opening-tab-dot"></span>home.tsx
+                            <span className="opening-tab-dot"></span>index.html
                         </span>
                     </span>
                 </div>
@@ -115,9 +115,7 @@ const Opening = () => {
                     <div className="opening-code">
                         <p className="opening-row" style={{ '--i': 0 }}>
                             <span className="opening-ln">1</span>
-                            <span className="opening-lc opening-comment">
-                                // 周南公立大学発 — Discordベースのクリエイターコミュニティ
-                            </span>
+                            <span className="opening-lc opening-comment">&lt;!DOCTYPE html&gt;</span>
                         </p>
                         <p className="opening-row opening-row-blank" style={{ '--i': 1 }}>
                             <span className="opening-ln">2</span>
@@ -126,12 +124,12 @@ const Opening = () => {
                         <p className="opening-row" style={{ '--i': 2 }}>
                             <span className="opening-ln">3</span>
                             <span className="opening-lc opening-title">
-                                誰もが<span className="opening-token">クリエイター</span>に
+                                <span className="opening-token">DCC;</span>
                             </span>
                         </p>
                         <p className="opening-row" style={{ '--i': 3 }}>
                             <span className="opening-ln">4</span>
-                            <span className="opening-lc opening-title">なれる場所。</span>
+                            <span className="opening-lc opening-title">つくるで、世界をひらく。</span>
                         </p>
                     </div>
                 </div>

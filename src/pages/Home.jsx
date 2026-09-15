@@ -137,6 +137,18 @@ const Home = () => {
 
     useSeo({ path: '/' });
 
+    // SPAの初回描画後でも /#projects のような直リンク先へ確実に移動する。
+    useEffect(() => {
+        const targetId = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+        if (!targetId) return undefined;
+
+        const frame = window.requestAnimationFrame(() => {
+            document.getElementById(targetId)?.scrollIntoView();
+        });
+
+        return () => window.cancelAnimationFrame(frame);
+    }, []);
+
     useEffect(() => {
         let cancelled = false;
 
