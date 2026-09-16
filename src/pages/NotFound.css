@@ -1,0 +1,8 @@
+.not-found { min-height: 470px; display: grid; align-content: center; justify-items: start; gap: 13px; padding: clamp(52px, 10vw, 130px) clamp(24px, 8vw, 112px); }
+.not-found__command, .not-found__error { font-family: var(--font-mono); font-size: 0.78rem; }
+.not-found__command { color: var(--editor-code-blue); }
+.not-found__error { color: var(--editor-accent); }
+.not-found h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.16; }
+.not-found > p:not(.not-found__command):not(.not-found__error) { max-width: 540px; color: var(--editor-muted); }
+.not-found__action { margin-top: 12px; padding: 10px 14px; border: 1px solid var(--editor-accent); color: #10140e; background: var(--editor-accent); font-family: var(--font-mono); font-size: 0.78rem; font-weight: 800; }
+.not-found__action:hover { background: #c3ff89; }

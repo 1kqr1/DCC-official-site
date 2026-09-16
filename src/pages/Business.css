@@ -159,3 +159,27 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* This page is intentionally self-contained: its command tokens and CTA must not depend on Home styles. */
+.business .btn-cli { display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem; border: 1px solid var(--editor-accent); border-radius: 0; padding: 0.8rem 1.15rem; background: var(--editor-accent); color: #10140e; font-family: var(--font-mono); font-size: 0.78rem; font-weight: 800; transition: transform 180ms ease, background-color 180ms ease; }
+.business .btn-cli:hover { background: #c3ff89; transform: translateY(-2px); }
+.business .cli-prompt { color: #3a5e16; }
+.business .tok-cyan, .business .tok-func { color: var(--editor-accent); }
+.business .tok-var { color: var(--editor-code-warm); }
+
+.editor-route-frame .business { background: transparent; }
+.editor-route-frame .business .container { max-width: 1120px; }
+.editor-route-frame .biz-hero { padding: clamp(54px, 9vw, 120px) 0 clamp(48px, 7vw, 82px); background: linear-gradient(115deg, rgba(158, 255, 69, 0.065), transparent 44%), transparent; border-bottom-color: var(--editor-border); }
+.editor-route-frame .biz-comment { color: var(--editor-accent); }
+.editor-route-frame .biz-title { font-size: clamp(2.2rem, 5.5vw, 4.2rem); }
+.editor-route-frame .biz-lead, .editor-route-frame .offer-desc, .editor-route-frame .biz-contact-lead { color: var(--editor-muted); }
+.editor-route-frame .biz-offers { padding: clamp(52px, 8vw, 92px) 0; }
+.editor-route-frame .offer-grid { gap: 1px; margin-top: 2.2rem; border: 1px solid var(--editor-border); background: var(--editor-border); }
+.editor-route-frame .offer-card { border: 0; border-radius: 0; background: var(--editor-panel); }
+.editor-route-frame .offer-card:hover { transform: none; border: 0; background: var(--editor-panel-raised); box-shadow: inset 3px 0 var(--editor-accent); }
+.editor-route-frame .offer-num { color: var(--editor-accent); }
+.editor-route-frame .offer-code { color: var(--editor-muted); }
+.editor-route-frame .biz-skills { padding: 0 0 clamp(52px, 8vw, 92px); }
+.editor-route-frame .skill-tag { border-radius: 0; border-color: var(--editor-border); background: #0a0e12; color: var(--editor-muted); }
+.editor-route-frame .skill-tag:hover { border-color: var(--editor-accent); color: var(--editor-accent); }
+.editor-route-frame .biz-contact { padding: clamp(52px, 8vw, 92px) 0; background: #0a0e12; border-top-color: var(--editor-border); }

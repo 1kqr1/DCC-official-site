@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { fetchMembers } from '../members/api';
 import { PORTFOLIO_EDIT_URL } from '../config';
 import { useSeo } from '../seo';
+import EditorRouteFrame from '../components/EditorRouteFrame';
 import './Members.css';
 
 const AvatarPlaceholder = () => (
@@ -31,6 +32,7 @@ const Members = () => {
     }, []);
 
     return (
+        <EditorRouteFrame file="members.json" type="json" number="08">
         <section className="members-page">
             <div className="container">
                 <div className="members-header" data-reveal>
@@ -82,6 +84,7 @@ const Members = () => {
                 )}
             </div>
         </section>
+        </EditorRouteFrame>
     );
 };
 

@@ -1,0 +1,59 @@
+.editor-route-frame {
+    width: min(1440px, calc(100% - 48px));
+    min-height: calc(100vh - 148px);
+    margin: 34px auto;
+    border: 1px solid var(--editor-border);
+    background: var(--editor-panel);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
+}
+
+.editor-route-frame__titlebar,
+.editor-route-frame__tabbar {
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--editor-border);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+}
+
+.editor-route-frame__titlebar {
+    justify-content: space-between;
+    padding: 0 14px;
+    color: var(--editor-muted);
+    background: #0a0e12;
+}
+
+.editor-route-frame__dots { display: inline-flex; gap: 6px; }
+.editor-route-frame__dots i { width: 8px; height: 8px; border-radius: 50%; background: #303943; }
+.editor-route-frame__dots i:nth-child(2) { background: #3d4931; }
+.editor-route-frame__dots i:nth-child(3) { background: #4d5134; }
+.editor-route-frame__workspace { letter-spacing: 0.06em; }
+.editor-route-frame__state { color: var(--editor-accent); font-size: 0.56rem; letter-spacing: 0.12em; }
+
+.editor-route-frame__tabbar { justify-content: space-between; background: #0d1117; }
+.editor-route-frame__tab {
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 14px;
+    border-right: 1px solid var(--editor-border);
+    border-top: 2px solid var(--editor-accent);
+    color: var(--editor-text);
+    background: var(--editor-panel-raised);
+}
+.editor-route-frame__tab b { color: var(--editor-accent); font-weight: 700; }
+.editor-route-frame__tab--json b { color: var(--editor-code-warm); }
+.editor-route-frame__tab--log b { color: var(--editor-code-blue); }
+.editor-route-frame__tab i { margin-left: 12px; color: var(--editor-dim); font-style: normal; }
+.editor-route-frame__index { padding-right: 15px; color: var(--editor-accent); letter-spacing: 0.12em; }
+.editor-route-frame__content { min-width: 0; }
+
+@media (max-width: 600px) {
+    .editor-route-frame { width: 100%; min-height: auto; margin: 0; border-right: 0; border-left: 0; }
+    .editor-route-frame__titlebar { min-height: 32px; padding: 0 12px; }
+    .editor-route-frame__workspace { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .editor-route-frame__state { display: none; }
+    .editor-route-frame__tabbar, .editor-route-frame__tab { min-height: 35px; }
+}

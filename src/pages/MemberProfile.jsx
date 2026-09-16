@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchMember } from '../members/api';
 import { useSeo } from '../seo';
+import EditorRouteFrame from '../components/EditorRouteFrame';
 import './Members.css';
 
 const AvatarPlaceholder = () => (
@@ -37,8 +38,14 @@ const MemberProfile = () => {
         image: member?.avatarUrl,
     });
 
+    const frame = (content) => (
+        <EditorRouteFrame file={member ? `members/${member.id}.json` : 'members/profile.json'} type="json" number="08">
+            {content}
+        </EditorRouteFrame>
+    );
+
     if (error) {
-        return (
+        return frame(
             <section className="members-page">
                 <div className="container members-notfound">
                     <h1>読み込みに失敗しました</h1>
@@ -50,7 +57,7 @@ const MemberProfile = () => {
     }
 
     if (member === undefined) {
-        return (
+        return frame(
             <section className="members-page">
                 <div className="container members-notfound">
                     <p className="muted">読み込み中...</p>
@@ -60,7 +67,7 @@ const MemberProfile = () => {
     }
 
     if (member === null) {
-        return (
+        return frame(
             <section className="members-page">
                 <div className="container members-notfound">
                     <h1>メンバーが見つかりませんでした</h1>
@@ -72,7 +79,7 @@ const MemberProfile = () => {
 
     const works = member.works || [];
 
-    return (
+    return frame(
         <article className="member-profile">
             <div className="container container-narrow">
                 <Link to="/members" className="members-back">cd ../members</Link>

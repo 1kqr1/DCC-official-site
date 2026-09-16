@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchPosts } from '../blog/api';
 import { useSeo } from '../seo';
+import EditorRouteFrame from '../components/EditorRouteFrame';
 import './Blog.css';
 
 const formatDate = (d) => {
@@ -27,6 +28,7 @@ const Blog = () => {
     }, []);
 
     return (
+        <EditorRouteFrame file="news.log" type="log" number="07">
         <section className="blog">
             <div className="container">
                 <div className="blog-header" data-reveal>
@@ -83,6 +85,7 @@ const Blog = () => {
                 )}
             </div>
         </section>
+        </EditorRouteFrame>
     );
 };
 

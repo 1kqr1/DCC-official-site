@@ -9,6 +9,7 @@ import BlogPost from './pages/BlogPost';
 import Business from './pages/Business';
 import Members from './pages/Members';
 import MemberProfile from './pages/MemberProfile';
+import NotFound from './pages/NotFound';
 import './index.css';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             <Route path="/members/:slug" element={<MemberProfile />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />

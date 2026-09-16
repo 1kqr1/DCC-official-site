@@ -2,6 +2,7 @@ import React from 'react';
 import { HashLink } from 'react-router-hash-link';
 import { BUSINESS_FORM_URL } from '../config';
 import { useSeo } from '../seo';
+import EditorRouteFrame from '../components/EditorRouteFrame';
 import './Business.css';
 
 const offers = [
@@ -41,6 +42,7 @@ const Business = () => {
     });
 
     return (
+        <EditorRouteFrame file="collaborate.md" type="markdown" number="09">
         <div className="business">
             {/* ===== イントロ ===== */}
             <section className="biz-hero">
@@ -119,6 +121,7 @@ const Business = () => {
                 </div>
             </section>
         </div>
+        </EditorRouteFrame>
     );
 };
 

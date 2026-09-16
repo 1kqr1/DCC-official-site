@@ -342,3 +342,32 @@
         justify-content: center;
     }
 }
+
+/* Editor route overrides */
+.editor-route-frame .members-page,
+.editor-route-frame .member-profile { min-height: 0; padding: clamp(46px, 7vw, 88px) 0; background: transparent; }
+.editor-route-frame .members-header { max-width: 720px; margin-bottom: 3rem; }
+.editor-route-frame .members-heading { font-size: clamp(2.15rem, 5vw, 3.75rem); letter-spacing: -0.04em; }
+.editor-route-frame .members-sub { color: var(--editor-muted); }
+.editor-route-frame .members-edit-link, .editor-route-frame .members-back, .editor-route-frame .member-link { border-color: var(--editor-border-bright); border-radius: 0; background: #0a0e12; }
+.editor-route-frame .members-edit-link:hover, .editor-route-frame .members-back:hover, .editor-route-frame .member-link:hover { border-color: var(--editor-accent); background: var(--editor-accent-soft); color: var(--editor-accent); }
+.editor-route-frame .members-grid { gap: 1px; border: 1px solid var(--editor-border); background: var(--editor-border); }
+.editor-route-frame .member-card { flex-direction: row; align-items: center; min-width: 0; padding: 1.25rem; border: 0; border-radius: 0; background: var(--editor-panel); text-align: left; }
+.editor-route-frame .member-card:hover { transform: none; border: 0; background: var(--editor-panel-raised); box-shadow: inset 3px 0 var(--editor-accent); }
+.editor-route-frame .member-avatar { width: 60px; height: 60px; border-radius: 0; border-color: var(--editor-border); background: #0a0e12; }
+.editor-route-frame .member-body { align-items: flex-start; }
+.editor-route-frame .member-meta { color: var(--editor-muted); }
+.editor-route-frame .member-skills { justify-content: flex-start; }
+.editor-route-frame .member-skill { border-radius: 0; border-color: var(--editor-border); background: #0a0e12; color: var(--editor-muted); }
+.editor-route-frame .member-profile-header { padding-bottom: 2.4rem; border-bottom: 1px solid var(--editor-border); }
+.editor-route-frame .member-avatar-lg { width: 96px; height: 96px; }
+.editor-route-frame .member-profile-meta, .editor-route-frame .member-profile-bio, .editor-route-frame .member-work-desc { color: var(--editor-muted); }
+.editor-route-frame .member-work-card { border-radius: 0; border-color: var(--editor-border); background: #0a0e12; }
+.editor-route-frame .member-work-category, .editor-route-frame .member-work-link { color: var(--editor-accent); }
+
+@media (max-width: 600px) {
+    .editor-route-frame .members-page, .editor-route-frame .member-profile { padding: 42px 0 56px; }
+    .editor-route-frame .member-profile { padding-right: 0; padding-left: 0; }
+    .editor-route-frame .member-profile-header { align-items: flex-start; text-align: left; }
+    .editor-route-frame .member-links, .editor-route-frame .member-skills-lg { justify-content: flex-start; }
+}

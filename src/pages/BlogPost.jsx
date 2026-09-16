@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchPost } from '../blog/api';
 import { useSeo } from '../seo';
+import EditorRouteFrame from '../components/EditorRouteFrame';
 import './Blog.css';
 
 const formatDate = (d) => {
@@ -82,8 +83,14 @@ const BlogPostView = ({ slug }) => {
         image: post?.thumbnailUrl,
     });
 
+    const frame = (content) => (
+        <EditorRouteFrame file={post ? `news/${post.slug}.md` : 'news/article.md'} type="markdown" number="07">
+            {content}
+        </EditorRouteFrame>
+    );
+
     if (notFound) {
-        return (
+        return frame(
             <section className="blog">
                 <div className="container blog-notfound">
                     <h1>記事が見つかりませんでした</h1>
@@ -94,7 +101,7 @@ const BlogPostView = ({ slug }) => {
     }
 
     if (error) {
-        return (
+        return frame(
             <section className="blog">
                 <div className="container blog-notfound">
                     <h1>読み込みに失敗しました</h1>
@@ -106,7 +113,7 @@ const BlogPostView = ({ slug }) => {
     }
 
     if (!post) {
-        return (
+        return frame(
             <section className="blog">
                 <div className="container blog-notfound">
                     <p>読み込み中...</p>
@@ -115,7 +122,7 @@ const BlogPostView = ({ slug }) => {
         );
     }
 
-    return (
+    return frame(
         <article className="blog-post">
             <div className="container container-narrow">
                 <Link to="/blog" className="blog-back">cd ../blog</Link>
