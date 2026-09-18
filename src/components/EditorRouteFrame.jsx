@@ -19,7 +19,6 @@ const EditorRouteFrame = ({ file, type = 'markdown', number, children }) => (
             <span className={`editor-route-frame__tab editor-route-frame__tab--${type}`}>
                 <b>{fileIcons[type] || '#'}</b>
                 {file}
-                <i aria-hidden="true">×</i>
             </span>
             {number && <span className="editor-route-frame__index">{number}</span>}
         </div>

@@ -1,7 +1,8 @@
 import React from 'react';
 import { HashLink } from 'react-router-hash-link';
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo-white.png';
-import { BUSINESS_FORM_URL, DISCORD_INVITE } from '../config';
+import { DISCORD_INVITE } from '../config';
 import './Footer.css';
 
 const footerLinks = [
@@ -9,6 +10,7 @@ const footerLinks = [
     { to: '/#projects', label: 'Projects' },
     { to: '/#members', label: 'Members' },
     { to: '/#news', label: 'News' },
+    { to: '/#faq', label: 'よくある質問' },
     { to: '/#join', label: 'Join DCC' },
 ];
 
@@ -41,7 +43,7 @@ const Footer = () => (
 
             <div className="site-footer__links">
                 <a href={DISCORD_INVITE} target="_blank" rel="noreferrer">Discord ↗</a>
-                <a href={BUSINESS_FORM_URL} target="_blank" rel="noreferrer">For business ↗</a>
+                <Link to="/business">企業・団体の方へ →</Link>
             </div>
         </div>
 

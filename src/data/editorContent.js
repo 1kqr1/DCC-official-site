@@ -6,7 +6,7 @@ import programming from '../assets/dcc-programming.jpg';
 import meeting from '../assets/20260428_144619.jpg';
 
 // ホームの表示と制作カテゴリを分離。実績を追加する際はこの配列を編集するだけでよい。
-// 個別の公開ページがない活動カテゴリは、現在の活動ブログへ安全に誘導する。
+// 活動分野の紹介。個別作品へのリンクとは区別して表示する。
 export const projectCards = [
     {
         number: '01',

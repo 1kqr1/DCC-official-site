@@ -56,13 +56,8 @@ const Header = () => {
                     </nav>
 
                     <div className="site-header__tools">
-                        <span className="header-search" aria-hidden="true">
-                            <span className="header-search__icon">⌕</span>
-                            Search DCC
-                            <kbd>⌘ K</kbd>
-                        </span>
                         <a href={DISCORD_INVITE} className="header-join" target="_blank" rel="noreferrer">
-                            JOIN <span aria-hidden="true">↗</span>
+                            Discordで参加 <span aria-hidden="true">↗</span>
                         </a>
                     </div>
 

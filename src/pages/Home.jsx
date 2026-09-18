@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { HashLink } from 'react-router-hash-link';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo-white.png';
+import roomPhoto from '../assets/room-pc-01.jpg';
 import { fetchPosts } from '../blog/api';
 import { DCC_AI_URL, DCC_GIT_URL, DISCORD_INVITE, CONTACT_FORM_URL, PORTFOLIO_EDIT_URL } from '../config';
 import { projectCards, aboutGallery, activityFields } from '../data/editorContent';
 import { fetchMembers } from '../members/api';
 import { useSeo } from '../seo';
 import './Home.css';
+import './Community.css';
 
 const sectionFiles = [
     { id: 'hero', label: 'index.html', icon: '◉', kind: 'file' },
@@ -15,14 +17,13 @@ const sectionFiles = [
     { id: 'projects', label: 'projects/', icon: '⌄', kind: 'folder' },
     { id: 'members', label: 'members/', icon: '⌄', kind: 'folder' },
     { id: 'news', label: 'news/', icon: '⌄', kind: 'folder' },
+    { id: 'room', label: 'workspace/', icon: '⌄', kind: 'folder' },
+    { id: 'faq', label: 'faq.md', icon: '#', kind: 'file' },
     { id: 'join', label: 'join/', icon: '⌄', kind: 'folder' },
 ];
 
 const extraFiles = [
     { id: 'hero', label: 'index.html', icon: '◉', kind: 'file', track: true },
-    { id: 'about', label: 'README.md', icon: '▤', kind: 'file', track: false },
-    { id: 'projects', label: 'styles.css', icon: '#', kind: 'file', track: false },
-    { id: 'join', label: 'join.sh', icon: '$', kind: 'file', track: false },
 ];
 
 const formatLogDate = (value) => {
@@ -81,7 +82,6 @@ const EditorFileBar = ({ file, type, number }) => (
         <span className="editor-filebar__tab">
             <i className={`editor-filebar__icon editor-filebar__icon--${type}`} aria-hidden="true"></i>
             {file}
-            <span className="editor-filebar__close" aria-hidden="true">×</span>
         </span>
         <span className="editor-filebar__meta">{String(number).padStart(2, '0')} / DCC</span>
     </header>
@@ -192,33 +192,28 @@ const Home = () => {
                         <EditorFileBar file="index.html" type="html" number={1} />
                         <div className="editor-hero__body">
                             <div className="editor-code editor-hero__code" data-reveal>
-                                <p className="editor-code__line editor-code__comment"><span aria-hidden="true">01</span><code>&lt;!DOCTYPE html&gt;</code></p>
-                                <p className="editor-code__line"><span aria-hidden="true">02</span><code>&lt;html lang=<b>&quot;ja&quot;</b>&gt;</code></p>
-                                <p className="editor-code__line"><span aria-hidden="true">03</span><code>&nbsp;&nbsp;&lt;title&gt;DCC | Digital Creators Community&lt;/title&gt;</code></p>
-                                <p className="editor-code__line editor-code__spacer" aria-hidden="true"><span>04</span></p>
-                                <p className="editor-code__line editor-code__comment"><span aria-hidden="true">05</span><code>&nbsp;&nbsp;&lt;!-- つくるで、世界をひらく。 --&gt;</code></p>
+                                <p className="hero-origin">周南公立大学発のクリエイターコミュニティ</p>
                                 <h1 id="hero-title" className="editor-hero__title">
-                                    <span className="editor-code__number" aria-hidden="true">06</span>
+                                    <span className="editor-code__number" aria-hidden="true">01</span>
                                     <span>DCC;<i className="terminal-cursor" aria-label=""></i></span>
                                 </h1>
-                                <p className="editor-hero__kicker"><span className="editor-code__number" aria-hidden="true">07</span><span>DIGITAL CREATORS COMMUNITY</span></p>
-                                <p className="editor-hero__copy"><span className="editor-code__number" aria-hidden="true">08</span><span>誰もがクリエイターになれる場所。<br />コンピュータサイエンスで「遊ぶ」、デジタル秘密基地。</span></p>
+                                <p className="editor-hero__kicker"><span className="editor-code__number" aria-hidden="true">02</span><span>DIGITAL CREATORS COMMUNITY</span></p>
+                                <p className="editor-hero__copy"><span className="editor-code__number" aria-hidden="true">03</span><span>つくってみたい。<br />その気持ちから、はじめよう。</span></p>
+                                <p className="hero-description">アプリ、ゲーム、3D、イラスト、映像、音楽。<br />好きなものをつくり、見せ合い、一緒に学ぶ場所です。</p>
+                                <p className="hero-welcome">未経験歓迎 / 部費なし / 自分のペースで参加</p>
                                 <div className="editor-hero__actions">
-                                    <span className="editor-code__number" aria-hidden="true">09</span>
+                                    <span className="editor-code__number" aria-hidden="true">04</span>
                                     <span>
-                                        <a href={DISCORD_INVITE} className="editor-button editor-button--accent" target="_blank" rel="noreferrer">$ ./join.sh <b>→</b></a>
-                                        <HashLink smooth to="/#projects" className="editor-button editor-button--quiet">EXPLORE PROJECTS <b>↓</b></HashLink>
+                                        <a href={DISCORD_INVITE} className="editor-button editor-button--accent" target="_blank" rel="noreferrer">Discordで参加する <b>↗</b></a>
+                                        <HashLink smooth to="/#projects" className="editor-button editor-button--quiet">作品・活動を見る <b>↓</b></HashLink>
                                     </span>
                                 </div>
-                                <p className="editor-code__line editor-code__comment editor-code__closing"><span aria-hidden="true">10</span><code>&lt;/html&gt;</code></p>
                             </div>
 
                             <div className="editor-hero__visual" data-reveal style={{ '--reveal-delay': '0.12s' }}>
                                 <div className="editor-hero__logo-grid" aria-hidden="true">
                                     <div className="editor-hero__logo-line"></div>
                                     <img src={logo} alt="" />
-                                    <span className="editor-hero__coord editor-hero__coord--a">35.860</span>
-                                    <span className="editor-hero__coord editor-hero__coord--b">131.148</span>
                                 </div>
                                 <dl className="editor-hero__meta">
                                     <div><dt>ORIGIN</dt><dd>SHUNAN PUBLIC UNIVERSITY</dd></div>
@@ -275,7 +270,7 @@ const Home = () => {
                         </div>
                         <div className="project-grid">
                             {projectCards.map((project, index) => (
-                                <Link to="/blog" className="project-card" key={project.number} data-reveal style={{ '--reveal-delay': `${index * 0.07}s` }}>
+                                <article className="project-card" key={project.number} data-reveal style={{ '--reveal-delay': `${index * 0.07}s` }}>
                                     <div className="project-card__image">
                                         <img src={project.image} alt={project.alt} loading="lazy" />
                                         <span className="project-card__number">{project.number} /</span>
@@ -284,10 +279,16 @@ const Home = () => {
                                         <span className="project-card__file">{project.file}</span>
                                         <h3>{project.title}</h3>
                                         <p>{project.description}</p>
-                                        <div className="project-card__footer"><span>{project.category}</span><b aria-hidden="true">↗</b></div>
+                                        <div className="project-card__footer"><span>{project.category}</span><span>活動分野</span></div>
                                     </div>
-                                </Link>
+                                </article>
                             ))}
+                        </div>
+                        <div className="published-work">
+                            <p className="editor-section__label">FROM THE SHOWCASE / 公開記事で紹介した作品</p>
+                            <h3>「好き」から生まれた、こんな作品。</h3>
+                            <ul><li>リモート図書館 <span>漫画の購入先を管理するWebアプリ</span></li><li>コドバ。 <span>競技プログラミングのオンライン対戦プラットフォーム</span></li><li>自作Live2Dモデル <span>下絵からモーションまで制作</span></li></ul>
+                            <Link to="/blog/2026-07-31-summer-showcase" className="editor-text-link">作品を紹介した成果物発表会の記事を読む →</Link>
                         </div>
                         <Link to="/blog" className="editor-text-link">活動ログをすべて見る <span aria-hidden="true">→</span></Link>
                     </section>
@@ -350,7 +351,7 @@ const Home = () => {
                                 <p className="editor-section__label">03 / ACTIVITY LOG</p>
                                 <h2 id="news-title">DCCの今を、<br />ログに残す。</h2>
                             </div>
-                            <p>公開された活動ブログを、最新の記録としてそのまま読み込みます。</p>
+                            <p>発表会やミーティングなど、DCCの日々の活動を紹介します。</p>
                         </div>
 
                         <div className="news-workspace">
@@ -373,22 +374,38 @@ const Home = () => {
                                 <p>FROM DCC HUB</p>
                                 <a href={DCC_AI_URL} target="_blank" rel="noreferrer"><span>DCC AI</span><b>↗</b><small>IDEA / ASSIST</small></a>
                                 <a href={DCC_GIT_URL} target="_blank" rel="noreferrer"><span>DCC git</span><b>↗</b><small>CODE / SHARE</small></a>
-                                <p className="dcc-services__note">External integrations are shown only when DCC has a public destination.</p>
+                                <p className="dcc-services__note">制作を支える、メンバー向けのAI・コード共有環境。</p>
                             </aside>
                         </div>
                         <Link to="/blog" className="editor-text-link">活動ブログを開く <span aria-hidden="true">→</span></Link>
                     </section>
 
+                    <section id="room" className="editor-section" aria-labelledby="room-title">
+                        <EditorFileBar file="workspace/" type="folder" number={6} />
+                        <div className="community-space">
+                            <div><p className="editor-section__label">ONLINE / ON CAMPUS</p><h2 id="room-title">オンラインでも、<br />部室でも。</h2><p>普段の相談や作品の共有はDiscordで。大学では、部室のPCやVR機器、3Dプリンタを使って制作を楽しめます。</p><p>活動拠点：11号館 2F 第1実習室</p><ul><li>ゲーミングPC</li><li>VR機器</li><li>3Dプリンタ</li><li>プロジェクター</li></ul><a className="editor-text-link" href={CONTACT_FORM_URL} target="_blank" rel="noreferrer">部室を見学したい方はこちら ↗</a></div>
+                            <figure><img src={roomPhoto} alt="PCが並ぶDCCの部室" loading="lazy" width="800" height="600" /><figcaption>つくる道具も、相談できる仲間も。</figcaption></figure>
+                        </div>
+                    </section>
+                    <section id="faq" className="editor-section" aria-labelledby="faq-title">
+                        <EditorFileBar file="faq.md" type="markdown" number={7} />
+                        <div className="community-faq"><p className="editor-section__label">BEFORE YOU JOIN</p><h2 id="faq-title">参加する前に。</h2>
+                            <details open><summary>プログラミング未経験でも大丈夫？</summary><p>はい。未経験でも参加できます。プログラミングだけでなく、イラスト・映像・音楽など、興味のある制作から始められます。</p></details>
+                            <details><summary>活動頻度はどのくらい？</summary><p>決まった参加頻度はありません。Discordで交流したり、来られるときに部室に来たり、自分のペースで活動できます。</p></details>
+                            <details><summary>他のサークルと掛け持ちできる？</summary><p>はい、掛け持ちできます。</p></details>
+                            <details><summary>お金や入部手続きは必要？</summary><p>部費も入部届も必要ありません。Discordに参加すれば、その日からメンバーです。参加後はサーバー内の案内をご確認ください。</p></details>
+                        </div>
+                    </section>
                     <section id="join" className="editor-section editor-join" aria-labelledby="join-title">
-                        <EditorFileBar file="join.sh" type="shell" number={6} />
+                        <EditorFileBar file="join.sh" type="shell" number={8} />
                         <div className="join-terminal" data-reveal>
                             <p className="join-terminal__command"><span>$</span> ./join.sh</p>
                             <p className="join-terminal__output">&gt; DCCに参加する</p>
                             <h2 id="join-title">つくることが好きな、<br />すべての人へ。</h2>
                             <p className="join-terminal__output">&gt; さあ、一緒につくろう。</p>
-                            <div className="join-terminal__progress" aria-label="準備完了 100パーセント"><span>[####################]</span><b>100%</b></div>
+                            <p className="join-explanation">下のボタンからDiscordの招待ページが開きます。<br />気になることがあれば、見学・お問い合わせからご相談ください。</p>
                             <div className="join-terminal__actions">
-                                <a href={DISCORD_INVITE} className="join-terminal__cta" target="_blank" rel="noreferrer">JOIN DCC <span aria-hidden="true">→</span></a>
+                                <a href={DISCORD_INVITE} className="join-terminal__cta" target="_blank" rel="noreferrer">Discordで参加する <span aria-hidden="true">↗</span></a>
                                 <a href={CONTACT_FORM_URL} className="join-terminal__contact" target="_blank" rel="noreferrer">見学・お問い合わせ ↗</a>
                             </div>
                         </div>
