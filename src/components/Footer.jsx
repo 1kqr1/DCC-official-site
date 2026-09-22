@@ -2,13 +2,13 @@ import React from 'react';
 import { HashLink } from 'react-router-hash-link';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo-white.png';
-import { DISCORD_INVITE } from '../config';
+import { DISCORD_INVITE, SHOW_HOME_MEMBERS } from '../config';
 import './Footer.css';
 
 const footerLinks = [
     { to: '/#about', label: 'About' },
     { to: '/#projects', label: 'Projects' },
-    { to: '/#members', label: 'Members' },
+    ...(SHOW_HOME_MEMBERS ? [{ to: '/#members', label: 'Members' }] : []),
     { to: '/#news', label: 'News' },
     { to: '/#faq', label: 'よくある質問' },
     { to: '/#join', label: 'Join DCC' },

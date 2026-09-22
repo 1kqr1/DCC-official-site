@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import logo from '../assets/logo-white.png';
 import roomPhoto from '../assets/room-pc-01.jpg';
 import { fetchPosts } from '../blog/api';
-import { DCC_AI_URL, DCC_GIT_URL, DISCORD_INVITE, CONTACT_FORM_URL, PORTFOLIO_EDIT_URL } from '../config';
+import { DCC_AI_URL, DCC_GIT_URL, DISCORD_INVITE, CONTACT_FORM_URL, PORTFOLIO_EDIT_URL, SHOW_HOME_MEMBERS } from '../config';
 import { projectCards, aboutGallery, activityFields } from '../data/editorContent';
 import { fetchMembers } from '../members/api';
 import { useSeo } from '../seo';
@@ -15,7 +15,7 @@ const sectionFiles = [
     { id: 'hero', label: 'index.html', icon: '◉', kind: 'file' },
     { id: 'about', label: 'about/', icon: '⌄', kind: 'folder' },
     { id: 'projects', label: 'projects/', icon: '⌄', kind: 'folder' },
-    { id: 'members', label: 'members/', icon: '⌄', kind: 'folder' },
+    ...(SHOW_HOME_MEMBERS ? [{ id: 'members', label: 'members/', icon: '⌄', kind: 'folder' }] : []),
     { id: 'news', label: 'news/', icon: '⌄', kind: 'folder' },
     { id: 'room', label: 'workspace/', icon: '⌄', kind: 'folder' },
     { id: 'faq', label: 'faq.md', icon: '#', kind: 'file' },
@@ -152,7 +152,7 @@ const Home = () => {
     useEffect(() => {
         let cancelled = false;
 
-        fetchMembers()
+        if (SHOW_HOME_MEMBERS) fetchMembers()
             .then((data) => {
                 if (!cancelled) setMembers(Array.isArray(data) ? data : []);
             })
@@ -293,7 +293,7 @@ const Home = () => {
                         <Link to="/blog" className="editor-text-link">活動ログをすべて見る <span aria-hidden="true">→</span></Link>
                     </section>
 
-                    <section id="members" className="editor-section editor-members" aria-labelledby="members-title">
+                    {SHOW_HOME_MEMBERS && <section id="members" className="editor-section editor-members" aria-labelledby="members-title">
                         <EditorFileBar file="members.json" type="json" number={4} />
                         <div className="editor-section__intro editor-members__intro" data-reveal>
                             <div>
@@ -342,7 +342,7 @@ const Home = () => {
                             </div>
                         </div>
                         <Link to="/members" className="editor-text-link">全メンバーを見る <span aria-hidden="true">→</span></Link>
-                    </section>
+                    </section>}
 
                     <section id="news" className="editor-section editor-news" aria-labelledby="news-title">
                         <EditorFileBar file="news.log" type="log" number={5} />

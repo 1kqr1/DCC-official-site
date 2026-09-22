@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { HashLink } from 'react-router-hash-link';
 import logo from '../assets/logo-white.png';
-import { DISCORD_INVITE } from '../config';
+import { DISCORD_INVITE, SHOW_HOME_MEMBERS } from '../config';
 import './Header.css';
 
 const navigation = [
     { to: '/#about', label: '[01] ABOUT' },
     { to: '/#projects', label: '[02] PROJECTS' },
-    { to: '/#members', label: '[03] MEMBERS' },
-    { to: '/#news', label: '[04] NEWS' },
-    { to: '/#join', label: '[05] JOIN' },
+    ...(SHOW_HOME_MEMBERS ? [{ to: '/#members', label: '[03] MEMBERS' }] : []),
+    { to: '/#news', label: `[0${SHOW_HOME_MEMBERS ? 4 : 3}] NEWS` },
+    { to: '/#join', label: `[0${SHOW_HOME_MEMBERS ? 5 : 4}] JOIN` },
 ];
 
 const Header = () => {

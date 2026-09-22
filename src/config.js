@@ -1,4 +1,6 @@
 // サイト全体で使う設定値
+// トップのメンバー紹介と導線を一時停止。再掲載時は true に戻す。
+export const SHOW_HOME_MEMBERS = false;
 
 // Discord 招待リンク
 export const DISCORD_INVITE = 'https://discord.gg/Gah94cTxw4';
