@@ -6,7 +6,7 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
   // ローカルの補助worktreeは本体プロジェクトのlint対象に含めない。
-  globalIgnores(['dist', '.claude/**']),
+  globalIgnores(['dist', '.claude/**', '**/.wrangler/**']),
   {
     files: ['**/*.{js,jsx}'],
     extends: [

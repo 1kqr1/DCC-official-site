@@ -2,10 +2,16 @@
 // 記事は広報担当・管理者が https://dcc-portfolio.s1kqr1s.workers.dev/blog で書いて公開したものだけが返ってくる。
 import { PORTFOLIO_API_URL } from '../config';
 
+let cachedPosts = null;
+
+export const getCachedPosts = () => cachedPosts;
+
 export async function fetchPosts() {
     const res = await fetch(`${PORTFOLIO_API_URL}/api/blog`);
     if (!res.ok) throw new Error(`記事一覧の取得に失敗しました (${res.status})`);
-    return res.json();
+    const posts = await res.json();
+    if (Array.isArray(posts)) cachedPosts = posts;
+    return posts;
 }
 
 export async function fetchPost(slug) {

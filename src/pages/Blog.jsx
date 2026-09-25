@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { ViewTransition, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchPosts } from '../blog/api';
+import { fetchPosts, getCachedPosts } from '../blog/api';
+import { postTitleTransitionName } from '../blog/transition';
 import { useSeo } from '../seo';
 import EditorRouteFrame from '../components/EditorRouteFrame';
 import './Blog.css';
@@ -12,7 +13,7 @@ const formatDate = (d) => {
 };
 
 const Blog = () => {
-    const [posts, setPosts] = useState(null);
+    const [posts, setPosts] = useState(getCachedPosts);
     const [error, setError] = useState(null);
 
     useSeo({
@@ -22,9 +23,16 @@ const Blog = () => {
     });
 
     useEffect(() => {
+        let cancelled = false;
         fetchPosts()
-            .then(setPosts)
-            .catch((err) => setError(err.message));
+            .then((data) => {
+                if (!cancelled) setPosts(Array.isArray(data) ? data : []);
+            })
+            .catch((err) => {
+                if (!cancelled) setError(err.message);
+            });
+
+        return () => { cancelled = true; };
     }, []);
 
     return (
@@ -46,6 +54,7 @@ const Blog = () => {
                         {posts.map((post, i) => (
                             <Link
                                 to={`/blog/${post.slug}`}
+                                state={{ post }}
                                 className="blog-card"
                                 key={post.slug}
                                 data-reveal
@@ -65,7 +74,9 @@ const Blog = () => {
                                     <time className="blog-card-date">
                                         <span className="blog-date-mark">//</span> {formatDate(post.publishedAt)}
                                     </time>
-                                    <h2 className="blog-card-title">{post.title}</h2>
+                                    <ViewTransition name={postTitleTransitionName(post.slug)}>
+                                        <h2 className="blog-card-title">{post.title}</h2>
+                                    </ViewTransition>
                                     {post.excerpt && <p className="blog-card-excerpt">{post.excerpt}</p>}
                                     {Array.isArray(post.tags) && post.tags.length > 0 && (
                                         <div className="blog-card-tags">

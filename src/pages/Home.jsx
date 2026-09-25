@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { ViewTransition, useEffect, useState } from 'react';
 import { HashLink } from 'react-router-hash-link';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo-white.png';
 import roomPhoto from '../assets/room-pc-01.jpg';
 import { fetchPosts } from '../blog/api';
+import { postTitleTransitionName } from '../blog/transition';
 import { DCC_AI_URL, DCC_GIT_URL, DISCORD_INVITE, CONTACT_FORM_URL, PORTFOLIO_EDIT_URL, SHOW_HOME_MEMBERS } from '../config';
 import { projectCards, aboutGallery, activityFields } from '../data/editorContent';
 import { fetchMembers } from '../members/api';
@@ -24,6 +25,7 @@ const sectionFiles = [
 
 const extraFiles = [
     { id: 'hero', label: 'index.html', icon: '◉', kind: 'file', track: true },
+    { to: '/blog', label: 'news.log', icon: '>', kind: 'file', track: false },
 ];
 
 const formatLogDate = (value) => {
@@ -89,6 +91,20 @@ const EditorFileBar = ({ file, type, number }) => (
 
 const ExplorerLink = ({ entry, activeSection }) => {
     const isActive = entry.track !== false && entry.id === activeSection;
+    const content = <>
+        <span className="editor-explorer__icon" aria-hidden="true">{entry.icon}</span>
+        <span>{entry.label}</span>
+    </>;
+
+    if (entry.to) {
+        return (
+            <ViewTransition name="dcc-file-tab">
+                <Link className={`editor-explorer__entry editor-explorer__entry--${entry.kind}`} to={entry.to}>
+                    {content}
+                </Link>
+            </ViewTransition>
+        );
+    }
 
     return (
         <a
@@ -96,8 +112,7 @@ const ExplorerLink = ({ entry, activeSection }) => {
             href={`#${entry.id}`}
             aria-current={isActive ? 'location' : undefined}
         >
-            <span className="editor-explorer__icon" aria-hidden="true">{entry.icon}</span>
-            <span>{entry.label}</span>
+            {content}
         </a>
     );
 };
@@ -361,9 +376,9 @@ const Home = () => {
                                 {postsError && <p className="news-terminal__state">// Feed unavailable. Open the activity blog to try again.</p>}
                                 {posts?.length === 0 && <p className="news-terminal__state">// No published activity logs yet.</p>}
                                 {posts?.slice(0, 4).map((post) => (
-                                    <Link to={`/blog/${post.slug}`} className="news-terminal__line" key={post.slug}>
+                                    <Link to={`/blog/${post.slug}`} state={{ post }} className="news-terminal__line" key={post.slug}>
                                         <time>{formatLogDate(post.publishedAt)}</time>
-                                        <span>{post.title}</span>
+                                        <ViewTransition name={postTitleTransitionName(post.slug)}><span>{post.title}</span></ViewTransition>
                                         <b aria-hidden="true">↗</b>
                                     </Link>
                                 ))}

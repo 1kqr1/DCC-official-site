@@ -32,12 +32,39 @@ const Header = () => {
         };
     }, [isOpen]);
 
+    useEffect(() => {
+        if (CSS.supports('animation-timeline: scroll(root block)')) return undefined;
+
+        let frame = 0;
+        const update = () => {
+            frame = 0;
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            document.documentElement.style.setProperty('--scroll-progress', max > 0 ? Math.min(window.scrollY / max, 1) : 1);
+        };
+        const schedule = () => {
+            if (!frame) frame = window.requestAnimationFrame(update);
+        };
+        update();
+        window.addEventListener('scroll', schedule, { passive: true });
+        window.addEventListener('resize', schedule);
+        const resizeObserver = new ResizeObserver(schedule);
+        resizeObserver.observe(document.body);
+        return () => {
+            window.removeEventListener('scroll', schedule);
+            window.removeEventListener('resize', schedule);
+            resizeObserver.disconnect();
+            window.cancelAnimationFrame(frame);
+            document.documentElement.style.removeProperty('--scroll-progress');
+        };
+    }, []);
+
     const closeMenu = () => setIsOpen(false);
 
     return (
         <>
             <a className="skip-link" href="#main-content">本文へスキップ</a>
             <header className="site-header">
+                <span className="site-header__progress" aria-hidden="true" />
                 <div className="site-header__inner">
                     <HashLink smooth to="/#top" className="site-brand" aria-label="DCC トップへ">
                         <img src={logo} alt="DCC" className="site-brand__logo" />

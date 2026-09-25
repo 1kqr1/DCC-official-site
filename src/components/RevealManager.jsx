@@ -10,6 +10,10 @@ const RevealManager = () => {
 
     useEffect(() => {
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const cssReveal = CSS.supports('animation-timeline: view()')
+            && CSS.supports('animation-range: entry 0% entry 100%');
+
+        if (cssReveal && !reducedMotion) return undefined;
 
         const io = new IntersectionObserver(
             (entries) => {

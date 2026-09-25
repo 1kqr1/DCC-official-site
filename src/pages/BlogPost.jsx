@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { ViewTransition, useEffect, useState } from 'react';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { fetchPost } from '../blog/api';
+import { postTitleTransitionName } from '../blog/transition';
 import { useSeo } from '../seo';
 import EditorRouteFrame from '../components/EditorRouteFrame';
 import './Blog.css';
@@ -49,11 +50,12 @@ const Block = ({ block }) => {
 // 一度描画されてしまい、前の記事が一瞬見えることがある。
 const BlogPost = () => {
     const { slug } = useParams();
-    return <BlogPostView key={slug} slug={slug} />;
+    const { state } = useLocation();
+    return <BlogPostView key={slug} slug={slug} preview={state?.post?.slug === slug ? state.post : null} />;
 };
 
-const BlogPostView = ({ slug }) => {
-    const [post, setPost] = useState(null);
+const BlogPostView = ({ slug, preview }) => {
+    const [post, setPost] = useState(preview);
     const [notFound, setNotFound] = useState(false);
     const [error, setError] = useState(null);
 
@@ -131,7 +133,9 @@ const BlogPostView = ({ slug }) => {
                     <time className="blog-post-date">
                         <span className="blog-date-mark">//</span> {formatDate(post.publishedAt)}
                     </time>
-                    <h1 className="blog-post-title">{post.title}</h1>
+                    <ViewTransition name={postTitleTransitionName(slug)}>
+                        <h1 className="blog-post-title">{post.title}</h1>
+                    </ViewTransition>
                     <div className="blog-post-meta">
                         {post.authorName && <span className="blog-post-author">{post.authorName}</span>}
                         {Array.isArray(post.tags) && post.tags.map((tag) => (
@@ -149,9 +153,10 @@ const BlogPostView = ({ slug }) => {
                 )}
 
                 <div className="blog-post-body">
-                    {post.blocks.map((block, i) => (
+                    {post.blocks?.map((block, i) => (
                         <Block block={block} key={i} />
                     ))}
+                    {!post.blocks && <p aria-live="polite">本文を読み込み中...</p>}
                 </div>
 
                 <Link to="/blog" className="blog-back blog-back-bottom">cd ../blog</Link>

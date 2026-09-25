@@ -7,6 +7,36 @@
     backdrop-filter: blur(18px);
 }
 
+.site-header__progress {
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    height: 2px;
+    z-index: 1;
+    background: var(--editor-accent);
+    box-shadow: 0 0 10px var(--editor-accent-line);
+    transform: scaleX(var(--scroll-progress, 0));
+    transform-origin: left;
+    pointer-events: none;
+}
+
+@supports (animation-timeline: scroll(root block)) {
+    .site-header__progress {
+        animation: dcc-reading-progress linear both;
+        animation-timeline: scroll(root block);
+    }
+
+    @keyframes dcc-reading-progress {
+        from { transform: scaleX(0); }
+        to { transform: scaleX(1); }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-header__progress { display: none; animation: none; }
+}
+
 .site-header__inner {
     min-height: 68px;
     max-width: 1680px;

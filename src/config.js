@@ -15,6 +15,9 @@ export const BUSINESS_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSe_n7
 export const DCC_AI_URL = 'https://app.shu-dcc.net/ai';
 export const DCC_GIT_URL = 'https://app.shu-dcc.net/git#/';
 
+// 公開サイトから呼び出すDCCAI Worker。秘密情報はこの値に含めない。
+export const DCCAI_API_URL = import.meta.env.VITE_DCCAI_API_URL || 'https://dccai-shu-dcc.s1kqr1s.workers.dev/api/dccai';
+
 // 部員ポータル（DCC Login連携、部員が自分で編集できるアプリ。プロフィール編集・活動ブログ）
 // /members と /blog はここの公開APIからデータを読み込んで表示する
 export const PORTFOLIO_API_URL = 'https://dcc-portal.s1kqr1s.workers.dev';

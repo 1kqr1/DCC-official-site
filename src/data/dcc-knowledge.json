@@ -1,0 +1,47 @@
+{
+  "about": {
+    "name": "Digital Creators Community（DCC）",
+    "summary": "周南公立大学の学生を中心とした、Discordベースのクリエイターコミュニティです。"
+  },
+  "organization": {
+    "affiliation": "周南公立大学発",
+    "membership": "学生を中心としたコミュニティ"
+  },
+  "activities": {
+    "summary": "好きなものをつくり、見せ合い、一緒に学びます。普段の相談や作品共有はDiscordで行います。",
+    "fields": ["Web", "Game", "AI", "3D", "Design", "Video", "Music", "Hardware"],
+    "schedule": null,
+    "scheduleNote": "TODO: 定例の曜日・時間は公式情報の確認後に登録します。"
+  },
+  "location": {
+    "campus": "周南公立大学",
+    "room": "11号館 2F 第1実習室",
+    "online": "Discord"
+  },
+  "beginners": "プログラミング未経験でも参加できます。プログラミングだけでなく、イラスト・映像・音楽など、興味のある制作から始められます。",
+  "joining": {
+    "summary": "入部届も部費も必要ありません。Discordに参加すれば、その日からメンバーです。参加後はサーバー内の案内を確認してください。",
+    "action": "join"
+  },
+  "works": {
+    "summary": "Webサイト、3D制作、ゲーム開発、デジタルアート・映像・音楽などの活動があります。公開記事では、リモート図書館、コドバ。、自作Live2Dモデル、自分の楽曲データをAIで分析したレポートが紹介されています。",
+    "action": "projects"
+  },
+  "interestGuidance": {
+    "ai": "AIはDCCの活動分野の一つです。公開記事では、自分の楽曲データをAIで分析したレポートが紹介されています。興味があればDiscordで相談できます。",
+    "web": "Web開発はDCCの活動分野の一つです。DCC公式サイトの制作・運用（Web / React）や、公開記事で紹介されたWebアプリ「リモート図書館」があります。興味があればDiscordで相談できます。"
+  },
+  "projects": "個別プロジェクトの最新状況は、サイト内の活動ログ・公開記事で確認してください。",
+  "equipment": ["ゲーミングPC", "VR機器", "3Dプリンタ", "プロジェクター"],
+  "faq": {
+    "participation": "決まった参加頻度はありません。Discordで交流したり、来られるときに部室に来たり、自分のペースで活動できます。",
+    "cost": "部費はかかりません。"
+  },
+  "links": {
+    "discord": "https://discord.gg/Gah94cTxw4",
+    "github": "https://app.shu-dcc.net/git#/",
+    "dccAi": "https://app.shu-dcc.net/ai",
+    "contact": "https://docs.google.com/forms/d/e/1FAIpQLSew9o6Btnqyyf1_NvSGiaOzRfKoLBAz_BJmGAkZvOiGpo0HOQ/viewform?usp=dialog"
+  },
+  "unknown": ["公式SNSの一覧", "定例活動の曜日・時間", "プロジェクトごとの詳細"]
+}
