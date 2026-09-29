@@ -1,4 +1,5 @@
 .editor-home {
+    --editor-content-gap: clamp(60px, 9vw, 132px);
     width: min(1680px, 100%);
     margin: 0 auto;
     border-right: 1px solid var(--editor-border);
@@ -497,6 +498,7 @@
     grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.72fr);
     gap: clamp(32px, 8vw, 132px);
     padding: clamp(60px, 9vw, 132px) clamp(26px, 6.4vw, 100px);
+    padding-top: var(--editor-content-gap);
 }
 
 .markdown-sheet__eyebrow,
@@ -634,9 +636,8 @@
 
 .editor-projects .editor-filebar,
 .editor-members .editor-filebar,
-.editor-news .editor-filebar,
-.editor-join .editor-filebar {
-    margin: calc(clamp(60px, 8.4vw, 124px) * -1) calc(clamp(26px, 6.4vw, 100px) * -1) 0;
+.editor-news .editor-filebar {
+    margin: calc(clamp(60px, 8.4vw, 124px) * -1) calc(clamp(26px, 6.4vw, 100px) * -1) var(--editor-content-gap);
 }
 
 .editor-section__intro {
@@ -654,6 +655,20 @@
     color: var(--editor-muted);
     font-size: 0.86rem;
     line-height: 1.9;
+}
+
+.editor-news .editor-section__intro {
+    display: block;
+}
+
+.editor-news .editor-section__intro h2 {
+    margin-top: 0;
+    color: var(--editor-accent);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    line-height: 1.5;
 }
 
 .project-grid {
@@ -1086,6 +1101,10 @@
         #0b0f13;
 }
 
+.editor-join .editor-filebar {
+    margin: calc(clamp(68px, 10vw, 150px) * -1) calc(clamp(26px, 6.4vw, 100px) * -1) var(--editor-content-gap);
+}
+
 .join-terminal {
     position: relative;
     max-width: 860px;
@@ -1231,6 +1250,10 @@
 
 @media (max-width: 860px) {
     .editor-home {
+        --editor-content-gap: 72px;
+    }
+
+    .editor-home {
         border-right: 0;
         border-left: 0;
     }
@@ -1275,9 +1298,8 @@
 
     .editor-projects .editor-filebar,
     .editor-members .editor-filebar,
-    .editor-news .editor-filebar,
-    .editor-join .editor-filebar {
-        margin: -72px -30px 0;
+    .editor-news .editor-filebar {
+        margin: -72px -30px var(--editor-content-gap);
     }
 
     .editor-section__intro {
@@ -1308,7 +1330,7 @@
     }
 
     .editor-join .editor-filebar {
-        margin: -82px -30px 0;
+        margin: -82px -30px var(--editor-content-gap);
     }
 }
 
@@ -1422,6 +1444,10 @@
 }
 
 @media (max-width: 390px) {
+    .editor-home {
+        --editor-content-gap: 60px;
+    }
+
     .editor-home__chrome {
         padding: 0 10px;
     }

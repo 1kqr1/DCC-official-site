@@ -22,6 +22,8 @@ const sectionFiles = [
     { id: 'faq', label: 'faq.md', icon: '#', kind: 'file' },
     { id: 'join', label: 'join/', icon: '⌄', kind: 'folder' },
 ];
+const fileNumberBySection = Object.fromEntries(sectionFiles.map(({ id }, index) => [id, index + 1]));
+const newsActivityNumber = SHOW_HOME_MEMBERS ? '03' : '02';
 
 const extraFiles = [
     { id: 'hero', label: 'index.html', icon: '◉', kind: 'file', track: true },
@@ -204,7 +206,7 @@ const Home = () => {
 
                 <div className="editor-canvas">
                     <section id="hero" className="editor-section editor-hero" aria-labelledby="hero-title">
-                        <EditorFileBar file="index.html" type="html" number={1} />
+                        <EditorFileBar file="index.html" type="html" number={fileNumberBySection.hero} />
                         <div className="editor-hero__body">
                             <div className="editor-code editor-hero__code" data-reveal>
                                 <p className="hero-origin">周南公立大学発のクリエイターコミュニティ</p>
@@ -240,7 +242,7 @@ const Home = () => {
                     </section>
 
                     <section id="about" className="editor-section editor-about" aria-labelledby="about-title">
-                        <EditorFileBar file="about.md" type="markdown" number={2} />
+                        <EditorFileBar file="about.md" type="markdown" number={fileNumberBySection.about} />
                         <div className="editor-about__body">
                             <div className="markdown-sheet" data-reveal>
                                 <p className="markdown-sheet__eyebrow"># ABOUT DCC</p>
@@ -275,7 +277,7 @@ const Home = () => {
                     </section>
 
                     <section id="projects" className="editor-section editor-projects" aria-labelledby="projects-title">
-                        <EditorFileBar file="projects/" type="folder" number={3} />
+                        <EditorFileBar file="projects/" type="folder" number={fileNumberBySection.projects} />
                         <div className="editor-section__intro" data-reveal>
                             <div>
                                 <p className="editor-section__label">01 / SELECTED ACTIVITY &amp; WORK</p>
@@ -309,7 +311,7 @@ const Home = () => {
                     </section>
 
                     {SHOW_HOME_MEMBERS && <section id="members" className="editor-section editor-members" aria-labelledby="members-title">
-                        <EditorFileBar file="members.json" type="json" number={4} />
+                        <EditorFileBar file="members.json" type="json" number={fileNumberBySection.members} />
                         <div className="editor-section__intro editor-members__intro" data-reveal>
                             <div>
                                 <p className="editor-section__label">02 / PEOPLE IN DCC</p>
@@ -360,13 +362,9 @@ const Home = () => {
                     </section>}
 
                     <section id="news" className="editor-section editor-news" aria-labelledby="news-title">
-                        <EditorFileBar file="news.log" type="log" number={5} />
+                        <EditorFileBar file="news.log" type="log" number={fileNumberBySection.news} />
                         <div className="editor-section__intro" data-reveal>
-                            <div>
-                                <p className="editor-section__label">03 / ACTIVITY LOG</p>
-                                <h2 id="news-title">DCCの今を、<br />ログに残す。</h2>
-                            </div>
-                            <p>発表会やミーティングなど、DCCの日々の活動を紹介します。</p>
+                            <h2 id="news-title">{newsActivityNumber} / ACTIVITY LOG</h2>
                         </div>
 
                         <div className="news-workspace">
@@ -396,14 +394,14 @@ const Home = () => {
                     </section>
 
                     <section id="room" className="editor-section" aria-labelledby="room-title">
-                        <EditorFileBar file="workspace/" type="folder" number={6} />
+                        <EditorFileBar file="workspace/" type="folder" number={fileNumberBySection.room} />
                         <div className="community-space">
                             <div><p className="editor-section__label">ONLINE / ON CAMPUS</p><h2 id="room-title">オンラインでも、<br />部室でも。</h2><p>普段の相談や作品の共有はDiscordで。大学では、部室のPCやVR機器、3Dプリンタを使って制作を楽しめます。</p><p>活動拠点：11号館 2F 第1実習室</p><ul><li>ゲーミングPC</li><li>VR機器</li><li>3Dプリンタ</li><li>プロジェクター</li></ul><a className="editor-text-link" href={CONTACT_FORM_URL} target="_blank" rel="noreferrer">部室を見学したい方はこちら ↗</a></div>
                             <figure><img src={roomPhoto} alt="PCが並ぶDCCの部室" loading="lazy" width="800" height="600" /><figcaption>つくる道具も、相談できる仲間も。</figcaption></figure>
                         </div>
                     </section>
                     <section id="faq" className="editor-section" aria-labelledby="faq-title">
-                        <EditorFileBar file="faq.md" type="markdown" number={7} />
+                        <EditorFileBar file="faq.md" type="markdown" number={fileNumberBySection.faq} />
                         <div className="community-faq"><p className="editor-section__label">BEFORE YOU JOIN</p><h2 id="faq-title">参加する前に。</h2>
                             <details open><summary>プログラミング未経験でも大丈夫？</summary><p>はい。未経験でも参加できます。プログラミングだけでなく、イラスト・映像・音楽など、興味のある制作から始められます。</p></details>
                             <details><summary>活動頻度はどのくらい？</summary><p>決まった参加頻度はありません。Discordで交流したり、来られるときに部室に来たり、自分のペースで活動できます。</p></details>
@@ -412,7 +410,7 @@ const Home = () => {
                         </div>
                     </section>
                     <section id="join" className="editor-section editor-join" aria-labelledby="join-title">
-                        <EditorFileBar file="join.sh" type="shell" number={8} />
+                        <EditorFileBar file="join.sh" type="shell" number={fileNumberBySection.join} />
                         <div className="join-terminal" data-reveal>
                             <p className="join-terminal__command"><span>$</span> ./join.sh</p>
                             <p className="join-terminal__output">&gt; DCCに参加する</p>

@@ -10,7 +10,7 @@
 .published-work li { padding: 14px 0; border-bottom: 1px solid var(--editor-border); }
 .published-work li span { display: block; margin-top: 4px; color: var(--editor-muted); font-size: 0.85rem; }
 .published-work .editor-text-link { margin: 0; }
-.community-space, .community-faq { padding: clamp(40px, 6vw, 80px) clamp(22px, 4vw, 64px); }
+.community-space, .community-faq { padding: var(--editor-content-gap) clamp(22px, 4vw, 64px) clamp(40px, 6vw, 80px); }
 .community-space { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; align-items: center; }
 .community-space h2, .community-faq h2 { font-size: clamp(1.8rem, 3.3vw, 3rem); line-height: 1.4; margin-bottom: 24px; }
 .community-space p:not(.editor-section__label) { color: var(--editor-muted); margin: 16px 0; }
