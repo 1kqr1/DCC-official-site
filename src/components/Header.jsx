@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { HashLink } from 'react-router-hash-link';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import Link from './NavigationLink';
 import logo from '../assets/logo-white.png';
 import { DISCORD_INVITE, SHOW_HOME_MEMBERS } from '../config';
 import './Header.css';
@@ -13,24 +14,34 @@ const navigation = [
 ];
 
 const Header = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const { key } = useLocation();
+    const [menu, setMenu] = useState({ key, open: false });
+    if (menu.key !== key) setMenu({ key, open: false });
+    const isOpen = menu.key === key && menu.open;
+    const closeMenu = () => setMenu({ key, open: false });
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (!isOpen) return undefined;
 
         const previousOverflow = document.body.style.overflow;
         const closeOnEscape = (event) => {
-            if (event.key === 'Escape') setIsOpen(false);
+            if (event.key === 'Escape') setMenu({ key, open: false });
+        };
+        const desktop = window.matchMedia('(min-width: 861px)');
+        const closeOnDesktop = (event) => {
+            if (event.matches) setMenu({ key, open: false });
         };
 
         document.body.style.overflow = 'hidden';
         window.addEventListener('keydown', closeOnEscape);
+        desktop.addEventListener('change', closeOnDesktop);
 
         return () => {
             document.body.style.overflow = previousOverflow;
             window.removeEventListener('keydown', closeOnEscape);
+            desktop.removeEventListener('change', closeOnDesktop);
         };
-    }, [isOpen]);
+    }, [isOpen, key]);
 
     useEffect(() => {
         if (CSS.supports('animation-timeline: scroll(root block)')) return undefined;
@@ -58,27 +69,25 @@ const Header = () => {
         };
     }, []);
 
-    const closeMenu = () => setIsOpen(false);
-
     return (
         <>
             <a className="skip-link" href="#main-content">本文へスキップ</a>
             <header className="site-header">
                 <span className="site-header__progress" aria-hidden="true" />
                 <div className="site-header__inner">
-                    <HashLink smooth to="/#top" className="site-brand" aria-label="DCC トップへ">
-                        <img src={logo} alt="DCC" className="site-brand__logo" />
+                    <Link to="/#top" className="site-brand" aria-label="DCC トップへ" onClick={closeMenu}>
+                        <img src={logo} alt="DCC" className="site-brand__logo" width="883" height="331" />
                         <span className="site-brand__copy">
                             <span>DIGITAL CREATORS COMMUNITY</span>
                             <small>CREATIVE DEVELOPMENT ENVIRONMENT</small>
                         </span>
-                    </HashLink>
+                    </Link>
 
                     <nav className="site-header__nav" aria-label="メインナビゲーション">
                         {navigation.map((item) => (
-                            <HashLink key={item.to} smooth to={item.to} className="site-header__link">
+                            <Link key={item.to} to={item.to} className="site-header__link">
                                 {item.label}
-                            </HashLink>
+                            </Link>
                         ))}
                     </nav>
 
@@ -94,7 +103,7 @@ const Header = () => {
                         aria-label={isOpen ? 'メニューを閉じる' : 'メニューを開く'}
                         aria-expanded={isOpen}
                         aria-controls="dcc-mobile-menu"
-                        onClick={() => setIsOpen((current) => !current)}
+                        onClick={() => setMenu({ key, open: !isOpen })}
                     >
                         <span></span>
                         <span></span>
@@ -105,10 +114,10 @@ const Header = () => {
             <div id="dcc-mobile-menu" className={`site-mobile-menu${isOpen ? ' is-open' : ''}`}>
                 <nav aria-label="モバイルナビゲーション">
                     {navigation.map((item) => (
-                        <HashLink key={item.to} smooth to={item.to} className="site-mobile-menu__link" onClick={closeMenu}>
+                        <Link key={item.to} to={item.to} className="site-mobile-menu__link" onClick={closeMenu}>
                             {item.label}
                             <span aria-hidden="true">↘</span>
-                        </HashLink>
+                        </Link>
                     ))}
                     <a href={DISCORD_INVITE} className="site-mobile-menu__join" target="_blank" rel="noreferrer" onClick={closeMenu}>
                         $ ./join.sh <span aria-hidden="true">↗</span>

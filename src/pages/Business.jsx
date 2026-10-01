@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashLink } from 'react-router-hash-link';
+import Link from '../components/NavigationLink';
 import { BUSINESS_FORM_URL } from '../config';
 import { useSeo } from '../seo';
 import EditorRouteFrame from '../components/EditorRouteFrame';
@@ -58,9 +58,9 @@ const Business = () => {
                         企業・団体の皆さまとの関わりを歓迎しています。
                     </p>
                     <div className="biz-hero-actions">
-                        <HashLink smooth to="/business#contact-form" className="btn-cli">
+                        <Link to="/business#contact-form" className="btn-cli">
                             <span className="cli-prompt">$</span> お問い合わせ
-                        </HashLink>
+                        </Link>
                     </div>
                 </div>
             </section>

@@ -1,6 +1,5 @@
 import React from 'react';
-import { HashLink } from 'react-router-hash-link';
-import { Link } from 'react-router-dom';
+import Link from './NavigationLink';
 import logo from '../assets/logo-white.png';
 import { DISCORD_INVITE, SHOW_HOME_MEMBERS } from '../config';
 import './Footer.css';
@@ -37,7 +36,7 @@ const Footer = () => (
 
             <nav className="site-footer__nav" aria-label="フッターナビゲーション">
                 {footerLinks.map((link) => (
-                    <HashLink key={link.to} smooth to={link.to}>{link.label}</HashLink>
+                    <Link key={link.to} to={link.to}>{link.label}</Link>
                 ))}
             </nav>
 

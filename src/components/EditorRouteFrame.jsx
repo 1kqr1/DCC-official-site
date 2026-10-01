@@ -1,4 +1,4 @@
-import React, { ViewTransition } from 'react';
+import React from 'react';
 import './EditorRouteFrame.css';
 
 const fileIcons = {
@@ -16,12 +16,10 @@ const EditorRouteFrame = ({ file, type = 'markdown', number, children }) => (
             <span className="editor-route-frame__state">● LIVE</span>
         </div>
         <div className="editor-route-frame__tabbar">
-            <ViewTransition name="dcc-file-tab">
                 <span className={`editor-route-frame__tab editor-route-frame__tab--${type}`}>
                     <b>{fileIcons[type] || '#'}</b>
                     {file}
                 </span>
-            </ViewTransition>
             {number && <span className="editor-route-frame__index">{number}</span>}
         </div>
         <div className="editor-route-frame__content">{children}</div>

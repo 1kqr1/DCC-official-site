@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from '../components/NavigationLink';
 import { fetchMembers } from '../members/api';
 import { PORTFOLIO_EDIT_URL } from '../config';
 import { useSeo } from '../seo';

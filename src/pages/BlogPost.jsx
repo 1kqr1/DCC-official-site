@@ -1,7 +1,7 @@
-import React, { ViewTransition, useEffect, useState } from 'react';
-import { useParams, Link, useLocation } from 'react-router-dom';
-import { fetchPost } from '../blog/api';
-import { postTitleTransitionName } from '../blog/transition';
+import React, { useEffect, useState } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
+import Link from '../components/NavigationLink';
+import { fetchPost, getCachedPost } from '../blog/api';
 import { useSeo } from '../seo';
 import EditorRouteFrame from '../components/EditorRouteFrame';
 import './Blog.css';
@@ -55,13 +55,12 @@ const BlogPost = () => {
 };
 
 const BlogPostView = ({ slug, preview }) => {
-    const [post, setPost] = useState(preview);
+    // 戻る・進むで本文を再表示するまで高さを失わず、ブラウザの位置復元を可能にする。
+    const [post, setPost] = useState(() => getCachedPost(slug) ?? preview);
     const [notFound, setNotFound] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        window.scrollTo(0, 0);
-
         // 読み込み中に別のページへ移った場合、返ってきた結果は捨てる
         let cancelled = false;
         fetchPost(slug)
@@ -133,9 +132,7 @@ const BlogPostView = ({ slug, preview }) => {
                     <time className="blog-post-date">
                         <span className="blog-date-mark">//</span> {formatDate(post.publishedAt)}
                     </time>
-                    <ViewTransition name={postTitleTransitionName(slug)}>
                         <h1 className="blog-post-title">{post.title}</h1>
-                    </ViewTransition>
                     <div className="blog-post-meta">
                         {post.authorName && <span className="blog-post-author">{post.authorName}</span>}
                         {Array.isArray(post.tags) && post.tags.map((tag) => (

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import Link from '../components/NavigationLink';
 import EditorRouteFrame from '../components/EditorRouteFrame';
 import { useSeo } from '../seo';
 import './NotFound.css';

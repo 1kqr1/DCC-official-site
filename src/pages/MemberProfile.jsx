@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { fetchMember } from '../members/api';
+import { useParams } from 'react-router-dom';
+import Link from '../components/NavigationLink';
+import { fetchMember, getCachedMember } from '../members/api';
 import { useSeo } from '../seo';
 import EditorRouteFrame from '../components/EditorRouteFrame';
 import './Members.css';
@@ -16,11 +17,14 @@ const AvatarPlaceholder = () => (
 
 const MemberProfile = () => {
     const { slug } = useParams();
-    const [member, setMember] = useState(undefined); // undefined=読み込み中, null=見つからない
+    return <MemberProfileView key={slug} slug={slug} />;
+};
+
+const MemberProfileView = ({ slug }) => {
+    const [member, setMember] = useState(() => getCachedMember(slug)); // undefined=読み込み中, null=見つからない
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        window.scrollTo(0, 0);
         let ignore = false;
         fetchMember(slug)
             .then((data) => { if (!ignore) setMember(data); })

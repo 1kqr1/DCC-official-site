@@ -1,10 +1,8 @@
-import React, { ViewTransition, useEffect, useState } from 'react';
-import { HashLink } from 'react-router-hash-link';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import Link from '../components/NavigationLink';
 import logo from '../assets/logo-white.png';
 import roomPhoto from '../assets/room-pc-01.jpg';
 import { fetchPosts } from '../blog/api';
-import { postTitleTransitionName } from '../blog/transition';
 import { DCC_AI_URL, DCC_GIT_URL, DISCORD_INVITE, CONTACT_FORM_URL, PORTFOLIO_EDIT_URL, SHOW_HOME_MEMBERS } from '../config';
 import { projectCards, aboutGallery, activityFields } from '../data/editorContent';
 import { fetchMembers } from '../members/api';
@@ -100,22 +98,20 @@ const ExplorerLink = ({ entry, activeSection }) => {
 
     if (entry.to) {
         return (
-            <ViewTransition name="dcc-file-tab">
                 <Link className={`editor-explorer__entry editor-explorer__entry--${entry.kind}`} to={entry.to}>
                     {content}
                 </Link>
-            </ViewTransition>
         );
     }
 
     return (
-        <a
+        <Link
             className={`editor-explorer__entry editor-explorer__entry--${entry.kind}${isActive ? ' is-active' : ''}`}
-            href={`#${entry.id}`}
+            to={`/#${entry.id}`}
             aria-current={isActive ? 'location' : undefined}
         >
             {content}
-        </a>
+        </Link>
     );
 };
 
@@ -153,18 +149,6 @@ const Home = () => {
     const [postsError, setPostsError] = useState(false);
 
     useSeo({ path: '/' });
-
-    // SPAの初回描画後でも /#projects のような直リンク先へ確実に移動する。
-    useEffect(() => {
-        const targetId = decodeURIComponent(window.location.hash.replace(/^#/, ''));
-        if (!targetId) return undefined;
-
-        const frame = window.requestAnimationFrame(() => {
-            document.getElementById(targetId)?.scrollIntoView();
-        });
-
-        return () => window.cancelAnimationFrame(frame);
-    }, []);
 
     useEffect(() => {
         let cancelled = false;
@@ -222,7 +206,7 @@ const Home = () => {
                                     <span className="editor-code__number" aria-hidden="true">04</span>
                                     <span>
                                         <a href={DISCORD_INVITE} className="editor-button editor-button--accent" target="_blank" rel="noreferrer">Discordで参加する <b>↗</b></a>
-                                        <HashLink smooth to="/#projects" className="editor-button editor-button--quiet">作品・活動を見る <b>↓</b></HashLink>
+                                        <Link to="/#projects" className="editor-button editor-button--quiet">作品・活動を見る <b>↓</b></Link>
                                     </span>
                                 </div>
                             </div>
@@ -376,7 +360,7 @@ const Home = () => {
                                 {posts?.slice(0, 4).map((post) => (
                                     <Link to={`/blog/${post.slug}`} state={{ post }} className="news-terminal__line" key={post.slug}>
                                         <time>{formatLogDate(post.publishedAt)}</time>
-                                        <ViewTransition name={postTitleTransitionName(post.slug)}><span>{post.title}</span></ViewTransition>
+                                        <span>{post.title}</span>
                                         <b aria-hidden="true">↗</b>
                                     </Link>
                                 ))}

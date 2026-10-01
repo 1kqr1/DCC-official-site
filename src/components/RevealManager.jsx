@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 // [data-reveal] が付いた要素を監視し、画面に入ったら data-revealed 属性を付与する。
@@ -8,10 +8,18 @@ import { useLocation } from 'react-router-dom';
 const RevealManager = () => {
     const { pathname } = useLocation();
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const cssReveal = CSS.supports('animation-timeline: view()')
             && CSS.supports('animation-range: entry 0% entry 100%');
+
+        // 新ページの最初の画面をopacity:0のまま描画しない。画面外の演出は維持する。
+        document.querySelectorAll('[data-reveal]:not([data-revealed])').forEach((element) => {
+            const rect = element.getBoundingClientRect();
+            if (reducedMotion || (rect.bottom > 0 && rect.top < window.innerHeight)) {
+                element.setAttribute('data-revealed', 'initial');
+            }
+        });
 
         if (cssReveal && !reducedMotion) return undefined;
 

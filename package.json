@@ -9,6 +9,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "test": "node --test tests/*.test.js",
+    "test:browser": "npm run build && playwright test",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
@@ -16,11 +17,12 @@
   "dependencies": {
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "react-router-dom": "^7.9.6",
+    "react-router-dom": "^7.18.4",
     "react-router-hash-link": "^2.4.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@playwright/test": "^1.62.1",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",

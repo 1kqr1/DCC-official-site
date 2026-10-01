@@ -1,7 +1,6 @@
-import React, { ViewTransition, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import Link from '../components/NavigationLink';
 import { fetchPosts, getCachedPosts } from '../blog/api';
-import { postTitleTransitionName } from '../blog/transition';
 import { useSeo } from '../seo';
 import EditorRouteFrame from '../components/EditorRouteFrame';
 import './Blog.css';
@@ -74,9 +73,7 @@ const Blog = () => {
                                     <time className="blog-card-date">
                                         <span className="blog-date-mark">//</span> {formatDate(post.publishedAt)}
                                     </time>
-                                    <ViewTransition name={postTitleTransitionName(post.slug)}>
                                         <h2 className="blog-card-title">{post.title}</h2>
-                                    </ViewTransition>
                                     {post.excerpt && <p className="blog-card-excerpt">{post.excerpt}</p>}
                                     {Array.isArray(post.tags) && post.tags.length > 0 && (
                                         <div className="blog-card-tags">

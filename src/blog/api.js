@@ -3,8 +3,10 @@
 import { PORTFOLIO_API_URL } from '../config';
 
 let cachedPosts = null;
+const cachedArticles = new Map();
 
 export const getCachedPosts = () => cachedPosts;
+export const getCachedPost = (slug) => cachedArticles.get(slug);
 
 export async function fetchPosts() {
     const res = await fetch(`${PORTFOLIO_API_URL}/api/blog`);
@@ -18,5 +20,7 @@ export async function fetchPost(slug) {
     const res = await fetch(`${PORTFOLIO_API_URL}/api/blog/${encodeURIComponent(slug)}`);
     if (res.status === 404) return null;
     if (!res.ok) throw new Error(`記事の取得に失敗しました (${res.status})`);
-    return res.json();
+    const post = await res.json();
+    cachedArticles.set(slug, post);
+    return post;
 }
