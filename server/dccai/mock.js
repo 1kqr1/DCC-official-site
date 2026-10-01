@@ -1,9 +1,12 @@
 import knowledge from '../../src/data/dcc-knowledge.json' with { type: 'json' };
 import { getSuggestedAnswer } from '../../src/data/dccaiSuggestions.js';
+import { getPolicyReply } from '../../src/lib/dccaiPolicy.js';
 
 const has = (message, words) => words.some((word) => message.includes(word));
 
 export const getMockReply = (message) => {
+  const policyReply = getPolicyReply(message);
+  if (policyReply) return policyReply;
   const suggestedAnswer = getSuggestedAnswer(message, knowledge);
   if (suggestedAnswer) return suggestedAnswer;
   const text = message.toLowerCase();
