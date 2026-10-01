@@ -156,7 +156,39 @@ test('戻る・進むでは各履歴のスクロール位置を復元する', as
     await page.goForward();
     await expect(page.locator('.blog-heading')).toBeVisible();
     await expect.poll(() => page.evaluate(() => scrollY)).toBe(500);
-    expect(await page.evaluate(() => history.scrollRestoration)).toBe('auto');
+    expect(await page.evaluate(() => history.scrollRestoration)).toBe('manual');
+    await expectHeader(page);
+});
+
+for (const hash of ['#top', '#about']) {
+    test(`ハッシュ付きの履歴 ${hash} でも戻る・進むで読んでいた位置を復元する`, async ({ page }) => {
+        await page.goto('/business');
+        await clickLink(page, '.site-brand');
+        if (hash !== '#top') await clickLink(page, `.site-header__link[href="/${hash}"]`);
+        await scrollTo(page, 1300);
+        await clickLink(page, '.site-footer a[href="/business"]');
+        await scrollTo(page, 500);
+        await clickLink(page, '.site-brand');
+        await page.goBack();
+        await expect(page.locator('.business')).toBeAttached();
+        await expect.poll(() => page.evaluate(() => scrollY)).toBe(500);
+        await page.goBack();
+        await expect(page).toHaveURL(`/${hash}`);
+        await expect.poll(() => page.evaluate(() => scrollY)).toBe(1300);
+        await page.goForward();
+        await expect(page.locator('.business')).toBeAttached();
+        await expect.poll(() => page.evaluate(() => scrollY)).toBe(500);
+        await expectHeader(page);
+    });
+}
+
+test('ハッシュ付きページを再読み込みしても読んでいた位置を失わない', async ({ page }) => {
+    await page.goto('/business');
+    await clickLink(page, '.site-brand');
+    await scrollTo(page, 1300);
+    await page.reload();
+    await expect(page).toHaveURL('/#top');
+    await expect.poll(() => page.evaluate(() => scrollY)).toBe(1300);
     await expectHeader(page);
 });
 
@@ -188,6 +220,54 @@ test('記事に戻る際、APIの再取得が遅くても本文の高さとス�
         await expect.poll(() => page.evaluate(() => scrollY)).toBe(1400);
         await expectHeader(page);
     } finally { release(); }
+});
+
+test('本文取得が遅い再読み込みでも、描画の準備ができたときに履歴の位置を復元する', async ({ page }) => {
+    let release;
+    let requests = 0;
+    const pending = new Promise((resolve) => { release = resolve; });
+    await page.route(`${api}blog/fixture-0`, async (route) => {
+        if (++requests > 1) await pending;
+        await route.fulfill({ json: article('fixture-0') });
+    });
+    try {
+        await page.goto('/blog/fixture-0');
+        await expect(page.locator('.blog-post-body p')).toHaveCount(35);
+        await scrollTo(page, 1400);
+        await page.reload();
+        await expect(page.locator('.blog-notfound')).toHaveText('読み込み中...');
+    } finally { release(); }
+    await expect(page.locator('.blog-post-body p')).toHaveCount(35);
+    await expect.poll(() => page.evaluate(() => scrollY)).toBe(1400);
+    await expectHeader(page);
+});
+
+test('本文を待つ間に利用者が操作したら、遅い復元で位置を上書きしない', async ({ page, isMobile }) => {
+    let release;
+    let requests = 0;
+    const pending = new Promise((resolve) => { release = resolve; });
+    await page.route(`${api}blog/fixture-0`, async (route) => {
+        if (++requests > 1) await pending;
+        await route.fulfill({ json: article('fixture-0') });
+    });
+    try {
+        await page.goto('/blog/fixture-0');
+        await expect(page.locator('.blog-post-body p')).toHaveCount(35);
+        await scrollTo(page, 1400);
+        await page.reload();
+        await expect(page.locator('.blog-notfound')).toHaveText('読み込み中...');
+        if (isMobile) {
+            // モバイルWebKitはwheel未対応。タッチ操作後に利用者の位置を選ぶ。
+            await page.locator('.blog-notfound').tap();
+            await scrollTo(page, 0);
+        } else {
+            await page.mouse.wheel(0, -10000);
+        }
+        await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
+    } finally { release(); }
+    await expect(page.locator('.blog-post-body p')).toHaveCount(35);
+    await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
+    await expectHeader(page);
 });
 
 test('スマホメニューを閉じてから遷移し、スクロールロックを残さない', async ({ page }) => {

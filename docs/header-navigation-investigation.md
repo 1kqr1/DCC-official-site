@@ -2,7 +2,9 @@
 
 ローカルのソース修正と検証は完了。修正前のChromeで、URLが `/blog` に変わった後も旧トップページのDOMが残る描画フレームと、遷移先にスクロール位置が残る状態を確認した。修正後はChrome、Chromium、デスクトップWebKit、iPhone 13を模したWebKitで、リンクをクリックした直後と次の描画フレームの両方に、新ページのDOM・正しいスクロール位置・同じヘッダーDOMが存在することを検証した。
 
-添付動画は今回の実行環境から参照できていない。動画でのヘッダー消失そのものと同一の原因だとは断定していない。確認できた不具合を修正し、環境差につながる描画待ち・スクロールの競合・stickyの祖先設定を整理した。このレポートは本番反映前のソース調査とローカル検証の記録であり、公開結果はリリース報告で扱う。
+添付動画は今回の実行環境から参照できていない。動画でのヘッダー消失そのものと同一の原因だとは断定していない。確認できた不具合を修正し、環境差につながる描画待ち・スクロールの競合・stickyの祖先設定を整理した。このレポートはソース調査とローカル検証の記録であり、最終版の公開結果はリリース報告で扱う。
+
+初回の本番反映後、実際のフォントと公開APIを使ったWebKit検証で、`/#top` を1300pxまで読んで別ページへ移動し、戻る操作で0pxへ戻る追加条件を確認した。popstateの記録では、新しいHomeのDOMへ切り替わる前に0pxへ移動していた。`scrollRestoration=auto` だけに任せる構造を修正し、クリックとpopstateのcapture段階で旧ページの位置を保存、履歴keyごとに新DOMの描画前に復元する方式に変更した。任意の遅延を追加せず、SPAとブラウザが別々に位置を決める競合をなくした。
 
 調査で確認したこと
 
@@ -25,7 +27,7 @@
 | --- | --- |
 | `src/App.jsx` | 現役のViewTransitionを除去。`BrowserRouter useTransitions={false}` を指定。Header/Footer/DCCAIWidgetを保持し、Routesがmainの内容を更新する構造を維持 |
 | `src/components/NavigationLink.jsx`（追加） | 標準のuseLinkClickHandlerをflushSync内で実行。URL更新の後に別の描画フレームまでDOM更新を延期しない。修飾キー、別タブ、外部URL、downloadの通常動作は保持 |
-| `src/components/RouteScrollManager.jsx`（追加） | useLayoutEffectで新DOMの描画前に通常遷移を上部へ戻す。別ページのハッシュ移動は即時、同じページのアンカーはsmooth。POPはブラウザのscrollRestoration=autoに任せる |
+| `src/components/RouteScrollManager.jsx`（追加） | useLayoutEffectで新DOMの描画前に通常遷移を上部へ戻す。別ページのハッシュ移動は即時、同じページのアンカーはsmooth。scrollRestoration=manualと履歴key別の位置管理でPOPを復元。captureイベントで遷移前の位置を取りこぼさず、pagehide時にはタブ内のsessionStorageへ保存。再読み込み時の遅い本文はResizeObserverで高さの準備を検知して復元し、利用者が操作したら待機を中止する |
 | `src/components/Header.jsx` | 同期リンクへ統一。遷移時とPC幅への変更時にモバイルメニューを閉じ、bodyのスクロールロックを描画前に解除。ロゴのintrinsic width/heightを明示 |
 | `src/components/Header.css` | ナビ文字列をnowrapにし、フォント幅による折返しを防止。Safari向けの-webkit-backdrop-filterを追加。色・配置・フォント・ブレークポイントは維持 |
 | `src/components/RevealManager.jsx`、`src/index.css` | 新ページの最初の画面内の要素をuseLayoutEffectで表示し、その初期表示には透明化や移動の演出を適用しない。画面外からスクロールで入る演出は維持。横方向のクリップをbodyからhtmlへ移し、bodyのスクロール機構をなくす。htmlのscroll-behaviorをautoにし、履歴復元をsmoothにしない |
@@ -43,15 +45,15 @@
 
 | 環境・確認 | 結果 |
 | --- | --- |
-| Chrome 154（このMacにインストール済み） | ブラウザテスト13件成功 |
-| Chromium 151 | ブラウザテスト13件成功 |
-| デスクトップWebKit | ブラウザテスト12件成功。CPU制限テスト1件はChromium専用のため除外 |
-| iPhone 13を模したWebKit | ブラウザテスト12件成功。CPU制限テスト1件はChromium専用のため除外。実機のiOS Safariではない |
+| Chrome 154（このMacにインストール済み） | ブラウザテスト18件成功 |
+| Chromium 151 | ブラウザテスト18件成功 |
+| デスクトップWebKit | ブラウザテスト17件成功。CPU制限テスト1件はChromium専用のため除外 |
+| iPhone 13を模したWebKit | ブラウザテスト17件成功。CPU制限テスト1件はChromium専用のため除外。実機のiOS Safariではない |
 | Firefox | コード上の確認を実施。テスト用Firefoxの起動がこのMacで失敗したため実行検証は未完了。テスト設定は追加済み |
 | Edge | Chromium共通の描画経路とコードを確認。このMacにEdgeがないためEdge自身での実行検証は未実施 |
 | lint / build / 既存のテスト / diff check | すべて成功。既存のテストは8件成功 |
 
-ブラウザ検証は合計50件成功。確認内容は、クリック直後と次のフレームのURL・DOM・scrollY・ヘッダーDOM参照・見出しopacity、40回の連続クリック、APIを保留した一覧/記事、記事再訪時の遅い再取得、戻る・進む、直接ハッシュURL、モバイルメニュー、PC幅へのリサイズ、初回オープニングとキャッシュ済み再訪、フォント読み込み保留、reduced-motion、進捗バーのJSフォールバック、Chromium/ChromeでのCPU速度6倍制限。
+ブラウザ検証は合計70件成功。確認内容は、クリック直後と次のフレームのURL・DOM・scrollY・ヘッダーDOM参照・見出しopacity、40回の連続クリック、APIを保留した一覧/記事、記事再訪時の遅い再取得、戻る・進む、直接ハッシュURL、ハッシュ付き履歴の位置復元、ハッシュ付きページの再読み込み、再読み込み後の遅い本文と位置復元、本文待ちの間に利用者が操作した場合の復元中止、モバイルメニュー、PC幅へのリサイズ、初回オープニングとキャッシュ済み再訪、フォント読み込み保留、reduced-motion、進捗バーのJSフォールバック、Chromium/ChromeでのCPU速度6倍制限。
 
 幅320/375/390/430/768/1024/1280/1440/1920pxを確認し、860/861/869/870/871/1180/1181pxの境界も追加した。80/90/100/110/125/150%のブラウザズームで想定されるCSS viewport幅も確認した。これは実際のブラウザのズームUIを操作した検証ではない。WebKitでは常時表示のスクロールバーの幅がメディアクエリに影響するため、JSとCSSが同じメディアクエリを使って整合することも確認した。
 
