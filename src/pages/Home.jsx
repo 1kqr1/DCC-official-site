@@ -20,8 +20,9 @@ const sectionFiles = [
     { id: 'faq', label: 'faq.md', icon: '#', kind: 'file' },
     { id: 'join', label: 'join/', icon: '⌄', kind: 'folder' },
 ];
-const fileNumberBySection = Object.fromEntries(sectionFiles.map(({ id }, index) => [id, index + 1]));
-const newsActivityNumber = SHOW_HOME_MEMBERS ? '03' : '02';
+// index.html を 00 とし、各セクションのファイル番号と見出しラベルの番号を一致させる
+const fileNumberBySection = Object.fromEntries(sectionFiles.map(({ id }, index) => [id, index]));
+const sectionNumber = (id) => String(fileNumberBySection[id]).padStart(2, '0');
 
 const extraFiles = [
     { id: 'hero', label: 'index.html', icon: '◉', kind: 'file', track: true },
@@ -229,7 +230,7 @@ const Home = () => {
                         <EditorFileBar file="about.md" type="markdown" number={fileNumberBySection.about} />
                         <div className="editor-about__body">
                             <div className="markdown-sheet" data-reveal>
-                                <p className="markdown-sheet__eyebrow"># ABOUT DCC</p>
+                                <p className="markdown-sheet__eyebrow">{sectionNumber('about')} / ABOUT DCC</p>
                                 <h2 id="about-title">DCCって<br /><em>どんなところ？</em></h2>
                                 <p>DCCは、周南公立大学の学生を中心とした、Discordベースのクリエイターコミュニティです。</p>
                                 <p>プログラミング・3D・デジタルアートなど。興味のあるものを自由につくり、知識と作品を持ち寄ります。</p>
@@ -264,7 +265,7 @@ const Home = () => {
                         <EditorFileBar file="projects/" type="folder" number={fileNumberBySection.projects} />
                         <div className="editor-section__intro" data-reveal>
                             <div>
-                                <p className="editor-section__label">01 / FROM THE SHOWCASE</p>
+                                <p className="editor-section__label">{sectionNumber('projects')} / FROM THE SHOWCASE</p>
                                 <h2 id="projects-title">発表会で<br />紹介された作品</h2>
                             </div>
                             <p>成果物発表会で、メンバーが発表した作品の一部です。</p>
@@ -280,7 +281,7 @@ const Home = () => {
                         <EditorFileBar file="members.json" type="json" number={fileNumberBySection.members} />
                         <div className="editor-section__intro editor-members__intro" data-reveal>
                             <div>
-                                <p className="editor-section__label">02 / PEOPLE IN DCC</p>
+                                <p className="editor-section__label">{sectionNumber('members')} / PEOPLE IN DCC</p>
                                 <h2 id="members-title">人の好奇心が、<br />DCCのエンジン。</h2>
                             </div>
                             <a href={PORTFOLIO_EDIT_URL} className="editor-text-link" target="_blank" rel="noreferrer">プロフィールを編集する <span aria-hidden="true">↗</span></a>
@@ -330,7 +331,11 @@ const Home = () => {
                     <section id="news" className="editor-section editor-news" aria-labelledby="news-title">
                         <EditorFileBar file="news.log" type="log" number={fileNumberBySection.news} />
                         <div className="editor-section__intro" data-reveal>
-                            <h2 id="news-title">{newsActivityNumber} / ACTIVITY LOG</h2>
+                            <div>
+                                <p className="editor-section__label">{sectionNumber('news')} / ACTIVITY LOG</p>
+                                <h2 id="news-title">DCCの<br />最近の活動</h2>
+                            </div>
+                            <p>イベントや日々の活動の様子を、ブログで紹介しています。</p>
                         </div>
 
                         <div className="news-workspace">
@@ -362,13 +367,13 @@ const Home = () => {
                     <section id="room" className="editor-section" aria-labelledby="room-title">
                         <EditorFileBar file="workspace/" type="folder" number={fileNumberBySection.room} />
                         <div className="community-space">
-                            <div><p className="editor-section__label">ONLINE / ON CAMPUS</p><h2 id="room-title">普段はDiscord、<br />大学では部室で活動しています</h2><p>普段の相談や作品の共有はDiscordで。大学では、部室のPCやVR機器、3Dプリンタを使って制作を楽しめます。</p><p>活動拠点：11号館 2F 第1実習室</p><ul><li>ゲーミングPC</li><li>VR機器</li><li>3Dプリンタ</li><li>プロジェクター</li></ul><a className="editor-text-link" href={CONTACT_FORM_URL} target="_blank" rel="noreferrer">部室を見学したい方はこちら ↗</a></div>
+                            <div><p className="editor-section__label">{sectionNumber('room')} / ONLINE &amp; ON CAMPUS</p><h2 id="room-title">オンラインと<br />部室での活動</h2><p>普段の相談や作品の共有はDiscordで。大学では、部室のPCやVR機器、3Dプリンタを使って制作を楽しめます。</p><p>活動拠点：11号館 2F 第1実習室</p><ul><li>ゲーミングPC</li><li>VR機器</li><li>3Dプリンタ</li><li>プロジェクター</li></ul><a className="editor-text-link" href={CONTACT_FORM_URL} target="_blank" rel="noreferrer">部室を見学したい方はこちら ↗</a></div>
                             <figure><img src={roomPhoto} alt="PCが並ぶDCCの部室" loading="lazy" width="800" height="600" /><figcaption>つくる道具も、相談できる仲間も。</figcaption></figure>
                         </div>
                     </section>
                     <section id="faq" className="editor-section" aria-labelledby="faq-title">
                         <EditorFileBar file="faq.md" type="markdown" number={fileNumberBySection.faq} />
-                        <div className="community-faq"><p className="editor-section__label">BEFORE YOU JOIN</p><h2 id="faq-title">参加する前によくある質問</h2>
+                        <div className="community-faq"><p className="editor-section__label">{sectionNumber('faq')} / BEFORE YOU JOIN</p><h2 id="faq-title">参加する前に<br />よくある質問</h2>
                             <details open><summary>プログラミング未経験でも大丈夫？</summary><p>はい。未経験でも参加できます。プログラミングだけでなく、イラスト・映像・音楽など、興味のある制作から始められます。</p></details>
                             <details><summary>活動頻度はどのくらい？</summary><p>決まった参加頻度はありません。Discordで交流したり、来られるときに部室に来たり、自分のペースで活動できます。</p></details>
                             <details><summary>他のサークルと掛け持ちできる？</summary><p>はい、掛け持ちできます。</p></details>
