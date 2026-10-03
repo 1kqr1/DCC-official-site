@@ -3,15 +3,16 @@ import { useLocation } from 'react-router-dom';
 import Link from './NavigationLink';
 import logo from '../assets/logo-white.png';
 import { DISCORD_INVITE, SHOW_HOME_MEMBERS } from '../config';
+import { siteNumber } from '../data/siteSections';
 import './Header.css';
 
 const navigation = [
-    { to: '/#about', label: '[01] ABOUT' },
-    { to: '/#projects', label: '[02] PROJECTS' },
-    ...(SHOW_HOME_MEMBERS ? [{ to: '/#members', label: '[03] MEMBERS' }] : []),
-    { to: '/#news', label: `[0${SHOW_HOME_MEMBERS ? 4 : 3}] NEWS` },
-    { to: '/#join', label: `[0${SHOW_HOME_MEMBERS ? 5 : 4}] JOIN` },
-    { to: '/business', label: `[0${SHOW_HOME_MEMBERS ? 6 : 5}] BUSINESS` },
+    { to: '/#about', label: `[${siteNumber('about')}] ABOUT` },
+    { to: '/#projects', label: `[${siteNumber('projects')}] PROJECTS` },
+    ...(SHOW_HOME_MEMBERS ? [{ to: '/#members', label: `[${siteNumber('members')}] MEMBERS` }] : []),
+    { to: '/#news', label: `[${siteNumber('news')}] NEWS` },
+    { to: '/#join', label: `[${siteNumber('join')}] JOIN` },
+    { to: '/business', label: `[${siteNumber('business')}] BUSINESS` },
 ];
 
 const Header = () => {

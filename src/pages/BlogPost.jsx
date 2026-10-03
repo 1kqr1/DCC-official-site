@@ -4,6 +4,7 @@ import Link from '../components/NavigationLink';
 import { fetchPost, getCachedPost } from '../blog/api';
 import { useSeo } from '../seo';
 import EditorRouteFrame from '../components/EditorRouteFrame';
+import { siteNumber } from '../data/siteSections';
 import './Blog.css';
 
 const formatDate = (d) => {
@@ -85,7 +86,7 @@ const BlogPostView = ({ slug, preview }) => {
     });
 
     const frame = (content) => (
-        <EditorRouteFrame file={post ? `news/${post.slug}.md` : 'news/article.md'} type="markdown" number="07">
+        <EditorRouteFrame file={post ? `news/${post.slug}.md` : 'news/article.md'} type="markdown" number={siteNumber('news')}>
             {content}
         </EditorRouteFrame>
     );

@@ -3,6 +3,7 @@ import Link from '../components/NavigationLink';
 import { BUSINESS_FORM_URL } from '../config';
 import { useSeo } from '../seo';
 import EditorRouteFrame from '../components/EditorRouteFrame';
+import { siteNumber } from '../data/siteSections';
 import './Business.css';
 
 const offers = [
@@ -95,7 +96,7 @@ const Business = () => {
     });
 
     return (
-        <EditorRouteFrame file="collaborate.md" type="markdown" number="09">
+        <EditorRouteFrame file="collaborate.md" type="markdown" number={siteNumber('business')}>
         <div className="business">
             {/* ===== イントロ ===== */}
             <section className="biz-hero">
@@ -122,7 +123,7 @@ const Business = () => {
             {/* ===== 関わり方 ===== */}
             <section className="biz-offers">
                 <div className="container">
-                    <span className="section-label">01 // WHAT WE OFFER</span>
+                    <span className="section-label">01 / WHAT WE OFFER</span>
                     <h2 className="section-heading">できる関わり方</h2>
                     <div className="offer-grid">
                         {offers.map((o) => (
@@ -143,7 +144,7 @@ const Business = () => {
             {/* ===== 実績 ===== */}
             <section className="biz-works" id="works">
                 <div className="container">
-                    <span className="section-label">02 // WORKS</span>
+                    <span className="section-label">02 / WORKS</span>
                     <h2 className="section-heading">メンバーの制作実績</h2>
                     <div className="biz-work-grid">
                         {works.map((w) => (
@@ -166,7 +167,7 @@ const Business = () => {
             {/* ===== ご依頼の流れ ===== */}
             <section className="biz-flow">
                 <div className="container">
-                    <span className="section-label">03 // FLOW</span>
+                    <span className="section-label">03 / FLOW</span>
                     <h2 className="section-heading">ご依頼の流れ</h2>
                     <ol className="flow-list">
                         {flow.map((f, i) => (
@@ -186,7 +187,7 @@ const Business = () => {
             {/* ===== よくある質問 ===== */}
             <section className="biz-faq">
                 <div className="container">
-                    <span className="section-label">04 // FAQ</span>
+                    <span className="section-label">04 / FAQ</span>
                     <h2 className="section-heading">よくあるご質問</h2>
                     <div className="biz-faq-window">
                         <div className="biz-faq-bar" aria-hidden="true">business-faq.md</div>
@@ -207,7 +208,7 @@ const Business = () => {
             {/* ===== 問い合わせCTA ===== */}
             <section className="biz-contact" id="contact-form">
                 <div className="container">
-                    <span className="section-label">05 // CONTACT</span>
+                    <span className="section-label">05 / CONTACT</span>
                     <h2 className="section-heading">お問い合わせ</h2>
                     <p className="biz-contact-lead">
                         協賛・制作依頼・採用・共同開発など、どんなご相談でも歓迎です。
