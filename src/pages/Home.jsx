@@ -4,7 +4,7 @@ import logo from '../assets/logo-white.png';
 import roomPhoto from '../assets/room-pc-01.jpg';
 import { fetchPosts } from '../blog/api';
 import { DCC_AI_URL, DCC_GIT_URL, DISCORD_INVITE, CONTACT_FORM_URL, PORTFOLIO_EDIT_URL, SHOW_HOME_MEMBERS } from '../config';
-import { projectCards, aboutGallery, activityFields } from '../data/editorContent';
+import { aboutGallery, activityFields } from '../data/editorContent';
 import { fetchMembers } from '../members/api';
 import { useSeo } from '../seo';
 import './Home.css';
@@ -230,7 +230,7 @@ const Home = () => {
                         <div className="editor-about__body">
                             <div className="markdown-sheet" data-reveal>
                                 <p className="markdown-sheet__eyebrow"># ABOUT DCC</p>
-                                <h2 id="about-title">つくることを、<br /><em>もっと自由に。</em></h2>
+                                <h2 id="about-title">DCCって<br /><em>どんなところ？</em></h2>
                                 <p>DCCは、周南公立大学の学生を中心とした、Discordベースのクリエイターコミュニティです。</p>
                                 <p>プログラミング・3D・デジタルアートなど。興味のあるものを自由につくり、知識と作品を持ち寄ります。</p>
                                 <blockquote>入部届も、部費もなし。Discordに参加すれば、その日からメンバーです。</blockquote>
@@ -264,32 +264,14 @@ const Home = () => {
                         <EditorFileBar file="projects/" type="folder" number={fileNumberBySection.projects} />
                         <div className="editor-section__intro" data-reveal>
                             <div>
-                                <p className="editor-section__label">01 / SELECTED ACTIVITY &amp; WORK</p>
-                                <h2 id="projects-title">手を動かした記録が、<br />次の作品になる。</h2>
+                                <p className="editor-section__label">01 / FROM THE SHOWCASE</p>
+                                <h2 id="projects-title">発表会で<br />紹介された作品</h2>
                             </div>
-                            <p>つくる対象は、ひとつに決めない。DCCで動いている制作・活動の入口です。</p>
+                            <p>成果物発表会で、メンバーが発表した作品の一部です。</p>
                         </div>
-                        <div className="project-grid">
-                            {projectCards.map((project, index) => (
-                                <article className="project-card" key={project.number} data-reveal style={{ '--reveal-delay': `${index * 0.07}s` }}>
-                                    <div className="project-card__image">
-                                        <img src={project.image} alt={project.alt} loading="lazy" />
-                                        <span className="project-card__number">{project.number} /</span>
-                                    </div>
-                                    <div className="project-card__body">
-                                        <span className="project-card__file">{project.file}</span>
-                                        <h3>{project.title}</h3>
-                                        <p>{project.description}</p>
-                                        <div className="project-card__footer"><span>{project.category}</span><span>活動分野</span></div>
-                                    </div>
-                                </article>
-                            ))}
-                        </div>
-                        <div className="published-work">
-                            <p className="editor-section__label">FROM THE SHOWCASE / 公開記事で紹介した作品</p>
-                            <h3>「好き」から生まれた、こんな作品。</h3>
+                        <div className="published-work" data-reveal>
                             <ul><li>リモート図書館 <span>漫画の購入先を管理するWebアプリ</span></li><li>コドバ。 <span>競技プログラミングのオンライン対戦プラットフォーム</span></li><li>自作Live2Dモデル <span>下絵からモーションまで制作</span></li></ul>
-                            <Link to="/blog/2026-07-31-summer-showcase" className="editor-text-link">作品を紹介した成果物発表会の記事を読む →</Link>
+                            <Link to="/blog/2026-07-31-summer-showcase" className="editor-text-link">成果物発表会の記事を読む →</Link>
                         </div>
                         <Link to="/blog" className="editor-text-link">活動ログをすべて見る <span aria-hidden="true">→</span></Link>
                     </section>
@@ -380,13 +362,13 @@ const Home = () => {
                     <section id="room" className="editor-section" aria-labelledby="room-title">
                         <EditorFileBar file="workspace/" type="folder" number={fileNumberBySection.room} />
                         <div className="community-space">
-                            <div><p className="editor-section__label">ONLINE / ON CAMPUS</p><h2 id="room-title">オンラインでも、<br />部室でも。</h2><p>普段の相談や作品の共有はDiscordで。大学では、部室のPCやVR機器、3Dプリンタを使って制作を楽しめます。</p><p>活動拠点：11号館 2F 第1実習室</p><ul><li>ゲーミングPC</li><li>VR機器</li><li>3Dプリンタ</li><li>プロジェクター</li></ul><a className="editor-text-link" href={CONTACT_FORM_URL} target="_blank" rel="noreferrer">部室を見学したい方はこちら ↗</a></div>
+                            <div><p className="editor-section__label">ONLINE / ON CAMPUS</p><h2 id="room-title">普段はDiscord、<br />大学では部室で活動しています</h2><p>普段の相談や作品の共有はDiscordで。大学では、部室のPCやVR機器、3Dプリンタを使って制作を楽しめます。</p><p>活動拠点：11号館 2F 第1実習室</p><ul><li>ゲーミングPC</li><li>VR機器</li><li>3Dプリンタ</li><li>プロジェクター</li></ul><a className="editor-text-link" href={CONTACT_FORM_URL} target="_blank" rel="noreferrer">部室を見学したい方はこちら ↗</a></div>
                             <figure><img src={roomPhoto} alt="PCが並ぶDCCの部室" loading="lazy" width="800" height="600" /><figcaption>つくる道具も、相談できる仲間も。</figcaption></figure>
                         </div>
                     </section>
                     <section id="faq" className="editor-section" aria-labelledby="faq-title">
                         <EditorFileBar file="faq.md" type="markdown" number={fileNumberBySection.faq} />
-                        <div className="community-faq"><p className="editor-section__label">BEFORE YOU JOIN</p><h2 id="faq-title">参加する前に。</h2>
+                        <div className="community-faq"><p className="editor-section__label">BEFORE YOU JOIN</p><h2 id="faq-title">参加する前によくある質問</h2>
                             <details open><summary>プログラミング未経験でも大丈夫？</summary><p>はい。未経験でも参加できます。プログラミングだけでなく、イラスト・映像・音楽など、興味のある制作から始められます。</p></details>
                             <details><summary>活動頻度はどのくらい？</summary><p>決まった参加頻度はありません。Discordで交流したり、来られるときに部室に来たり、自分のペースで活動できます。</p></details>
                             <details><summary>他のサークルと掛け持ちできる？</summary><p>はい、掛け持ちできます。</p></details>
@@ -398,8 +380,8 @@ const Home = () => {
                         <div className="join-terminal" data-reveal>
                             <p className="join-terminal__command"><span>$</span> ./join.sh</p>
                             <p className="join-terminal__output">&gt; DCCに参加する</p>
-                            <h2 id="join-title">つくることが好きな、<br />すべての人へ。</h2>
-                            <p className="join-terminal__output">&gt; さあ、一緒につくろう。</p>
+                            <h2 id="join-title"><span className="nowrap-phrase">つくることが</span><span className="nowrap-phrase">好きなら、</span><br /><span className="nowrap-phrase">気軽に</span><span className="nowrap-phrase">参加してください。</span></h2>
+                            <p className="join-terminal__output">&gt; 一緒に何かつくりませんか？</p>
                             <p className="join-explanation">下のボタンからDiscordの招待ページが開きます。<br />気になることがあれば、見学・お問い合わせからご相談ください。</p>
                             <div className="join-terminal__actions">
                                 <a href={DISCORD_INVITE} className="join-terminal__cta" target="_blank" rel="noreferrer">Discordで参加する <span aria-hidden="true">↗</span></a>
