@@ -11,6 +11,7 @@ const navigation = [
     ...(SHOW_HOME_MEMBERS ? [{ to: '/#members', label: '[03] MEMBERS' }] : []),
     { to: '/#news', label: `[0${SHOW_HOME_MEMBERS ? 4 : 3}] NEWS` },
     { to: '/#join', label: `[0${SHOW_HOME_MEMBERS ? 5 : 4}] JOIN` },
+    { to: '/business', label: `[0${SHOW_HOME_MEMBERS ? 6 : 5}] BUSINESS` },
 ];
 
 const Header = () => {
