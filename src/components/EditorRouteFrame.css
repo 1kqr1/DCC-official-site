@@ -46,6 +46,7 @@
 .editor-route-frame__tab b { color: var(--editor-accent); font-weight: 700; }
 .editor-route-frame__tab--json b { color: var(--editor-code-warm); }
 .editor-route-frame__tab--log b { color: var(--editor-code-blue); }
+.editor-route-frame__tab--folder b { color: var(--editor-code-warm); }
 .editor-route-frame__tab i { margin-left: 12px; color: var(--editor-dim); font-style: normal; }
 .editor-route-frame__index { padding-right: 15px; color: var(--editor-accent); letter-spacing: 0.12em; }
 .editor-route-frame__content { min-width: 0; }

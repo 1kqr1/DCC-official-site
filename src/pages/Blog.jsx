@@ -3,6 +3,7 @@ import Link from '../components/NavigationLink';
 import { fetchPosts, getCachedPosts } from '../blog/api';
 import { useSeo } from '../seo';
 import EditorRouteFrame from '../components/EditorRouteFrame';
+import { siteNumber } from '../data/siteSections';
 import './Blog.css';
 
 const formatDate = (d) => {
@@ -35,7 +36,7 @@ const Blog = () => {
     }, []);
 
     return (
-        <EditorRouteFrame file="news.log" type="log" number="07">
+        <EditorRouteFrame file="news/" type="folder" number={siteNumber('news')}>
         <section className="blog">
             <div className="container">
                 <div className="blog-header" data-reveal>

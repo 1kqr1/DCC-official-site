@@ -6,6 +6,7 @@ const fileIcons = {
     json: '{}',
     log: '>',
     markdown: '#',
+    folder: '⌄',
 };
 
 const EditorRouteFrame = ({ file, type = 'markdown', number, children }) => (

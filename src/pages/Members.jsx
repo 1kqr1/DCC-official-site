@@ -4,6 +4,7 @@ import { fetchMembers } from '../members/api';
 import { PORTFOLIO_EDIT_URL } from '../config';
 import { useSeo } from '../seo';
 import EditorRouteFrame from '../components/EditorRouteFrame';
+import { siteNumber } from '../data/siteSections';
 import './Members.css';
 
 const AvatarPlaceholder = () => (
@@ -32,7 +33,7 @@ const Members = () => {
     }, []);
 
     return (
-        <EditorRouteFrame file="members.json" type="json" number="08">
+        <EditorRouteFrame file="members.json" type="json" number={siteNumber('members')}>
         <section className="members-page">
             <div className="container">
                 <div className="members-header" data-reveal>

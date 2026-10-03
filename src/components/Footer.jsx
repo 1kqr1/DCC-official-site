@@ -9,7 +9,7 @@ const footerLinks = [
     { to: '/#projects', label: 'Projects' },
     ...(SHOW_HOME_MEMBERS ? [{ to: '/#members', label: 'Members' }] : []),
     { to: '/#news', label: 'News' },
-    { to: '/#faq', label: 'よくある質問' },
+    { to: '/#faq', label: 'FAQ' },
     { to: '/#join', label: 'Join DCC' },
 ];
 

@@ -4,6 +4,7 @@ import Link from '../components/NavigationLink';
 import { fetchMember, getCachedMember } from '../members/api';
 import { useSeo } from '../seo';
 import EditorRouteFrame from '../components/EditorRouteFrame';
+import { siteNumber } from '../data/siteSections';
 import './Members.css';
 
 const AvatarPlaceholder = () => (
@@ -43,7 +44,7 @@ const MemberProfileView = ({ slug }) => {
     });
 
     const frame = (content) => (
-        <EditorRouteFrame file={member ? `members/${member.id}.json` : 'members/profile.json'} type="json" number="08">
+        <EditorRouteFrame file={member ? `members/${member.id}.json` : 'members/profile.json'} type="json" number={siteNumber('members')}>
             {content}
         </EditorRouteFrame>
     );

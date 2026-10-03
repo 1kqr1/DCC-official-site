@@ -5,28 +5,24 @@ import roomPhoto from '../assets/room-pc-01.jpg';
 import { fetchPosts } from '../blog/api';
 import { DCC_AI_URL, DCC_GIT_URL, DISCORD_INVITE, CONTACT_FORM_URL, PORTFOLIO_EDIT_URL, SHOW_HOME_MEMBERS } from '../config';
 import { aboutGallery, activityFields } from '../data/editorContent';
+import { homeSections, siteNumber } from '../data/siteSections';
 import { fetchMembers } from '../members/api';
 import { useSeo } from '../seo';
 import './Home.css';
 import './Community.css';
 
-const sectionFiles = [
-    { id: 'hero', label: 'index.html', icon: '◉', kind: 'file' },
-    { id: 'about', label: 'about/', icon: '⌄', kind: 'folder' },
-    { id: 'projects', label: 'projects/', icon: '⌄', kind: 'folder' },
-    ...(SHOW_HOME_MEMBERS ? [{ id: 'members', label: 'members/', icon: '⌄', kind: 'folder' }] : []),
-    { id: 'news', label: 'news/', icon: '⌄', kind: 'folder' },
-    { id: 'room', label: 'workspace/', icon: '⌄', kind: 'folder' },
-    { id: 'faq', label: 'faq.md', icon: '#', kind: 'file' },
-    { id: 'join', label: 'join/', icon: '⌄', kind: 'folder' },
-];
-// index.html を 00 とし、各セクションのファイル番号と見出しラベルの番号を一致させる
-const fileNumberBySection = Object.fromEntries(sectionFiles.map(({ id }, index) => [id, index]));
-const sectionNumber = (id) => String(fileNumberBySection[id]).padStart(2, '0');
+const explorerIcons = { html: '◉', markdown: '#', folder: '⌄', json: '{}', log: '>', shell: '$' };
+const sectionFiles = homeSections.map(({ id, file, type }) => ({
+    id,
+    label: file,
+    icon: explorerIcons[type],
+    kind: type === 'folder' ? 'folder' : 'file',
+}));
+const sectionFileById = Object.fromEntries(homeSections.map((section) => [section.id, section]));
 
 const extraFiles = [
-    { id: 'hero', label: 'index.html', icon: '◉', kind: 'file', track: true },
-    { to: '/blog', label: 'news.log', icon: '>', kind: 'file', track: false },
+    { id: 'hero', label: 'index.html', icon: explorerIcons.html, kind: 'file', track: true },
+    { to: '/blog', label: 'news/', icon: explorerIcons.folder, kind: 'folder', track: false },
 ];
 
 const formatLogDate = (value) => {
@@ -80,15 +76,18 @@ const useActiveEditorSection = () => {
     return activeSection;
 };
 
-const EditorFileBar = ({ file, type, number }) => (
-    <header className="editor-filebar">
-        <span className="editor-filebar__tab">
-            <i className={`editor-filebar__icon editor-filebar__icon--${type}`} aria-hidden="true"></i>
-            {file}
-        </span>
-        <span className="editor-filebar__meta">{String(number).padStart(2, '0')} / DCC</span>
-    </header>
-);
+const EditorFileBar = ({ section }) => {
+    const { file, type } = sectionFileById[section];
+    return (
+        <header className="editor-filebar">
+            <span className="editor-filebar__tab">
+                <i className={`editor-filebar__icon editor-filebar__icon--${type}`} aria-hidden="true"></i>
+                {file}
+            </span>
+            <span className="editor-filebar__meta">{siteNumber(section)} / DCC</span>
+        </header>
+    );
+};
 
 const ExplorerLink = ({ entry, activeSection }) => {
     const isActive = entry.track !== false && entry.id === activeSection;
@@ -191,7 +190,7 @@ const Home = () => {
 
                 <div className="editor-canvas">
                     <section id="hero" className="editor-section editor-hero" aria-labelledby="hero-title">
-                        <EditorFileBar file="index.html" type="html" number={fileNumberBySection.hero} />
+                        <EditorFileBar section="hero" />
                         <div className="editor-hero__body">
                             <div className="editor-code editor-hero__code" data-reveal>
                                 <p className="hero-origin">周南公立大学発のクリエイターコミュニティ</p>
@@ -227,10 +226,10 @@ const Home = () => {
                     </section>
 
                     <section id="about" className="editor-section editor-about" aria-labelledby="about-title">
-                        <EditorFileBar file="about.md" type="markdown" number={fileNumberBySection.about} />
+                        <EditorFileBar section="about" />
                         <div className="editor-about__body">
                             <div className="markdown-sheet" data-reveal>
-                                <p className="markdown-sheet__eyebrow">{sectionNumber('about')} / ABOUT DCC</p>
+                                <p className="markdown-sheet__eyebrow">{siteNumber('about')} / ABOUT DCC</p>
                                 <h2 id="about-title">DCCって<br /><em>どんなところ？</em></h2>
                                 <p>DCCは、周南公立大学の学生を中心とした、Discordベースのクリエイターコミュニティです。</p>
                                 <p>プログラミング・3D・デジタルアートなど。興味のあるものを自由につくり、知識と作品を持ち寄ります。</p>
@@ -262,10 +261,10 @@ const Home = () => {
                     </section>
 
                     <section id="projects" className="editor-section editor-projects" aria-labelledby="projects-title">
-                        <EditorFileBar file="projects/" type="folder" number={fileNumberBySection.projects} />
+                        <EditorFileBar section="projects" />
                         <div className="editor-section__intro" data-reveal>
                             <div>
-                                <p className="editor-section__label">{sectionNumber('projects')} / FROM THE SHOWCASE</p>
+                                <p className="editor-section__label">{siteNumber('projects')} / FROM THE SHOWCASE</p>
                                 <h2 id="projects-title">発表会で<br />紹介された作品</h2>
                             </div>
                             <p>成果物発表会で、メンバーが発表した作品の一部です。</p>
@@ -274,14 +273,14 @@ const Home = () => {
                             <ul><li>リモート図書館 <span>漫画の購入先を管理するWebアプリ</span></li><li>コドバ。 <span>競技プログラミングのオンライン対戦プラットフォーム</span></li><li>自作Live2Dモデル <span>下絵からモーションまで制作</span></li></ul>
                             <Link to="/blog/2026-07-31-summer-showcase" className="editor-text-link">成果物発表会の記事を読む →</Link>
                         </div>
-                        <Link to="/blog" className="editor-text-link">活動ログをすべて見る <span aria-hidden="true">→</span></Link>
+                        <Link to="/blog" className="editor-text-link">活動ブログをすべて見る <span aria-hidden="true">→</span></Link>
                     </section>
 
                     {SHOW_HOME_MEMBERS && <section id="members" className="editor-section editor-members" aria-labelledby="members-title">
-                        <EditorFileBar file="members.json" type="json" number={fileNumberBySection.members} />
+                        <EditorFileBar section="members" />
                         <div className="editor-section__intro editor-members__intro" data-reveal>
                             <div>
-                                <p className="editor-section__label">{sectionNumber('members')} / PEOPLE IN DCC</p>
+                                <p className="editor-section__label">{siteNumber('members')} / PEOPLE IN DCC</p>
                                 <h2 id="members-title">人の好奇心が、<br />DCCのエンジン。</h2>
                             </div>
                             <a href={PORTFOLIO_EDIT_URL} className="editor-text-link" target="_blank" rel="noreferrer">プロフィールを編集する <span aria-hidden="true">↗</span></a>
@@ -329,10 +328,10 @@ const Home = () => {
                     </section>}
 
                     <section id="news" className="editor-section editor-news" aria-labelledby="news-title">
-                        <EditorFileBar file="news.log" type="log" number={fileNumberBySection.news} />
+                        <EditorFileBar section="news" />
                         <div className="editor-section__intro" data-reveal>
                             <div>
-                                <p className="editor-section__label">{sectionNumber('news')} / ACTIVITY LOG</p>
+                                <p className="editor-section__label">{siteNumber('news')} / ACTIVITY LOG</p>
                                 <h2 id="news-title">DCCの<br />最近の活動</h2>
                             </div>
                             <p>イベントや日々の活動の様子を、ブログで紹介しています。</p>
@@ -365,15 +364,15 @@ const Home = () => {
                     </section>
 
                     <section id="room" className="editor-section" aria-labelledby="room-title">
-                        <EditorFileBar file="workspace/" type="folder" number={fileNumberBySection.room} />
+                        <EditorFileBar section="room" />
                         <div className="community-space">
-                            <div><p className="editor-section__label">{sectionNumber('room')} / ONLINE &amp; ON CAMPUS</p><h2 id="room-title">オンラインと<br />部室での活動</h2><p>普段の相談や作品の共有はDiscordで。大学では、部室のPCやVR機器、3Dプリンタを使って制作を楽しめます。</p><p>活動拠点：11号館 2F 第1実習室</p><ul><li>ゲーミングPC</li><li>VR機器</li><li>3Dプリンタ</li><li>プロジェクター</li></ul><a className="editor-text-link" href={CONTACT_FORM_URL} target="_blank" rel="noreferrer">部室を見学したい方はこちら ↗</a></div>
+                            <div><p className="editor-section__label">{siteNumber('room')} / ONLINE &amp; ON CAMPUS</p><h2 id="room-title">オンラインと<br />部室での活動</h2><p>普段の相談や作品の共有はDiscordで。大学では、部室のPCやVR機器、3Dプリンタを使って制作を楽しめます。</p><p>活動拠点：11号館 2F 第1実習室</p><ul><li>ゲーミングPC</li><li>VR機器</li><li>3Dプリンタ</li><li>プロジェクター</li></ul><a className="editor-text-link" href={CONTACT_FORM_URL} target="_blank" rel="noreferrer">部室を見学したい方はこちら ↗</a></div>
                             <figure><img src={roomPhoto} alt="PCが並ぶDCCの部室" loading="lazy" width="800" height="600" /><figcaption>つくる道具も、相談できる仲間も。</figcaption></figure>
                         </div>
                     </section>
                     <section id="faq" className="editor-section" aria-labelledby="faq-title">
-                        <EditorFileBar file="faq.md" type="markdown" number={fileNumberBySection.faq} />
-                        <div className="community-faq"><p className="editor-section__label">{sectionNumber('faq')} / BEFORE YOU JOIN</p><h2 id="faq-title">参加する前に<br />よくある質問</h2>
+                        <EditorFileBar section="faq" />
+                        <div className="community-faq"><p className="editor-section__label">{siteNumber('faq')} / BEFORE YOU JOIN</p><h2 id="faq-title">参加する前に<br />よくある質問</h2>
                             <details open><summary>プログラミング未経験でも大丈夫？</summary><p>はい。未経験でも参加できます。プログラミングだけでなく、イラスト・映像・音楽など、興味のある制作から始められます。</p></details>
                             <details><summary>活動頻度はどのくらい？</summary><p>決まった参加頻度はありません。Discordで交流したり、来られるときに部室に来たり、自分のペースで活動できます。</p></details>
                             <details><summary>他のサークルと掛け持ちできる？</summary><p>はい、掛け持ちできます。</p></details>
@@ -381,7 +380,7 @@ const Home = () => {
                         </div>
                     </section>
                     <section id="join" className="editor-section editor-join" aria-labelledby="join-title">
-                        <EditorFileBar file="join.sh" type="shell" number={fileNumberBySection.join} />
+                        <EditorFileBar section="join" />
                         <div className="join-terminal" data-reveal>
                             <p className="join-terminal__command"><span>$</span> ./join.sh</p>
                             <p className="join-terminal__output">&gt; DCCに参加する</p>
