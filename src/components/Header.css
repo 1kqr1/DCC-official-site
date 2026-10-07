@@ -71,7 +71,8 @@
     font-weight: 600;
     letter-spacing: 0.08em;
     line-height: 1.3;
-    white-space: nowrap;
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .site-brand__copy small {
@@ -225,6 +226,7 @@
 
     .site-brand__logo {
         width: 52px;
+        flex-shrink: 0;
     }
 
     .site-header__nav,
@@ -234,6 +236,7 @@
 
     .site-menu-toggle {
         width: 48px;
+        flex: 0 0 48px;
         display: grid;
         align-content: center;
         justify-content: center;

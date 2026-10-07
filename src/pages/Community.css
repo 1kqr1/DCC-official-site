@@ -2,7 +2,7 @@
 .hero-origin { color: var(--editor-muted); font: 0.82rem/1.8 var(--font-main); }
 .editor-home .editor-hero__title { font-size: clamp(4rem, 6vw, 6rem); }
 .editor-home .editor-hero__copy { font: 700 clamp(1.35rem, 2.4vw, 2.2rem)/1.6 var(--font-main); letter-spacing: -0.04em; }
-.hero-description, .hero-welcome { margin: 18px 0 0 52px; font: 0.9rem/1.9 var(--font-main); color: var(--editor-muted); }
+.hero-description, .hero-welcome { margin: 18px 0 0 var(--editor-text-inset); font: 0.9rem/1.9 var(--font-main); color: var(--editor-muted); }
 .hero-welcome { color: var(--editor-text); font-size: 0.78rem; }
 .published-work { margin: 0; padding: 12px 28px 28px; background: var(--editor-panel); border: 1px solid var(--editor-border); }
 .published-work h3 { font-size: 1.45rem; }
@@ -43,9 +43,17 @@
     .community-space h2, .community-faq h2 { font-size: clamp(2rem, 10.7vw, 3.2rem); }
 }
 @media (max-width: 600px) {
-    .hero-description, .hero-welcome { margin-left: 0; }
     .hero-origin { font-size: 0.75rem; }
     .community-faq summary { font-size: 0.9rem; }
     .community-faq details p { padding-left: 8px; padding-right: 8px; font-size: 0.9rem; }
     .published-work .editor-text-link { font-size: 0.8rem; }
+}
+
+@media (max-width: 560px) {
+    .hero-origin { margin-left: var(--editor-text-inset); }
+    .editor-home .editor-hero__title { font-size: clamp(3.65rem, 19vw, 5.25rem); }
+    .editor-home .editor-hero__copy { font-size: clamp(1.125rem, 4.5vw, 1.35rem); }
+    .editor-hero__kicker > span:last-child { overflow-wrap: anywhere; }
+    .hero-origin, .hero-description, .hero-welcome { text-wrap: pretty; }
+    .hero-description br { display: none; }
 }

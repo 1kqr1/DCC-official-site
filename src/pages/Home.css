@@ -1,5 +1,8 @@
 .editor-home {
     --editor-content-gap: clamp(60px, 9vw, 132px);
+    --editor-line-number-width: 35px;
+    --editor-line-gap: 17px;
+    --editor-text-inset: calc(var(--editor-line-number-width) + var(--editor-line-gap));
     width: min(1680px, 100%);
     margin: 0 auto;
     border-right: 1px solid var(--editor-border);
@@ -240,8 +243,8 @@
 .editor-hero__copy,
 .editor-hero__actions {
     display: grid;
-    grid-template-columns: 35px minmax(0, 1fr);
-    column-gap: 17px;
+    grid-template-columns: var(--editor-line-number-width) minmax(0, 1fr);
+    column-gap: var(--editor-line-gap);
 }
 
 .editor-code__line {
@@ -1326,6 +1329,11 @@
 }
 
 @media (max-width: 560px) {
+    .editor-home {
+        --editor-line-number-width: 26px;
+        --editor-line-gap: 10px;
+    }
+
     .editor-home__workspace-title {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -1342,15 +1350,6 @@
         font-size: 0.51rem;
     }
 
-    .editor-code__line,
-    .editor-hero__title,
-    .editor-hero__kicker,
-    .editor-hero__copy,
-    .editor-hero__actions {
-        grid-template-columns: 26px minmax(0, 1fr);
-        column-gap: 10px;
-    }
-
     .editor-hero__title {
         font-size: clamp(3.65rem, 19vw, 5.25rem);
     }
@@ -1362,6 +1361,11 @@
     .editor-hero__actions > span:last-child {
         flex-direction: column;
         align-items: stretch;
+    }
+
+    .editor-hero__actions > .editor-code__number {
+        align-self: start;
+        padding-top: 12px;
     }
 
     .editor-button {
