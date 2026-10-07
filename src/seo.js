@@ -14,7 +14,7 @@ const SITE_NAME = 'DCC - Digital Creators Community';
 const SITE_URL = 'https://shu-dcc.net';
 const DEFAULT_DESCRIPTION =
     'DCC（Digital Creators Community）は周南公立大学発、Discordベースのクリエイターコミュニティ。アプリ開発・3Dプリンタ・デジタルアート。参加すればその日からメンバー、部室や機材も自由に使えます。';
-const DEFAULT_IMAGE = `${SITE_URL}/ogp.jpg`;
+const DEFAULT_IMAGE = `${SITE_URL}/ogp-logo.jpg`;
 
 // 説明文が長すぎると検索結果で途中から切られるので、ほどよい長さに丸める
 const MAX_DESCRIPTION = 120;
