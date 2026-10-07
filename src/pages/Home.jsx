@@ -195,15 +195,13 @@ const Home = () => {
                             <div className="editor-code editor-hero__code" data-reveal>
                                 <p className="hero-origin">周南公立大学発のクリエイターコミュニティ</p>
                                 <h1 id="hero-title" className="editor-hero__title">
-                                    <span className="editor-code__number" aria-hidden="true">01</span>
                                     <span>DCC;<i className="terminal-cursor" aria-label=""></i></span>
                                 </h1>
-                                <p className="editor-hero__kicker"><span className="editor-code__number" aria-hidden="true">02</span><span>DIGITAL CREATORS COMMUNITY</span></p>
-                                <p className="editor-hero__copy"><span className="editor-code__number" aria-hidden="true">03</span><span>つくってみたい。<br />その気持ちから、はじめよう。</span></p>
+                                <p className="editor-hero__kicker"><span>DIGITAL CREATORS COMMUNITY</span></p>
+                                <p className="editor-hero__copy"><span>つくってみたい。<br />その気持ちから、はじめよう。</span></p>
                                 <p className="hero-description">アプリ、ゲーム、3D、イラスト、映像、音楽。<br />好きなものをつくり、見せ合い、一緒に学ぶ場所です。</p>
                                 <p className="hero-welcome">未経験歓迎 / 部費なし / 自分のペースで参加</p>
                                 <div className="editor-hero__actions">
-                                    <span className="editor-code__number" aria-hidden="true">04</span>
                                     <span>
                                         <a href={DISCORD_INVITE} className="editor-button editor-button--accent" target="_blank" rel="noreferrer">Discordで参加する <b>↗</b></a>
                                         <Link to="/#projects" className="editor-button editor-button--quiet">作品・活動を見る <b>↓</b></Link>
