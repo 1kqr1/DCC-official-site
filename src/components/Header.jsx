@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Link from './NavigationLink';
 import logo from '../assets/logo-white.png';
@@ -16,11 +16,25 @@ const navigation = [
 ];
 
 const Header = () => {
+    const headerRef = useRef(null);
     const { key } = useLocation();
     const [menu, setMenu] = useState({ key, open: false });
     if (menu.key !== key) setMenu({ key, open: false });
     const isOpen = menu.key === key && menu.open;
     const closeMenu = () => setMenu({ key, open: false });
+
+    useLayoutEffect(() => {
+        const updateHeight = () => {
+            document.documentElement.style.setProperty('--site-header-height', `${headerRef.current.getBoundingClientRect().height}px`);
+        };
+        updateHeight();
+        const observer = new ResizeObserver(updateHeight);
+        observer.observe(headerRef.current);
+        return () => {
+            observer.disconnect();
+            document.documentElement.style.removeProperty('--site-header-height');
+        };
+    }, []);
 
     useLayoutEffect(() => {
         if (!isOpen) return undefined;
@@ -74,7 +88,7 @@ const Header = () => {
     return (
         <>
             <a className="skip-link" href="#main-content">本文へスキップ</a>
-            <header className="site-header">
+            <header className="site-header" ref={headerRef}>
                 <span className="site-header__progress" aria-hidden="true" />
                 <div className="site-header__inner">
                     <Link to="/#top" className="site-brand" aria-label="DCC トップへ" onClick={closeMenu}>

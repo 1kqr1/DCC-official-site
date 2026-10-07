@@ -50,7 +50,7 @@
 
 .editor-explorer {
     position: sticky;
-    top: 68px;
+    top: var(--site-header-height, 68px);
     min-height: calc(100vh - 98px);
     display: flex;
     flex-direction: column;
@@ -476,7 +476,7 @@
 .editor-hero__meta div {
     min-height: 39px;
     display: grid;
-    grid-template-columns: 74px minmax(0, 1fr);
+    grid-template-columns: max(74px, 3.1rem) minmax(0, 1fr);
     align-items: center;
     gap: 10px;
     padding: 0 12px;
@@ -773,6 +773,8 @@
 }
 
 .editor-text-link {
+    max-width: 100%;
+    overflow-wrap: anywhere;
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -1138,9 +1140,11 @@
     margin-top: 14px;
 }
 
-/* 見出しを語句の途中で折り返さない */
+/* 語句はまとまりを保ち、文字拡大時は利用可能な幅で折り返す。 */
 .join-terminal h2 .nowrap-phrase {
     display: inline-block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
 }
 
 .join-terminal h2 {
@@ -1226,7 +1230,7 @@
     }
 
     .editor-explorer {
-        top: 68px;
+        top: var(--site-header-height, 68px);
     }
 
     .editor-hero__body {

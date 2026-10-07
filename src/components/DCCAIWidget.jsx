@@ -33,7 +33,7 @@ const loadMessages = () => {
 };
 
 function DCCAIWidget() {
-  const [isOpen, setIsOpen] = useState(() => !window.matchMedia('(max-width: 860px)').matches);
+  const [isOpen, setIsOpen] = useState(() => window.matchMedia('(min-width: 1280px)').matches);
   const [messages, setMessages] = useState(loadMessages);
   const [value, setValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -49,10 +49,10 @@ function DCCAIWidget() {
   const focusOnCloseRef = useRef(false);
 
   useEffect(() => {
-    const compactScreen = window.matchMedia('(max-width: 860px)');
-    const syncScreen = () => setIsOpen(!compactScreen.matches);
-    compactScreen.addEventListener('change', syncScreen);
-    return () => compactScreen.removeEventListener('change', syncScreen);
+    const wideScreen = window.matchMedia('(min-width: 1280px)');
+    const syncScreen = () => setIsOpen(wideScreen.matches);
+    wideScreen.addEventListener('change', syncScreen);
+    return () => wideScreen.removeEventListener('change', syncScreen);
   }, []);
 
   useEffect(() => {

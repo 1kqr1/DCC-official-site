@@ -83,13 +83,16 @@
 }
 
 .site-header__nav {
+    min-width: 0;
     flex: 1;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: stretch;
 }
 
 .site-header__link {
+    min-height: 34px;
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -272,8 +275,8 @@
 
     .site-mobile-menu {
         position: fixed;
-        inset: 60px 0 0;
-        z-index: 90;
+        inset: var(--site-header-height, 60px) 0 0;
+        z-index: 960;
         display: block;
         padding: 18px;
         background: rgba(8, 11, 13, 0.98);
@@ -281,6 +284,8 @@
         pointer-events: none;
         transform: translateY(-8px);
         transition: opacity 180ms ease, transform 180ms ease;
+        overflow-y: auto;
+        overscroll-behavior: contain;
     }
 
     .site-mobile-menu.is-open {

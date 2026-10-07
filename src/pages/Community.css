@@ -36,9 +36,12 @@
     .community-space, .community-faq { padding-right: 18px; padding-bottom: 60px; padding-left: 18px; }
 }
 @media (max-width: 768px) {
-    .community-space { grid-template-columns: 1fr; }
+    .community-space { grid-template-columns: minmax(0, 1fr); }
     .published-work { padding: 8px 22px 22px; }
 }
+
+.community-space > * { min-width: 0; }
+.community-space h2 { overflow-wrap: anywhere; }
 @media (max-width: 560px) {
     .community-space h2, .community-faq h2 { font-size: clamp(2rem, 10.7vw, 3.2rem); }
 }

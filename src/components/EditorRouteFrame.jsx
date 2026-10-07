@@ -19,7 +19,7 @@ const EditorRouteFrame = ({ file, type = 'markdown', number, children }) => (
         <div className="editor-route-frame__tabbar">
                 <span className={`editor-route-frame__tab editor-route-frame__tab--${type}`}>
                     <b>{fileIcons[type] || '#'}</b>
-                    {file}
+                    <span className="editor-route-frame__filename" title={file}>{file}</span>
                 </span>
             {number && <span className="editor-route-frame__index">{number}</span>}
         </div>

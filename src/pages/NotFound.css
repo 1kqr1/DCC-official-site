@@ -6,3 +6,5 @@
 .not-found > p:not(.not-found__command):not(.not-found__error) { max-width: 540px; color: var(--editor-muted); }
 .not-found__action { margin-top: 12px; padding: 10px 14px; border: 1px solid var(--editor-accent); color: #10140e; background: var(--editor-accent); font-family: var(--font-mono); font-size: 0.78rem; font-weight: 800; }
 .not-found__action:hover { background: #c3ff89; }
+.not-found { grid-template-columns: minmax(0, 1fr); }
+.not-found > * { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }

@@ -1,4 +1,5 @@
 .business {
+    overflow-wrap: anywhere;
     background: var(--color-bg);
 }
 
@@ -52,12 +53,13 @@
 
 .offer-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.1rem;
     margin-top: 2.6rem;
 }
 
 .offer-card {
+    min-width: 0;
     position: relative;
     padding: 1.9rem;
     background: var(--color-glass);
@@ -128,7 +130,7 @@
 
 @media (max-width: 720px) {
     .offer-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 }
 
@@ -158,7 +160,7 @@
 .business .btn-ghost:hover { border-color: var(--editor-accent); color: var(--editor-accent); }
 
 .biz-works { padding: 0 0 clamp(52px, 8vw, 92px); }
-.biz-work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; margin-top: 2.2rem; border: 1px solid var(--editor-border); background: var(--editor-border); }
+.biz-work-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin-top: 2.2rem; border: 1px solid var(--editor-border); background: var(--editor-border); }
 .biz-work { padding: 1.7rem; background: var(--editor-panel); transition: background 180ms ease, box-shadow 180ms ease; }
 .biz-work:hover { background: var(--editor-panel-raised); box-shadow: inset 3px 0 var(--editor-accent); }
 .biz-work-file { font-family: var(--font-mono); font-size: 0.75rem; color: var(--editor-code-blue); }
@@ -194,6 +196,6 @@
 .biz-faq-a::before { content: '> '; font-family: var(--font-mono); color: var(--editor-accent); }
 
 @media (max-width: 720px) {
-    .biz-work-grid { grid-template-columns: 1fr; }
+    .biz-work-grid { grid-template-columns: minmax(0, 1fr); }
     .biz-faq-a { padding-left: 1.3rem; }
 }
