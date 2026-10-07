@@ -214,6 +214,13 @@
     }
 }
 
+@media (min-width: 861px) and (max-width: 980px) {
+    .site-header__link {
+        padding-right: 6px;
+        padding-left: 6px;
+    }
+}
+
 @media (max-width: 860px) {
     .site-header__inner {
         min-height: 60px;
