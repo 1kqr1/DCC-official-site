@@ -7,11 +7,6 @@
     background-color: var(--color-bg);
 }
 
-.container-narrow {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
 
 /* ===== 一覧ページ ===== */
 .blog-header {
@@ -310,7 +305,6 @@
     background: transparent;
 }
 
-.editor-route-frame .container-narrow { max-width: 820px; }
 .editor-route-frame .blog-header { max-width: 720px; margin-bottom: 3rem; }
 .editor-route-frame .blog-heading { font-size: clamp(2.15rem, 5vw, 3.75rem); letter-spacing: -0.04em; }
 .editor-route-frame .blog-sub { color: var(--editor-muted); }
@@ -342,5 +336,4 @@
 @media (max-width: 600px) {
     .editor-route-frame .blog, .editor-route-frame .blog-post { padding: 42px 0 56px; }
     .editor-route-frame .blog-grid { grid-template-columns: 1fr; }
-    .editor-route-frame .container-narrow { padding: 0; }
 }

@@ -3,7 +3,7 @@
     --editor-line-number-width: 35px;
     --editor-line-gap: 17px;
     --editor-text-inset: calc(var(--editor-line-number-width) + var(--editor-line-gap));
-    width: min(1680px, 100%);
+    width: min(var(--editor-workspace-width), 100%);
     margin: 0 auto;
     border-right: 1px solid var(--editor-border);
     border-left: 1px solid var(--editor-border);
@@ -44,7 +44,7 @@
 
 .editor-workspace {
     display: grid;
-    grid-template-columns: 238px minmax(0, 1fr);
+    grid-template-columns: var(--editor-sidebar-width) minmax(0, 1fr);
     align-items: start;
 }
 
@@ -63,7 +63,7 @@
 
 .editor-section {
     position: relative;
-    scroll-margin-top: 86px;
+    scroll-margin-top: 0;
     border-bottom: 1px solid var(--editor-border);
     background: rgba(8, 11, 13, 0.88);
 }
@@ -181,7 +181,7 @@
     grid-template-columns: minmax(0, 1.14fr) minmax(260px, 0.72fr);
     gap: clamp(24px, 4vw, 64px);
     align-items: center;
-    padding: clamp(40px, 5vw, 72px) clamp(24px, 4vw, 64px);
+    padding: clamp(40px, 5vw, 72px) var(--editor-content-padding);
 }
 
 .editor-hero__title {
@@ -389,7 +389,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.72fr);
     gap: clamp(32px, 8vw, 132px);
-    padding: clamp(60px, 9vw, 132px) clamp(26px, 6.4vw, 100px);
+    padding: clamp(60px, 9vw, 132px) var(--editor-content-padding);
     padding-top: var(--editor-content-gap);
 }
 
@@ -523,13 +523,13 @@
 .editor-projects,
 .editor-members,
 .editor-news {
-    padding: clamp(60px, 8.4vw, 124px) clamp(26px, 6.4vw, 100px);
+    padding: clamp(60px, 8.4vw, 124px) var(--editor-content-padding);
 }
 
 .editor-projects .editor-filebar,
 .editor-members .editor-filebar,
 .editor-news .editor-filebar {
-    margin: calc(clamp(60px, 8.4vw, 124px) * -1) calc(clamp(26px, 6.4vw, 100px) * -1) var(--editor-content-gap);
+    margin: calc(clamp(60px, 8.4vw, 124px) * -1) calc(var(--editor-content-padding) * -1) var(--editor-content-gap);
 }
 
 .editor-section__intro {
@@ -975,14 +975,14 @@
 
 .editor-join {
     overflow: hidden;
-    padding: clamp(68px, 10vw, 150px) clamp(26px, 6.4vw, 100px);
+    padding: clamp(68px, 10vw, 150px) var(--editor-content-padding);
     background:
         radial-gradient(circle at 88% 50%, rgba(158, 255, 69, 0.11), transparent 24%),
         #0b0f13;
 }
 
 .editor-join .editor-filebar {
-    margin: calc(clamp(68px, 10vw, 150px) * -1) calc(clamp(26px, 6.4vw, 100px) * -1) var(--editor-content-gap);
+    margin: calc(clamp(68px, 10vw, 150px) * -1) calc(var(--editor-content-padding) * -1) var(--editor-content-gap);
 }
 
 .join-terminal {
@@ -1114,10 +1114,6 @@
 }
 
 @media (max-width: 1180px) {
-    .editor-workspace {
-        grid-template-columns: 205px minmax(0, 1fr);
-    }
-
     .editor-hero__body {
         gap: 38px;
     }
@@ -1129,6 +1125,21 @@
     .editor-about__body {
         gap: 42px;
     }
+}
+
+/* A visible Explorer does not imply enough canvas space for two content columns. */
+@media (min-width: 861px) and (max-width: 1100px) {
+    .editor-hero__body,
+    .editor-about__body,
+    .editor-section__intro,
+    .members-workspace,
+    .news-workspace { grid-template-columns: minmax(0, 1fr); }
+    .editor-hero__body { min-height: 0; }
+    .editor-hero__visual,
+    .editor-about__aside { width: min(100%, 560px); }
+    .editor-section__intro > p,
+    .editor-members__intro .editor-text-link { justify-self: start; margin: 0; }
+    .dcc-services { border-left: 0; border-top: 1px solid var(--editor-border); }
 }
 
 @media (max-width: 860px) {
@@ -1149,7 +1160,7 @@
         min-height: 0;
         grid-template-columns: 1fr;
         gap: 42px;
-        padding: 68px 30px 82px;
+        padding: 68px var(--editor-content-padding) 82px;
     }
 
     .editor-hero__visual {
@@ -1162,7 +1173,7 @@
 
     .editor-about__body {
         grid-template-columns: 1fr;
-        padding: 72px 30px;
+        padding: 72px var(--editor-content-padding);
     }
 
     .editor-about__aside {
@@ -1172,13 +1183,13 @@
     .editor-projects,
     .editor-members,
     .editor-news {
-        padding: 72px 30px;
+        padding: 72px var(--editor-content-padding);
     }
 
     .editor-projects .editor-filebar,
     .editor-members .editor-filebar,
     .editor-news .editor-filebar {
-        margin: -72px -30px var(--editor-content-gap);
+        margin: -72px calc(var(--editor-content-padding) * -1) var(--editor-content-gap);
     }
 
     .editor-section__intro {
@@ -1205,11 +1216,11 @@
     }
 
     .editor-join {
-        padding: 82px 30px;
+        padding: 82px var(--editor-content-padding);
     }
 
     .editor-join .editor-filebar {
-        margin: -82px -30px var(--editor-content-gap);
+        margin: -82px calc(var(--editor-content-padding) * -1) var(--editor-content-gap);
     }
 }
 
@@ -1338,16 +1349,16 @@
     .editor-members,
     .editor-news,
     .editor-join {
-        padding-right: 18px;
-        padding-left: 18px;
+        padding-right: var(--editor-content-padding);
+        padding-left: var(--editor-content-padding);
     }
 
     .editor-projects .editor-filebar,
     .editor-members .editor-filebar,
     .editor-news .editor-filebar,
     .editor-join .editor-filebar {
-        margin-right: -18px;
-        margin-left: -18px;
+        margin-right: calc(var(--editor-content-padding) * -1);
+        margin-left: calc(var(--editor-content-padding) * -1);
     }
 
     .editor-hero__body { padding-top: 56px; padding-bottom: 64px; }

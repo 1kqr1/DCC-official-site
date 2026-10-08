@@ -39,6 +39,9 @@
   --radius-md: 8px;
   --radius-lg: 12px;
   --section-pad: clamp(76px, 10vw, 136px);
+  --editor-workspace-width: 1680px;
+  --editor-sidebar-width: 238px;
+  --editor-content-padding: clamp(18px, 4vw, 64px);
 }
 
 * {
@@ -49,7 +52,7 @@
 
 html {
   scroll-behavior: auto;
-  scroll-padding-top: 90px;
+  scroll-padding-top: calc(var(--site-header-height, 69px) + 12px);
   background: var(--editor-bg);
   overflow-x: hidden;
 }
@@ -162,6 +165,21 @@ main {
 .container {
   width: min(1200px, calc(100% - 48px));
   margin: 0 auto;
+}
+
+.editor-route-frame .container {
+  width: calc(100% - 2 * var(--editor-content-padding));
+  max-width: none;
+  margin: 0 auto;
+}
+
+.editor-route-frame .container-narrow {
+  max-width: 820px;
+  padding: 0;
+}
+
+@media (max-width: 1180px) {
+  :root { --editor-sidebar-width: 205px; }
 }
 
 .section-label {

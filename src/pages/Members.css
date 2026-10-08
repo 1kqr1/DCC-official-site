@@ -6,11 +6,6 @@
     background-color: var(--color-bg);
 }
 
-.container-narrow {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
 
 /* ===== 一覧ページ ===== */
 .members-header {

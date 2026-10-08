@@ -111,6 +111,8 @@ test('中間幅のPCでは本文を覆わず、必要なときにDCCAIを開け�
     await expect(page.locator('.dccai-window')).toBeVisible();
     await page.getByRole('button', { name: 'DCCAIを閉じる', exact: true }).first().click();
     await page.setViewportSize({ width: 1440, height: 900 });
+    await expect(page.locator('.dccai-window')).toHaveCount(0);
+    await page.getByRole('button', { name: 'DCCAIを開く', exact: true }).click();
     await expect(page.locator('.dccai-window')).toBeVisible();
 });
 

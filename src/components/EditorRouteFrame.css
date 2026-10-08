@@ -1,15 +1,16 @@
 .editor-route-frame {
-    width: min(1440px, calc(100% - 48px));
-    min-height: calc(100vh - 148px);
-    margin: 34px auto;
-    border: 1px solid var(--editor-border);
+    width: min(var(--editor-workspace-width), 100%);
+    min-height: calc(100vh - var(--site-header-height, 69px));
+    margin: 0 auto;
+    border-right: 1px solid var(--editor-border);
+    border-left: 1px solid var(--editor-border);
     background: var(--editor-panel);
     box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
 }
 
 .editor-route-frame__titlebar,
 .editor-route-frame__tabbar {
-    min-height: 38px;
+    min-height: 43px;
     display: flex;
     align-items: center;
     border-bottom: 1px solid var(--editor-border);
@@ -18,6 +19,7 @@
 }
 
 .editor-route-frame__titlebar {
+    min-height: 30px;
     justify-content: space-between;
     padding: 0 14px;
     color: var(--editor-muted);
@@ -36,7 +38,7 @@
 .editor-route-frame__tabbar { justify-content: space-between; background: #0d1117; }
 .editor-route-frame__tab {
     min-width: 0;
-    min-height: 38px;
+    min-height: 43px;
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -57,13 +59,15 @@
 
 @media (max-width: 600px) {
     .editor-route-frame { width: 100%; min-height: auto; margin: 0; border-right: 0; border-left: 0; }
-    .editor-route-frame__titlebar { min-height: 32px; padding: 0 12px; }
+    .editor-route-frame__titlebar { min-height: 30px; padding: 0 12px; }
     .editor-route-frame__path { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .editor-route-frame__state { display: none; }
-    .editor-route-frame__tabbar, .editor-route-frame__tab { min-height: 35px; }
+    .editor-route-frame__tabbar, .editor-route-frame__tab { min-height: 43px; }
 }
 
-.editor-route-frame__workspace { display: grid; grid-template-columns: 238px minmax(0, 1fr); align-items: start; }
+.editor-route-frame__workspace { display: grid; grid-template-columns: var(--editor-sidebar-width) minmax(0, 1fr); align-items: start; }
 .editor-route-frame__canvas { min-width: 0; }
-@media (max-width: 1180px) { .editor-route-frame__workspace { grid-template-columns: 205px minmax(0, 1fr); } }
-@media (max-width: 860px) { .editor-route-frame__workspace { display: block; } }
+@media (max-width: 860px) {
+    .editor-route-frame { border-right: 0; border-left: 0; }
+    .editor-route-frame__workspace { display: block; }
+}

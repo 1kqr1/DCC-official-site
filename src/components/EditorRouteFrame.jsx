@@ -10,7 +10,7 @@ const fileIcons = {
     folder: '⌄',
 };
 
-const EditorRouteFrame = ({ file, type = 'markdown', number, children, withExplorer = false }) => (
+const EditorRouteFrame = ({ file, type = 'markdown', number, children, withExplorer = true }) => (
     <div className="editor-route-frame">
         <div className="editor-route-frame__titlebar" aria-hidden="true">
             <span className="editor-route-frame__dots"><i></i><i></i><i></i></span>

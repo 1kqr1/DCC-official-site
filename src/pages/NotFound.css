@@ -1,4 +1,4 @@
-.not-found { min-height: 470px; display: grid; align-content: center; justify-items: start; gap: 13px; padding: clamp(52px, 10vw, 130px) clamp(24px, 8vw, 112px); }
+.not-found { min-height: 470px; display: grid; align-content: center; justify-items: start; gap: 13px; padding: clamp(52px, 10vw, 130px) var(--editor-content-padding); }
 .not-found__command, .not-found__error { font-family: var(--font-mono); font-size: 0.78rem; }
 .not-found__command { color: var(--editor-code-blue); }
 .not-found__error { color: var(--editor-accent); }

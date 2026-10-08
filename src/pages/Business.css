@@ -3,10 +3,6 @@
     background: var(--color-bg);
 }
 
-.business .container {
-    max-width: 1080px;
-}
-
 /* ===== イントロ ===== */
 .biz-hero {
     padding: clamp(120px, 16vw, 180px) 0 clamp(60px, 9vw, 100px);
@@ -142,7 +138,6 @@
 .business .tok-var { color: var(--editor-code-warm); }
 
 .editor-route-frame .business { background: transparent; }
-.editor-route-frame .business .container { max-width: 1120px; }
 .editor-route-frame .biz-hero { padding: clamp(54px, 9vw, 120px) 0 clamp(48px, 7vw, 82px); background: linear-gradient(115deg, rgba(158, 255, 69, 0.065), transparent 44%), transparent; border-bottom-color: var(--editor-border); }
 .editor-route-frame .biz-comment { color: var(--editor-accent); }
 .editor-route-frame .biz-title { font-size: clamp(2.2rem, 5.5vw, 4.2rem); }

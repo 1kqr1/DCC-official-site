@@ -33,7 +33,7 @@ const loadMessages = () => {
 };
 
 function DCCAIWidget() {
-  const [isOpen, setIsOpen] = useState(() => window.matchMedia('(min-width: 1280px)').matches);
+  const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState(loadMessages);
   const [value, setValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -47,13 +47,6 @@ function DCCAIWidget() {
   const requestIdRef = useRef(0);
   const focusOnOpenRef = useRef(false);
   const focusOnCloseRef = useRef(false);
-
-  useEffect(() => {
-    const wideScreen = window.matchMedia('(min-width: 1280px)');
-    const syncScreen = () => setIsOpen(wideScreen.matches);
-    wideScreen.addEventListener('change', syncScreen);
-    return () => wideScreen.removeEventListener('change', syncScreen);
-  }, []);
 
   useEffect(() => {
     sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
