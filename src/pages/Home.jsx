@@ -382,7 +382,7 @@ const Home = () => {
                         <div className="join-terminal" data-reveal>
                             <p className="join-terminal__command"><span>$</span> ./join.sh</p>
                             <p className="join-terminal__output">&gt; DCCに参加する</p>
-                            <h2 id="join-title"><span className="nowrap-phrase">つくるのが好き？</span><br /><span className="nowrap-phrase">参加しよう。</span></h2>
+                            <h2 id="join-title"><span className="nowrap-phrase">「好き」を、</span><span className="nowrap-phrase">かたちに。</span></h2>
                             <p className="join-terminal__output">&gt; 一緒に何かつくりませんか？</p>
                             <p className="join-explanation">下のボタンからDiscordの招待ページが開きます。<br />気になることがあれば、見学・お問い合わせからご相談ください。</p>
                             <div className="join-terminal__actions">
