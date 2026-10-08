@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Link from '../components/NavigationLink';
+import EditorExplorer from '../components/EditorExplorer';
 import logo from '../assets/logo-white.png';
 import roomPhoto from '../assets/room-pc-01.jpg';
 import { fetchPosts } from '../blog/api';
@@ -11,19 +12,7 @@ import { useSeo } from '../seo';
 import './Home.css';
 import './Community.css';
 
-const explorerIcons = { html: '◉', markdown: '#', folder: '⌄', json: '{}', log: '>', shell: '$' };
-const sectionFiles = homeSections.map(({ id, file, type }) => ({
-    id,
-    label: file,
-    icon: explorerIcons[type],
-    kind: type === 'folder' ? 'folder' : 'file',
-}));
 const sectionFileById = Object.fromEntries(homeSections.map((section) => [section.id, section]));
-
-const extraFiles = [
-    { id: 'hero', label: 'index.html', icon: explorerIcons.html, kind: 'file', track: true },
-    { to: '/blog', label: 'news/', icon: explorerIcons.folder, kind: 'folder', track: false },
-];
 
 const formatLogDate = (value) => {
     const date = new Date(value);
@@ -50,32 +39,6 @@ const getMemberLinks = (member) => {
         .map(([key, value]) => ({ label: labels[key], href: value }));
 };
 
-const useActiveEditorSection = () => {
-    const [activeSection, setActiveSection] = useState('hero');
-
-    useEffect(() => {
-        const sections = sectionFiles
-            .map(({ id }) => document.getElementById(id))
-            .filter(Boolean);
-
-        const observer = new IntersectionObserver(
-            (entries) => {
-                const visible = entries
-                    .filter((entry) => entry.isIntersecting)
-                    .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
-
-                if (visible) setActiveSection(visible.target.id);
-            },
-            { rootMargin: '-18% 0px -62% 0px', threshold: 0 },
-        );
-
-        sections.forEach((section) => observer.observe(section));
-        return () => observer.disconnect();
-    }, []);
-
-    return activeSection;
-};
-
 const EditorFileBar = ({ section }) => {
     const { file, type } = sectionFileById[section];
     return (
@@ -89,60 +52,7 @@ const EditorFileBar = ({ section }) => {
     );
 };
 
-const ExplorerLink = ({ entry, activeSection }) => {
-    const isActive = entry.track !== false && entry.id === activeSection;
-    const content = <>
-        <span className="editor-explorer__icon" aria-hidden="true">{entry.icon}</span>
-        <span>{entry.label}</span>
-    </>;
-
-    if (entry.to) {
-        return (
-                <Link className={`editor-explorer__entry editor-explorer__entry--${entry.kind}`} to={entry.to}>
-                    {content}
-                </Link>
-        );
-    }
-
-    return (
-        <Link
-            className={`editor-explorer__entry editor-explorer__entry--${entry.kind}${isActive ? ' is-active' : ''}`}
-            to={`/#${entry.id}`}
-            aria-current={isActive ? 'location' : undefined}
-        >
-            {content}
-        </Link>
-    );
-};
-
-const EditorExplorer = ({ activeSection }) => (
-    <aside className="editor-explorer" aria-label="DCC Explorer">
-        <div className="editor-explorer__heading">
-            <span>EXPLORER</span>
-            <span aria-hidden="true">···</span>
-        </div>
-        <div className="editor-explorer__tree">
-            <p className="editor-explorer__root"><span aria-hidden="true">⌄</span> DCC</p>
-            <div className="editor-explorer__folder-list">
-                {sectionFiles.slice(1).map((entry) => (
-                    <ExplorerLink key={entry.id} entry={entry} activeSection={activeSection} />
-                ))}
-            </div>
-            <div className="editor-explorer__file-list">
-                {extraFiles.map((entry) => (
-                    <ExplorerLink key={`${entry.id}-${entry.label}`} entry={entry} activeSection={activeSection} />
-                ))}
-            </div>
-        </div>
-        <div className="editor-explorer__foot">
-            <span className="editor-live-dot" aria-hidden="true"></span>
-            DCC workspace
-        </div>
-    </aside>
-);
-
 const Home = () => {
-    const activeSection = useActiveEditorSection();
     const [members, setMembers] = useState(null);
     const [membersError, setMembersError] = useState(false);
     const [posts, setPosts] = useState(null);
@@ -186,7 +96,7 @@ const Home = () => {
             </div>
 
             <div className="editor-workspace">
-                <EditorExplorer activeSection={activeSection} />
+                <EditorExplorer />
 
                 <div className="editor-canvas">
                     <section id="hero" className="editor-section editor-hero" aria-labelledby="hero-title">

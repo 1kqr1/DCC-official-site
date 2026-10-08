@@ -164,7 +164,10 @@ for (const hash of ['#top', '#about']) {
     test(`ハッシュ付きの履歴 ${hash} でも戻る・進むで読んでいた位置を復元する`, async ({ page }) => {
         await page.goto('/business');
         await clickLink(page, '.site-brand');
-        if (hash !== '#top') await clickLink(page, `.site-header__link[href="/${hash}"]`);
+        if (hash !== '#top') {
+            await clickLink(page, `.site-header__link[href="/${hash}"]`);
+            await expectAnchor(page, hash);
+        }
         await scrollTo(page, 1300);
         await clickLink(page, '.site-footer a[href="/business"]');
         await scrollTo(page, 500);

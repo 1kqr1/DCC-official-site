@@ -36,7 +36,7 @@ const Blog = () => {
     }, []);
 
     return (
-        <EditorRouteFrame file="news/" type="folder" number={siteNumber('news')}>
+        <EditorRouteFrame withExplorer file="news/" type="folder" number={siteNumber('news')}>
         <section className="blog">
             <div className="container">
                 <div className="blog-header" data-reveal>

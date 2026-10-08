@@ -1,0 +1,113 @@
+.editor-explorer {
+    position: sticky;
+    top: var(--site-header-height, 68px);
+    min-width: 0;
+    height: calc(100vh - var(--site-header-height, 68px));
+    height: calc(100dvh - var(--site-header-height, 68px));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--editor-border);
+    background: rgba(10, 14, 17, 0.84);
+}
+
+.editor-explorer__heading {
+    min-height: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px 0 17px;
+    border-bottom: 1px solid var(--editor-border);
+    color: var(--editor-muted);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+.editor-explorer__tree {
+    padding: 16px 8px 22px;
+}
+
+.editor-explorer__root {
+    padding: 0 9px 9px;
+    color: var(--editor-text);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.editor-explorer__root span {
+    margin-right: 4px;
+    color: var(--editor-accent);
+}
+
+.editor-explorer__folder-list {
+    display: grid;
+    gap: 1px;
+}
+
+.editor-explorer__entry {
+    min-height: 29px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0 9px;
+    border-left: 2px solid transparent;
+    color: var(--editor-muted);
+    font-family: var(--font-mono);
+    font-size: 0.69rem;
+    transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease;
+}
+
+.editor-explorer__entry:hover,
+.editor-explorer__entry:focus-visible {
+    background: rgba(255, 255, 255, 0.035);
+    color: var(--editor-text);
+}
+
+.editor-explorer__entry.is-active {
+    border-left-color: var(--editor-accent);
+    background: var(--editor-accent-soft);
+    color: var(--editor-text);
+}
+
+.editor-explorer__icon {
+    width: 13px;
+    flex: 0 0 13px;
+    color: var(--editor-dim);
+    font-size: 0.72rem;
+    text-align: center;
+}
+
+.editor-explorer__entry--folder .editor-explorer__icon {
+    color: var(--editor-code-warm);
+}
+
+.editor-explorer__entry--file .editor-explorer__icon {
+    color: var(--editor-code-blue);
+}
+
+.editor-explorer__entry.is-active .editor-explorer__icon {
+    color: var(--editor-accent);
+}
+
+.editor-explorer__foot {
+    margin-top: auto;
+    min-height: 37px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 16px;
+    border-top: 1px solid var(--editor-border);
+    color: var(--editor-dim);
+    font-family: var(--font-mono);
+    font-size: 0.57rem;
+}
+
+
+.editor-explorer__entry > span:last-child { min-width: 0; overflow-wrap: anywhere; }
+.editor-explorer__heading > span:first-child { min-width: 0; overflow-wrap: anywhere; }
+.editor-explorer__heading > span:last-child { flex-shrink: 0; }
+@media (max-width: 860px) { .editor-explorer { display: none; } }

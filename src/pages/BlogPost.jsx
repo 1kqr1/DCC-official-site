@@ -86,7 +86,7 @@ const BlogPostView = ({ slug, preview }) => {
     });
 
     const frame = (content) => (
-        <EditorRouteFrame file={post ? `news/${post.slug}.md` : 'news/article.md'} type="markdown" number={siteNumber('news')}>
+        <EditorRouteFrame withExplorer file={post ? `news/${post.slug}.md` : 'news/article.md'} type="markdown" number={siteNumber('news')}>
             {content}
         </EditorRouteFrame>
     );

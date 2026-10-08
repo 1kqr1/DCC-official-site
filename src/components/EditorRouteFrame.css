@@ -29,7 +29,7 @@
 .editor-route-frame__dots i { width: 8px; height: 8px; border-radius: 50%; background: #303943; }
 .editor-route-frame__dots i:nth-child(2) { background: #3d4931; }
 .editor-route-frame__dots i:nth-child(3) { background: #4d5134; }
-.editor-route-frame__workspace { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; letter-spacing: 0.06em; }
+.editor-route-frame__path { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; letter-spacing: 0.06em; }
 .editor-route-frame__state { flex-shrink: 0; color: var(--editor-accent); font-size: 0.56rem; letter-spacing: 0.12em; }
 .editor-route-frame__dots { flex-shrink: 0; }
 
@@ -58,7 +58,12 @@
 @media (max-width: 600px) {
     .editor-route-frame { width: 100%; min-height: auto; margin: 0; border-right: 0; border-left: 0; }
     .editor-route-frame__titlebar { min-height: 32px; padding: 0 12px; }
-    .editor-route-frame__workspace { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .editor-route-frame__path { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .editor-route-frame__state { display: none; }
     .editor-route-frame__tabbar, .editor-route-frame__tab { min-height: 35px; }
 }
+
+.editor-route-frame__workspace { display: grid; grid-template-columns: 238px minmax(0, 1fr); align-items: start; }
+.editor-route-frame__canvas { min-width: 0; }
+@media (max-width: 1180px) { .editor-route-frame__workspace { grid-template-columns: 205px minmax(0, 1fr); } }
+@media (max-width: 860px) { .editor-route-frame__workspace { display: block; } }
