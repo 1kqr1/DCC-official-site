@@ -370,7 +370,7 @@ const Home = () => {
                     </section>
                     <section id="faq" className="editor-section" aria-labelledby="faq-title">
                         <EditorFileBar section="faq" />
-                        <div className="community-faq"><p className="editor-section__label">{siteNumber('faq')} / BEFORE YOU JOIN</p><h2 id="faq-title">参加する前に<br />よくある質問</h2>
+                        <div className="community-faq"><p className="editor-section__label">{siteNumber('faq')} / BEFORE YOU JOIN</p><h2 id="faq-title">よくある質問</h2>
                             <details open><summary>プログラミング未経験でも大丈夫？</summary><p>はい。未経験でも参加できます。プログラミングだけでなく、イラスト・映像・音楽など、興味のある制作から始められます。</p></details>
                             <details><summary>活動頻度はどのくらい？</summary><p>決まった参加頻度はありません。Discordで交流したり、来られるときに部室に来たり、自分のペースで活動できます。</p></details>
                             <details><summary>他のサークルと掛け持ちできる？</summary><p>はい、掛け持ちできます。</p></details>
@@ -382,7 +382,7 @@ const Home = () => {
                         <div className="join-terminal" data-reveal>
                             <p className="join-terminal__command"><span>$</span> ./join.sh</p>
                             <p className="join-terminal__output">&gt; DCCに参加する</p>
-                            <h2 id="join-title"><span className="nowrap-phrase">つくることが</span><span className="nowrap-phrase">好きなら、</span><br /><span className="nowrap-phrase">気軽に</span><span className="nowrap-phrase">参加してください。</span></h2>
+                            <h2 id="join-title"><span className="nowrap-phrase">つくるのが好き？</span><br /><span className="nowrap-phrase">参加しよう。</span></h2>
                             <p className="join-terminal__output">&gt; 一緒に何かつくりませんか？</p>
                             <p className="join-explanation">下のボタンからDiscordの招待ページが開きます。<br />気になることがあれば、見学・お問い合わせからご相談ください。</p>
                             <div className="join-terminal__actions">
