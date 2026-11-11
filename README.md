@@ -1,5 +1,18 @@
 DCCの公式サイトだえ
 
+## 開発
+
+```sh
+npm ci            # 依存関係をインストール
+npm run dev       # 開発サーバー（http://localhost:5173）
+npm run build     # dist/ に本番ビルド
+npm run lint      # ESLint
+npm test          # ユニットテスト
+npm run test:browser  # ビルドしてPlaywrightでブラウザテスト
+```
+
+作業はブランチを切ってPRを出し、`main` にマージする流れで進めます。
+
 ## デプロイ
 
 `main` にpush（PRをマージ）すると、GitHub Actions（`.github/workflows/deploy-cloudflare.yml`）がビルドして Cloudflare Pages の `dcc-official-site` プロジェクトへ公開します。本番URLは https://shu-dcc.net/ です。手動でのデプロイ作業は不要です。
