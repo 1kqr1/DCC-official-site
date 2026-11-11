@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { getMarkdownPath, resolveSeo, SITE_URL } from './data/seoContent';
 
 // ページごとに <title> / description / OGP / canonical を切り替える。
 //
@@ -9,21 +10,6 @@ import { useEffect } from 'react';
 // React 19 は <title> や <meta> をコンポーネント内に直接書けるが、その場合
 // index.html の静的タグと二重になる。ここでは重複を確実に避けたいので、
 // head を「外部システム」として useEffect から同期している。
-
-const SITE_NAME = 'DCC - Digital Creators Community';
-const SITE_URL = 'https://shu-dcc.net';
-const DEFAULT_DESCRIPTION =
-    'DCC（Digital Creators Community）は周南公立大学発、Discordベースのクリエイターコミュニティ。アプリ開発・3Dプリンタ・デジタルアート。参加すればその日からメンバー、部室や機材も自由に使えます。';
-const DEFAULT_IMAGE = `${SITE_URL}/ogp-logo.jpg`;
-
-// 説明文が長すぎると検索結果で途中から切られるので、ほどよい長さに丸める
-const MAX_DESCRIPTION = 120;
-
-function truncate(text) {
-    const oneLine = String(text).replace(/\s+/g, ' ').trim();
-    if (oneLine.length <= MAX_DESCRIPTION) return oneLine;
-    return `${oneLine.slice(0, MAX_DESCRIPTION - 1)}…`;
-}
 
 function upsertMeta(keyAttr, keyValue, content) {
     let el = document.head.querySelector(`meta[${keyAttr}="${keyValue}"]`);
@@ -47,16 +33,14 @@ function upsertLink(rel, href) {
 
 /**
  * @param {object} options
- * @param {string} [options.title]       ページ名。省略するとサイト名だけになる（トップ用）
+ * @param {string} [options.title]       ページ名。省略するとパスごとの既定タイトルになる
  * @param {string} [options.description] 未取得・失敗時は既定の説明文にフォールバックする
  * @param {string} [options.path]        '/blog' のような絶対パス
  * @param {string} [options.image]       OGP画像の絶対URL
  */
-export function useSeo({ title, description, path = '/', image } = {}) {
-    const fullTitle = title ? `${title} | DCC` : SITE_NAME;
-    const desc = description ? truncate(description) : DEFAULT_DESCRIPTION;
-    const url = `${SITE_URL}${path}`;
-    const img = image || DEFAULT_IMAGE;
+export function useSeo(options = {}) {
+    const { title: fullTitle, description: desc, url, image: img, robots, structuredData } = resolveSeo(options);
+    const markdownPath = getMarkdownPath(options.path || '/');
 
     useEffect(() => {
         document.title = fullTitle;
@@ -65,6 +49,30 @@ export function useSeo({ title, description, path = '/', image } = {}) {
         upsertMeta('property', 'og:description', desc);
         upsertMeta('property', 'og:url', url);
         upsertMeta('property', 'og:image', img);
+        upsertMeta('name', 'twitter:title', fullTitle);
+        upsertMeta('name', 'twitter:description', desc);
+        upsertMeta('name', 'twitter:image', img);
+        upsertMeta('name', 'robots', robots);
         upsertLink('canonical', url);
-    }, [fullTitle, desc, url, img]);
+        const alternate = document.head.querySelector('link[rel="alternate"][type="text/markdown"]');
+        if (markdownPath) {
+            const link = alternate || document.createElement('link');
+            link.setAttribute('rel', 'alternate');
+            link.setAttribute('type', 'text/markdown');
+            link.setAttribute('href', `${SITE_URL}${markdownPath}`);
+            if (!alternate) document.head.appendChild(link);
+        } else {
+            alternate?.remove();
+        }
+        const existing = document.getElementById('dcc-structured-data');
+        if (structuredData) {
+            const script = existing || document.createElement('script');
+            script.id = 'dcc-structured-data';
+            script.type = 'application/ld+json';
+            script.textContent = JSON.stringify(structuredData);
+            if (!existing) document.head.appendChild(script);
+        } else {
+            existing?.remove();
+        }
+    }, [fullTitle, desc, url, img, robots, structuredData, markdownPath]);
 }

@@ -7,7 +7,7 @@ import './NotFound.css';
 
 const NotFound = () => {
     const location = useLocation();
-    useSeo({ title: 'ページが見つかりませんでした', path: location.pathname });
+    useSeo({ title: 'ページが見つかりませんでした', path: location.pathname, noindex: true });
 
     return (
         <EditorRouteFrame file="404.md" type="markdown" number="ERR">

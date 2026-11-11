@@ -16,11 +16,7 @@ const Blog = () => {
     const [posts, setPosts] = useState(getCachedPosts);
     const [error, setError] = useState(null);
 
-    useSeo({
-        title: '活動ブログ',
-        description: 'DCCの日々の活動やイベントの様子をお届けします。',
-        path: '/blog',
-    });
+    useSeo({ path: '/blog' });
 
     useEffect(() => {
         let cancelled = false;

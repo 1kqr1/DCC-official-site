@@ -216,6 +216,11 @@ main {
   color: transparent;
 }
 
+#root[data-prerendered] [data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
 [data-reveal] {
   opacity: 0;
   transform: translateY(22px);

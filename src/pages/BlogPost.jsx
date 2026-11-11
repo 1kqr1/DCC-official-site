@@ -83,6 +83,7 @@ const BlogPostView = ({ slug, preview }) => {
         description: post?.excerpt,
         path: `/blog/${slug}`,
         image: post?.thumbnailUrl,
+        noindex: notFound,
     });
 
     const frame = (content) => (

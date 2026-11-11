@@ -20,11 +20,7 @@ const Members = () => {
     const [members, setMembers] = useState(null);
     const [error, setError] = useState(null);
 
-    useSeo({
-        title: '部員紹介',
-        description: 'DCCで活動しているメンバーと、その作品を紹介します。',
-        path: '/members',
-    });
+    useSeo({ path: '/members' });
 
     useEffect(() => {
         fetchMembers()
