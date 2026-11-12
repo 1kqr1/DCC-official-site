@@ -182,6 +182,18 @@ main {
   :root { --editor-sidebar-width: 205px; }
 }
 
+/* 4K など横幅の広い画面:
+   エディタ枠・背景は画面いっぱいに広げ(左右がベゼル状に空かない)、
+   中身は読みやすい幅(--editor-content-max)で中央寄せする。
+   文字サイズは OS の拡大率に任せて変えない。 */
+@media (min-width: 1920px) {
+  :root {
+    --editor-workspace-width: 100%;
+    --editor-content-max: 1320px;
+    --editor-content-padding: max(64px, (100vw - var(--editor-sidebar-width) - var(--editor-content-max)) / 2);
+  }
+}
+
 .section-label {
   display: inline-flex;
   align-items: center;
