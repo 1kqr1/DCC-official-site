@@ -40,7 +40,7 @@
 
 .site-header__inner {
     min-height: 68px;
-    max-width: 1680px;
+    max-width: var(--editor-workspace-width);
     margin: 0 auto;
     padding: 0 24px;
     display: flex;
