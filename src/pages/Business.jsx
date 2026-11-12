@@ -89,11 +89,7 @@ const faqs = [
 ];
 
 const Business = () => {
-    useSeo({
-        title: '企業・団体の方へ',
-        description: 'DCCへの協賛・制作依頼・インターン・共同開発のご相談を受け付けています。',
-        path: '/business',
-    });
+    useSeo({ path: '/business' });
 
     return (
         <EditorRouteFrame file="collaborate.md" type="markdown" number={siteNumber('business')}>
@@ -101,7 +97,7 @@ const Business = () => {
             {/* ===== イントロ ===== */}
             <section className="biz-hero">
                 <div className="container">
-                    <p className="biz-comment">// 企業・団体の皆さまへ</p>
+                    <p className="biz-comment">// 周南公立大学の学生との連携をお考えの企業・団体の皆さまへ</p>
                     <h1 className="biz-title">
                         学生と<span className="tok-cyan">一緒に</span>、<br />
                         何かつくりませんか？
@@ -111,6 +107,7 @@ const Business = () => {
                         Discordベースのクリエイターコミュニティです。協賛・制作依頼・採用・共同開発など、
                         企業・団体の皆さまとの関わりを歓迎しています。
                     </p>
+                    <p className="biz-lead">山口県周南市で、学生とのWebサイト・アプリ制作や共同開発、産学連携のきっかけを探している方へ。プログラミング・3D・映像・デザインなどの活動分野から、ご相談内容に合わせて取り組み方を一緒に考えます。</p>
                     <div className="biz-hero-actions">
                         <a href={BUSINESS_FORM_URL} className="btn-cli" target="_blank" rel="noreferrer">
                             <span className="cli-prompt">$</span> お問い合わせ <span aria-hidden="true">↗</span>
@@ -124,7 +121,7 @@ const Business = () => {
             <section className="biz-offers">
                 <div className="container">
                     <span className="section-label">01 / WHAT WE OFFER</span>
-                    <h2 className="section-heading">できる関わり方</h2>
+                    <h2 className="section-heading">制作依頼・共同開発・協賛・採用のご相談</h2>
                     <div className="offer-grid">
                         {offers.map((o) => (
                             <div className="offer-card" key={o.n}>

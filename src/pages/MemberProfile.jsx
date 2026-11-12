@@ -41,6 +41,7 @@ const MemberProfileView = ({ slug }) => {
             : undefined,
         path: `/members/${slug}`,
         image: member?.avatarUrl,
+        noindex: member === null,
     });
 
     const frame = (content) => (

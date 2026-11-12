@@ -103,7 +103,7 @@ const Home = () => {
                         <EditorFileBar section="hero" />
                         <div className="editor-hero__body">
                             <div className="editor-code editor-hero__code" data-reveal>
-                                <p className="hero-origin">周南公立大学発のクリエイターコミュニティ</p>
+                                <p className="hero-origin">周南公立大学発｜プログラミング・デジタル創作コミュニティ</p>
                                 <h1 id="hero-title" className="editor-hero__title">
                                     <span>DCC;<i className="terminal-cursor" aria-label=""></i></span>
                                 </h1>
@@ -141,7 +141,10 @@ const Home = () => {
                                 <h2 id="about-title">DCCって<br /><em>どんなところ？</em></h2>
                                 <p>DCCは、周南公立大学の学生を中心とした、Discordベースのクリエイターコミュニティです。</p>
                                 <p>プログラミング・3D・デジタルアートなど。興味のあるものを自由につくり、知識と作品を持ち寄ります。</p>
+                                <h3>周南公立大学で部活・サークルを探している方へ</h3>
+                                <p>情報科学科で学んでいる方も、プログラミングやデジタル制作に興味がある方も。DCCではWeb・アプリ開発、ゲーム、AI、3D、イラストなど、好きな制作を通じて交流できます。未経験の方も、興味のある分野から参加できます。</p>
                                 <blockquote>入部届も、部費もなし。Discordに参加すれば、その日からメンバーです。</blockquote>
+                                <p><Link to="/business" className="editor-text-link">企業・団体の方へ：学生とのWeb制作・共同開発のご相談 →</Link></p>
                                 <div className="markdown-sheet__fields">
                                     <p>## Fields</p>
                                     <ul>

@@ -6,6 +6,7 @@ import { dccaiDevApi } from './server/dccai/vite-plugin.js'
 export default defineConfig({
   base: '/',
   plugins: [react(), dccaiDevApi()],
+  build: { manifest: true },
   // プレビュー実行環境が PORT を割り当てた場合はそれに従う（未設定なら従来どおり 5173）
   server: {
     port: Number(process.env.PORT) || 5173,
