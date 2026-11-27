@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const order = ['index.html', 'about.md', 'projects/', 'news/', 'workspace/', 'faq.md', 'join.sh'];
+const order = ['index.html', 'about.md', 'schedule.ics', 'projects/', 'news/', 'workspace/', 'faq.md', 'join.sh'];
 const post = { slug: 'explorer-check', title: 'エクスプローラー検証用', excerpt: 'テスト専用', publishedAt: '2026-10-08', blocks: [{ type: 'text', text: 'テスト専用の本文' }] };
 const api = 'https://dcc-portal.s1kqr1s.workers.dev/api/';
 const explorer = (page) => page.getByRole('navigation', { name: 'エクスプローラー' });

@@ -5,6 +5,7 @@ import { SHOW_HOME_MEMBERS } from '../config';
 export const homeSections = [
     { id: 'hero', file: 'index.html', type: 'html' },
     { id: 'about', file: 'about.md', type: 'markdown' },
+    { id: 'schedule', file: 'schedule.ics', type: 'calendar' },
     { id: 'projects', file: 'projects/', type: 'folder' },
     ...(SHOW_HOME_MEMBERS ? [{ id: 'members', file: 'members.json', type: 'json' }] : []),
     { id: 'news', file: 'news.log', type: 'log' },

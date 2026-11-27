@@ -4,7 +4,7 @@ import Link from './NavigationLink';
 import { homeSections } from '../data/siteSections';
 import './EditorExplorer.css';
 
-const icons = { html: '◉', markdown: '#', folder: '⌄', json: '{}', log: '>', shell: '$' };
+const icons = { html: '◉', markdown: '#', folder: '⌄', json: '{}', log: '>', shell: '$', calendar: '▦' };
 
 function EditorExplorer() {
     const { pathname } = useLocation();

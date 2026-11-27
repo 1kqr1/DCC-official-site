@@ -103,6 +103,7 @@
 .editor-filebar__icon--folder { color: var(--editor-code-warm); border-radius: 2px; }
 .editor-filebar__icon--json { color: var(--editor-accent); border-radius: 50%; }
 .editor-filebar__icon--log { color: var(--editor-code-blue); border-style: dashed; }
+.editor-filebar__icon--calendar { color: var(--editor-code-warm); border-top-width: 3px; }
 .editor-filebar__icon--shell { color: var(--editor-accent); border-radius: 0 50% 50% 50%; }
 
 .editor-filebar__close {

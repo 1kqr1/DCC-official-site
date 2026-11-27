@@ -8,6 +8,7 @@ import './Header.css';
 
 const navigation = [
     { to: '/#about', label: `[${siteNumber('about')}] ABOUT` },
+    { to: '/#schedule', label: `[${siteNumber('schedule')}] SCHEDULE` },
     { to: '/#projects', label: `[${siteNumber('projects')}] PROJECTS` },
     ...(SHOW_HOME_MEMBERS ? [{ to: '/#members', label: `[${siteNumber('members')}] MEMBERS` }] : []),
     { to: '/#news', label: `[${siteNumber('news')}] NEWS` },

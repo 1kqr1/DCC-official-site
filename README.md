@@ -42,3 +42,12 @@ Cloudflare Pagesでは固定ページを静的HTMLで配信し、記事・プロ
 `POST /api/dccai` の開発用エンドポイントは `server/dccai/handler.js` にあります。本番用のCloudflare Workerは `worker/` にあり、`DCCAI_API_KEY` をWorker Secretとして設定します。`.env.example` を `.env.local` にコピーして設定しますが、APIキーに `VITE_` 接頭辞を付けないでください。
 
 サイト本体はCloudflare Pagesへの静的配信なので、秘密鍵を使う `/api/dccai` はサイト側では実行しません。本番では `dccai-shu-dcc` Workerを別オリジンの安全なAPIとして呼び出します。Workerは自動デプロイの対象外なので、変更したときは `worker/` で `npx wrangler deploy` を実行してください。
+
+## 活動カレンダー
+
+トップの「活動予定」（`#schedule`）は、**部員ポータル**（[dcc-portfolio](https://github.com/1kqr1/dcc-portfolio)）の `/calendar` で役員（ポータルの管理者）が編集した予定から、日時・タイトル・場所だけを表示します。部内だけの予定は入れないでください。
+
+- 取得元：`https://dcc-portal.s1kqr1s.workers.dev/api/events`（`src/config.js` の `EVENTS_API_URL`。90日先まで・近い順に20件）
+- 表示：`src/components/Schedule.jsx`
+- 購読用：ポータルの `/calendar.ics`（APIの `icsUrl` / `googleUrl` からリンク）
+- ローカル開発：Viteのサンプル予定（`server/calendar/`）を表示します。本番データで確かめたいときは `VITE_EVENTS_API_URL` にポータルのURLを入れてください

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from '../components/NavigationLink';
 import EditorExplorer from '../components/EditorExplorer';
+import Schedule from '../components/Schedule';
 import logo from '../assets/logo-white.png';
 import roomPhoto from '../assets/room-pc-01.jpg';
 import { fetchPosts } from '../blog/api';
@@ -169,6 +170,18 @@ const Home = () => {
                                 </div>
                             </div>
                         </div>
+                    </section>
+
+                    <section id="schedule" className="editor-section editor-news" aria-labelledby="schedule-title">
+                        <EditorFileBar section="schedule" />
+                        <div className="editor-section__intro" data-reveal>
+                            <div>
+                                <p className="editor-section__label">{siteNumber('schedule')} / SCHEDULE</p>
+                                <h2 id="schedule-title">これからの<br />活動予定</h2>
+                            </div>
+                            <p>部室やDiscordでの活動予定です。見学したい方も、気軽にのぞいてみてください。</p>
+                        </div>
+                        <Schedule />
                     </section>
 
                     <section id="projects" className="editor-section editor-projects" aria-labelledby="projects-title">
