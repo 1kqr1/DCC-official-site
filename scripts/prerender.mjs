@@ -40,6 +40,7 @@ await writeFile(resolve(output, 'spa.html'), template);
 await writeFile(resolve(output, '404.html'), template);
 const server = await createServer({ server: { middlewareMode: true, hmr: false }, appType: 'custom' });
 try {
+    const siteContent = JSON.parse(await readFile(resolve('src/data/site-content.json'), 'utf8'));
     const knowledge = JSON.parse(await readFile(resolve('src/data/dcc-knowledge.json'), 'utf8'));
     const links = await server.ssrLoadModule('/src/config.js');
     const llmFiles = createLlmFiles({ knowledge, links });
@@ -59,6 +60,8 @@ try {
         await mkdir(dirname(destination), { recursive: true });
         await writeFile(destination, html);
     }
+    // 部員ポータルのHP編集画面が、今HPに出ている内容（初期値＋公開済みの編集）を読み込む用。
+    await writeFile(resolve(output, 'site-content.json'), `${JSON.stringify(siteContent)}\n`);
     const urls = Object.keys(pageSeo).map((path) => `  <url><loc>${SITE_URL}${path}</loc></url>`).join('\n');
     await writeFile(resolve(output, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
     console.log(`Prerendered ${Object.keys(pageSeo).length} pages, sitemap.xml and ${Object.keys(llmFiles).length} AI-readable files`);

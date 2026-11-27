@@ -1,19 +1,21 @@
 // サイト全体で使う設定値
-// トップのメンバー紹介と導線を一時停止。再掲載時は true に戻す。
-export const SHOW_HOME_MEMBERS = false;
+import { siteContent } from './data/siteContent';
 
+// ===== 部員ポータル（DCCadmin）の「HP編集」で変えられる値 =====
+// トップのメンバー紹介と導線の表示。
+export const SHOW_HOME_MEMBERS = siteContent.settings.showHomeMembers;
 // Discord 招待リンク
-export const DISCORD_INVITE = 'https://discord.gg/Gah94cTxw4';
-
+export const DISCORD_INVITE = siteContent.links.discordInvite;
 // お問い合わせ Google フォーム
 //   CONTACT_FORM_URL  … 一般（入部・見学など）
 //   BUSINESS_FORM_URL … 企業向け（協賛・制作依頼・採用・コラボ）
-export const CONTACT_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSew9o6Btnqyyf1_NvSGiaOzRfKoLBAz_BJmGAkZvOiGpo0HOQ/viewform?usp=dialog';
-export const BUSINESS_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSe_n7f6xLXdWX4COJg7bZ_O_NuyGHDm0v8dvHQhThSoNLvMng/viewform';
-
+export const CONTACT_FORM_URL = siteContent.links.contactForm;
+export const BUSINESS_FORM_URL = siteContent.links.businessForm;
 // DCC Hub（app.shu-dcc.net）内の各機能
-export const DCC_AI_URL = 'https://app.shu-dcc.net/ai';
-export const DCC_GIT_URL = 'https://app.shu-dcc.net/git#/';
+export const DCC_AI_URL = siteContent.links.dccAi;
+export const DCC_GIT_URL = siteContent.links.dccGit;
+
+// ===== ここから下はコードで管理する値 =====
 
 // 公開サイトから呼び出すDCCAI Worker。秘密情報はこの値に含めない。
 export const DCCAI_API_URL = import.meta.env.VITE_DCCAI_API_URL || 'https://dccai-shu-dcc.s1kqr1s.workers.dev/api/dccai';

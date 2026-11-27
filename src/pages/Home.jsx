@@ -3,15 +3,19 @@ import Link from '../components/NavigationLink';
 import EditorExplorer from '../components/EditorExplorer';
 import Schedule from '../components/Schedule';
 import logo from '../assets/logo-white.png';
-import roomPhoto from '../assets/room-pc-01.jpg';
 import { fetchPosts } from '../blog/api';
 import { DCC_AI_URL, DCC_GIT_URL, DISCORD_INVITE, CONTACT_FORM_URL, PORTFOLIO_EDIT_URL, SHOW_HOME_MEMBERS } from '../config';
-import { aboutGallery, activityFields } from '../data/editorContent';
+import { siteContent, imageSrc } from '../data/siteContent';
+import { RichText, SmartLink } from '../components/RichText';
 import { homeSections, siteNumber } from '../data/siteSections';
 import { fetchMembers } from '../members/api';
 import { useSeo } from '../seo';
 import './Home.css';
 import './Community.css';
+
+const home = siteContent.home;
+const { hero, about, projects, news, room, join } = home;
+const roomImage = imageSrc(room.image);
 
 const sectionFileById = Object.fromEntries(homeSections.map((section) => [section.id, section]));
 
@@ -104,18 +108,18 @@ const Home = () => {
                         <EditorFileBar section="hero" />
                         <div className="editor-hero__body">
                             <div className="editor-code editor-hero__code" data-reveal>
-                                <p className="hero-origin">周南公立大学発｜プログラミング・デジタル創作コミュニティ</p>
+                                <p className="hero-origin">{hero.origin}</p>
                                 <h1 id="hero-title" className="editor-hero__title">
                                     <span>DCC;<i className="terminal-cursor" aria-label=""></i></span>
                                 </h1>
-                                <p className="editor-hero__kicker"><span>DIGITAL CREATORS COMMUNITY</span></p>
-                                <p className="editor-hero__copy"><span>つくってみたい。<br />その気持ちから、はじめよう。</span></p>
-                                <p className="hero-description">アプリ、ゲーム、3D、イラスト、映像、音楽。<br />好きなものをつくり、見せ合い、一緒に学ぶ場所です。</p>
-                                <p className="hero-welcome">未経験歓迎 / 部費なし / 自分のペースで参加</p>
+                                <p className="editor-hero__kicker"><span>{hero.kicker}</span></p>
+                                <p className="editor-hero__copy"><span><RichText text={hero.copy} /></span></p>
+                                <p className="hero-description"><RichText text={hero.description} /></p>
+                                <p className="hero-welcome">{hero.welcome}</p>
                                 <div className="editor-hero__actions">
                                     <span>
-                                        <a href={DISCORD_INVITE} className="editor-button editor-button--accent" target="_blank" rel="noreferrer">Discordで参加する <b>↗</b></a>
-                                        <Link to="/#projects" className="editor-button editor-button--quiet">作品・活動を見る <b>↓</b></Link>
+                                        <a href={DISCORD_INVITE} className="editor-button editor-button--accent" target="_blank" rel="noreferrer">{hero.primaryLabel} <b>↗</b></a>
+                                        <Link to="/#projects" className="editor-button editor-button--quiet">{hero.secondaryLabel} <b>↓</b></Link>
                                     </span>
                                 </div>
                             </div>
@@ -126,9 +130,9 @@ const Home = () => {
                                     <img src={logo} alt="" />
                                 </div>
                                 <dl className="editor-hero__meta">
-                                    <div><dt>ORIGIN</dt><dd>SHUNAN PUBLIC UNIVERSITY</dd></div>
-                                    <div><dt>NETWORK</dt><dd><i className="editor-live-dot" aria-hidden="true"></i> DISCORD BASED</dd></div>
-                                    <div><dt>MODE</dt><dd>MAKE / LEARN / PLAY</dd></div>
+                                    {hero.meta.map((item) => (
+                                        <div key={item.label}><dt>{item.label}</dt><dd>{item.live && <><i className="editor-live-dot" aria-hidden="true"></i> </>}{item.value}</dd></div>
+                                    ))}
                                 </dl>
                             </div>
                         </div>
@@ -139,33 +143,32 @@ const Home = () => {
                         <div className="editor-about__body">
                             <div className="markdown-sheet" data-reveal>
                                 <p className="markdown-sheet__eyebrow">{siteNumber('about')} / ABOUT DCC</p>
-                                <h2 id="about-title">DCCって<br /><em>どんなところ？</em></h2>
-                                <p>DCCは、周南公立大学の学生を中心とした、Discordベースのクリエイターコミュニティです。</p>
-                                <p>プログラミング・3D・デジタルアートなど。興味のあるものを自由につくり、知識と作品を持ち寄ります。</p>
-                                <h3>周南公立大学で部活・サークルを探している方へ</h3>
-                                <p>情報科学科で学んでいる方も、プログラミングやデジタル制作に興味がある方も。DCCではWeb・アプリ開発、ゲーム、AI、3D、イラストなど、好きな制作を通じて交流できます。未経験の方も、興味のある分野から参加できます。</p>
-                                <blockquote>入部届も、部費もなし。Discordに参加すれば、その日からメンバーです。</blockquote>
-                                <p><Link to="/business" className="editor-text-link">企業・団体の方へ：学生とのWeb制作・共同開発のご相談 →</Link></p>
+                                <h2 id="about-title"><RichText text={about.heading} /></h2>
+                                {about.paragraphs.map((text, i) => <p key={i}><RichText text={text} /></p>)}
+                                {about.subheading && <h3>{about.subheading}</h3>}
+                                {about.subText && <p><RichText text={about.subText} /></p>}
+                                {about.quote && <blockquote>{about.quote}</blockquote>}
+                                <p><Link to="/business" className="editor-text-link">{about.businessLinkLabel} →</Link></p>
                                 <div className="markdown-sheet__fields">
                                     <p>## Fields</p>
                                     <ul>
-                                        {activityFields.map((field) => <li key={field}>- {field}</li>)}
+                                        {about.fields.map((field) => <li key={field}>- {field}</li>)}
                                     </ul>
                                 </div>
                             </div>
 
                             <div className="editor-about__aside" data-reveal style={{ '--reveal-delay': '0.1s' }}>
                                 <div className="editor-about__gallery">
-                                    {aboutGallery.map((item) => (
-                                        <figure key={item.label}>
-                                            <img src={item.image} alt={item.alt} loading="lazy" />
+                                    {about.gallery.filter((item) => imageSrc(item.image)).map((item, i) => (
+                                        <figure key={`${item.label}-${i}`}>
+                                            <img src={imageSrc(item.image)} alt={item.alt} loading="lazy" />
                                             <figcaption>{item.label}</figcaption>
                                         </figure>
                                     ))}
                                 </div>
                                 <div className="about-runtime">
                                     <p><span>const</span> base = <b>&quot;Discord&quot;</b>;</p>
-                                    <p><span>const</span> place = <b>&quot;11号館 2F 第1実習室&quot;</b>;</p>
+                                    <p><span>const</span> place = <b>&quot;{siteContent.common.place}&quot;</b>;</p>
                                     <p><span>const</span> access = <b>&quot;member&quot;</b>;</p>
                                 </div>
                             </div>
@@ -177,11 +180,11 @@ const Home = () => {
                         <div className="editor-section__intro" data-reveal>
                             <div>
                                 <p className="editor-section__label">{siteNumber('schedule')} / SCHEDULE</p>
-                                <h2 id="schedule-title">これからの<br />活動予定</h2>
+                                <h2 id="schedule-title"><RichText text={home.schedule.heading} /></h2>
                             </div>
-                            <p>部室やDiscordでの活動予定です。見学したい方も、気軽にのぞいてみてください。</p>
+                            <p><RichText text={home.schedule.lead} /></p>
                         </div>
-                        <Schedule />
+                        <Schedule note={home.schedule.note} />
                     </section>
 
                     <section id="projects" className="editor-section editor-projects" aria-labelledby="projects-title">
@@ -189,15 +192,15 @@ const Home = () => {
                         <div className="editor-section__intro" data-reveal>
                             <div>
                                 <p className="editor-section__label">{siteNumber('projects')} / FROM THE SHOWCASE</p>
-                                <h2 id="projects-title">発表会で<br />紹介された作品</h2>
+                                <h2 id="projects-title"><RichText text={projects.heading} /></h2>
                             </div>
-                            <p>成果物発表会で、メンバーが発表した作品の一部です。</p>
+                            <p><RichText text={projects.lead} /></p>
                         </div>
                         <div className="published-work" data-reveal>
-                            <ul><li>リモート図書館 <span>漫画の購入先を管理するWebアプリ</span></li><li>コドバ。 <span>競技プログラミングのオンライン対戦プラットフォーム</span></li><li>自作Live2Dモデル <span>下絵からモーションまで制作</span></li></ul>
-                            <Link to="/blog/2026-07-31-summer-showcase" className="editor-text-link">成果物発表会の記事を読む →</Link>
+                            <ul>{projects.items.map((item, i) => <li key={i}>{item.title} <span>{item.desc}</span></li>)}</ul>
+                            {projects.articleUrl && <SmartLink href={projects.articleUrl} className="editor-text-link">{projects.articleLabel} →</SmartLink>}
                         </div>
-                        <Link to="/blog" className="editor-text-link">活動ブログをすべて見る <span aria-hidden="true">→</span></Link>
+                        <Link to="/blog" className="editor-text-link">{projects.blogLinkLabel} <span aria-hidden="true">→</span></Link>
                     </section>
 
                     {SHOW_HOME_MEMBERS && <section id="members" className="editor-section editor-members" aria-labelledby="members-title">
@@ -205,7 +208,7 @@ const Home = () => {
                         <div className="editor-section__intro editor-members__intro" data-reveal>
                             <div>
                                 <p className="editor-section__label">{siteNumber('members')} / PEOPLE IN DCC</p>
-                                <h2 id="members-title">人の好奇心が、<br />DCCのエンジン。</h2>
+                                <h2 id="members-title"><RichText text={home.members.heading} /></h2>
                             </div>
                             <a href={PORTFOLIO_EDIT_URL} className="editor-text-link" target="_blank" rel="noreferrer">プロフィールを編集する <span aria-hidden="true">↗</span></a>
                         </div>
@@ -256,9 +259,9 @@ const Home = () => {
                         <div className="editor-section__intro" data-reveal>
                             <div>
                                 <p className="editor-section__label">{siteNumber('news')} / ACTIVITY LOG</p>
-                                <h2 id="news-title">DCCの<br />最近の活動</h2>
+                                <h2 id="news-title"><RichText text={news.heading} /></h2>
                             </div>
-                            <p>イベントや日々の活動の様子を、ブログで紹介しています。</p>
+                            <p><RichText text={news.lead} /></p>
                         </div>
 
                         <div className="news-workspace">
@@ -281,39 +284,45 @@ const Home = () => {
                                 <p>FROM DCC HUB</p>
                                 <a href={DCC_AI_URL} target="_blank" rel="noreferrer"><span>DCC AI</span><b>↗</b><small>IDEA / ASSIST</small></a>
                                 <a href={DCC_GIT_URL} target="_blank" rel="noreferrer"><span>DCC git</span><b>↗</b><small>CODE / SHARE</small></a>
-                                <p className="dcc-services__note">制作を支える、メンバー向けのAI・コード共有環境。</p>
+                                <p className="dcc-services__note">{news.servicesNote}</p>
                             </aside>
                         </div>
-                        <Link to="/blog" className="editor-text-link">活動ブログを開く <span aria-hidden="true">→</span></Link>
+                        <Link to="/blog" className="editor-text-link">{news.blogLinkLabel} <span aria-hidden="true">→</span></Link>
                     </section>
 
                     <section id="room" className="editor-section" aria-labelledby="room-title">
                         <EditorFileBar section="room" />
                         <div className="community-space">
-                            <div><p className="editor-section__label">{siteNumber('room')} / ONLINE &amp; ON CAMPUS</p><h2 id="room-title">オンラインと<br />部室での活動</h2><p>普段の相談や作品の共有はDiscordで。大学では、部室のPCやVR機器、3Dプリンタを使って制作を楽しめます。</p><p>活動拠点：11号館 2F 第1実習室</p><ul><li>ゲーミングPC</li><li>VR機器</li><li>3Dプリンタ</li><li>プロジェクター</li></ul><a className="editor-text-link" href={CONTACT_FORM_URL} target="_blank" rel="noreferrer">部室を見学したい方はこちら ↗</a></div>
-                            <figure><img src={roomPhoto} alt="PCが並ぶDCCの部室" loading="lazy" width="800" height="600" /><figcaption>つくる道具も、相談できる仲間も。</figcaption></figure>
+                            <div>
+                                <p className="editor-section__label">{siteNumber('room')} / ONLINE &amp; ON CAMPUS</p>
+                                <h2 id="room-title"><RichText text={room.heading} /></h2>
+                                <p><RichText text={room.text} /></p>
+                                <p>活動拠点：{siteContent.common.place}</p>
+                                <ul>{room.equipment.map((item) => <li key={item}>{item}</li>)}</ul>
+                                <a className="editor-text-link" href={CONTACT_FORM_URL} target="_blank" rel="noreferrer">{room.visitLabel} ↗</a>
+                            </div>
+                            {roomImage && <figure><img src={roomImage} alt={room.imageAlt} loading="lazy" width="800" height="600" /><figcaption>{room.caption}</figcaption></figure>}
                         </div>
                     </section>
                     <section id="faq" className="editor-section" aria-labelledby="faq-title">
                         <EditorFileBar section="faq" />
-                        <div className="community-faq"><p className="editor-section__label">{siteNumber('faq')} / BEFORE YOU JOIN</p><h2 id="faq-title">よくある質問</h2>
-                            <details open><summary>プログラミング未経験でも大丈夫？</summary><p>はい。未経験でも参加できます。プログラミングだけでなく、イラスト・映像・音楽など、興味のある制作から始められます。</p></details>
-                            <details><summary>活動頻度はどのくらい？</summary><p>決まった参加頻度はありません。Discordで交流したり、来られるときに部室に来たり、自分のペースで活動できます。</p></details>
-                            <details><summary>他のサークルと掛け持ちできる？</summary><p>はい、掛け持ちできます。</p></details>
-                            <details><summary>お金や入部手続きは必要？</summary><p>部費も入部届も必要ありません。Discordに参加すれば、その日からメンバーです。参加後はサーバー内の案内をご確認ください。</p></details>
+                        <div className="community-faq"><p className="editor-section__label">{siteNumber('faq')} / BEFORE YOU JOIN</p><h2 id="faq-title">{home.faq.heading}</h2>
+                            {home.faq.items.map((item, i) => (
+                                <details key={i} open={i === 0}><summary>{item.q}</summary><p><RichText text={item.a} /></p></details>
+                            ))}
                         </div>
                     </section>
                     <section id="join" className="editor-section editor-join" aria-labelledby="join-title">
                         <EditorFileBar section="join" />
                         <div className="join-terminal" data-reveal>
                             <p className="join-terminal__command"><span>$</span> ./join.sh</p>
-                            <p className="join-terminal__output">&gt; DCCに参加する</p>
-                            <h2 id="join-title"><span className="nowrap-phrase">「好き」を、</span><span className="nowrap-phrase">かたちに。</span></h2>
-                            <p className="join-terminal__output">&gt; 一緒に何かつくりませんか？</p>
-                            <p className="join-explanation">下のボタンからDiscordの招待ページが開きます。<br />気になることがあれば、見学・お問い合わせからご相談ください。</p>
+                            <p className="join-terminal__output">&gt; {join.kicker}</p>
+                            <h2 id="join-title">{join.heading.split('\n').map((phrase, i) => <span className="nowrap-phrase" key={i}>{phrase}</span>)}</h2>
+                            <p className="join-terminal__output">&gt; {join.question}</p>
+                            <p className="join-explanation"><RichText text={join.explanation} /></p>
                             <div className="join-terminal__actions">
-                                <a href={DISCORD_INVITE} className="join-terminal__cta" target="_blank" rel="noreferrer">Discordで参加する <span aria-hidden="true">↗</span></a>
-                                <a href={CONTACT_FORM_URL} className="join-terminal__contact" target="_blank" rel="noreferrer">見学・お問い合わせ ↗</a>
+                                <a href={DISCORD_INVITE} className="join-terminal__cta" target="_blank" rel="noreferrer">{join.ctaLabel} <span aria-hidden="true">↗</span></a>
+                                <a href={CONTACT_FORM_URL} className="join-terminal__contact" target="_blank" rel="noreferrer">{join.contactLabel} ↗</a>
                             </div>
                         </div>
                     </section>
