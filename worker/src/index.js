@@ -3,8 +3,12 @@ import { getSuggestedAnswer } from '../../src/data/dccaiSuggestions.js';
 import { enforceReplyPolicy, getPolicyReply, sanitizeDccaiHistory } from '../../src/lib/dccaiPolicy.js';
 import { DCCAI_SYSTEM_PROMPT } from '../../server/dccai/prompt.js';
 
-const UPSTREAM_URL = 'https://ai.shu-dcc.net/api/chat/completions';
-const MODEL = 'dccai.dccai-high-vision';
+// DCC Hub（app.shu-dcc.net/ai → 使用量・API → API）の Responses API。
+// キーは同じ画面で発行したものを Worker Secret の DCCAI_API_KEY に入れる。
+// 旧 ai.shu-dcc.net（/api/chat/completions）は使われなくなった。
+const UPSTREAM_URL = 'https://responses.shu-dcc.net/v1/responses';
+// 「DCC AI のいつものモデル」。使えるモデルは DCC Hub の API 画面に一覧がある。
+const MODEL = 'dccai.dccai-deepseek-v4.1-flash';
 const ALLOWED_ORIGINS = new Set(['https://shu-dcc.net', 'https://www.shu-dcc.net']);
 
 const ACTIONS = {
@@ -35,14 +39,21 @@ const textFrom = (value) => {
   return '';
 };
 
-const extractContent = (payload) => textFrom(
-  payload?.choices?.[0]?.message?.content
-  ?? payload?.choices?.[0]?.message?.text
-  ?? payload?.choices?.[0]?.text
-  ?? payload?.output_text
-  ?? payload?.output
-  ?? payload?.message,
-).trim();
+// Responses API の答えは output の中の message → output_text に入る。
+// reasoning（考えている途中の内容）は訪問者に見せないので拾わない。
+const extractContent = (payload) => {
+  if (typeof payload?.output_text === 'string' && payload.output_text.trim()) return payload.output_text.trim();
+  if (Array.isArray(payload?.output)) {
+    return payload.output
+      .filter((item) => item?.type === 'message')
+      .flatMap((item) => (Array.isArray(item.content) ? item.content : []))
+      .filter((part) => part?.type === 'output_text' || part?.type === 'text')
+      .map((part) => textFrom(part.text))
+      .join('')
+      .trim();
+  }
+  return textFrom(payload?.choices?.[0]?.message?.content).trim();
+};
 
 // Some upstream models may emit their private DSML tool-call protocol as text.
 // It is never meaningful to a site visitor, so fail closed rather than exposing
@@ -79,12 +90,21 @@ export default {
       const upstream = await fetch(UPSTREAM_URL, {
         method: 'POST',
         headers: { authorization: `Bearer ${env.DCCAI_API_KEY}`, 'content-type': 'application/json' },
-        body: JSON.stringify({ model: MODEL, messages: [{ role: 'system', content: systemPrompt }, ...sanitizeDccaiHistory(body.history), { role: 'user', content: message }] }),
+        body: JSON.stringify({
+          model: MODEL,
+          instructions: systemPrompt,
+          input: [...sanitizeDccaiHistory(body.history), { role: 'user', content: message }],
+        }),
       });
       const payload = await upstream.json().catch(() => null);
       const answer = upstream.ok ? visibleAnswer(extractContent(payload)) : '';
       if (!answer) {
-        console.error('DCCAI upstream failed', { status: upstream.status, hasPayload: Boolean(payload) });
+        console.error('DCCAI upstream failed', {
+          status: upstream.status,
+          hasPayload: Boolean(payload),
+          // 原因を追えるよう、上流のエラー文だけ短く残す（質問の中身やキーは残さない）
+          upstreamError: String(payload?.error?.message ?? payload?.detail ?? '').slice(0, 200),
+        });
         return json({ error: 'DCCAI connection failed.' }, 502, origin);
       }
       return json(enforceReplyPolicy({ message: answer, actions: actionsFor(message) }), 200, origin);

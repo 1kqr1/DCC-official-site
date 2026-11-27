@@ -107,14 +107,18 @@ test('old code history cannot be continued and is excluded from ordinary request
   let sent;
   t.mock.method(globalThis, 'fetch', async (_url, init) => {
     sent = JSON.parse(init.body);
-    return Response.json({ choices: [{ message: { content: 'DCCはDiscordで交流しています。' } }] });
+    // Responses API の形。考えている途中（reasoning）は答えに混ぜない
+    return Response.json({ output: [
+      { type: 'reasoning', summary: [{ type: 'summary_text', text: '内部の考え' }] },
+      { type: 'message', role: 'assistant', content: [{ type: 'output_text', text: 'DCCはDiscordで交流しています。' }] },
+    ] });
   });
   const blocked = await worker.fetch(request('continue', history), {});
   assert.deepEqual(await blocked.json(), DCCAI_CODE_REFUSAL);
   const response = await worker.fetch(request('DCCのオンライン交流は？', history), { DCCAI_API_KEY: 'test-only' });
   assert.equal(response.status, 200);
-  assert.deepEqual(sent.messages.slice(1, -1), history.slice(0, 2));
-  assert.match(sent.messages[0].content, /コード.*生成.*しないでください/);
+  assert.deepEqual(sent.input.slice(0, -1), history.slice(0, 2));
+  assert.match(sent.instructions, /コード.*生成.*しないでください/);
   assert.equal((await response.json()).message, 'DCCはDiscordで交流しています。');
 });
 
