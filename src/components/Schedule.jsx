@@ -3,8 +3,8 @@ import { DISCORD_INVITE, EVENTS_API_URL } from '../config';
 import { formatEventTime, upcomingEvents } from '../lib/schedule';
 import './Schedule.css';
 
-// トップの「活動予定」。役員が更新する公開用Googleカレンダーから、日時・タイトル・場所だけを表示する。
-function Schedule() {
+// トップの「活動予定」。部員ポータルで役員が更新するカレンダーから、日時・タイトル・場所だけを表示する。
+function Schedule({ note }) {
     const [state, setState] = useState({ status: 'loading', events: [], googleUrl: '', icsUrl: '' });
 
     useEffect(() => {
@@ -53,7 +53,7 @@ function Schedule() {
                 <a href={DISCORD_INVITE} target="_blank" rel="noreferrer"><span>Discord</span><b>↗</b><small>詳細・連絡はこちら</small></a>
                 {googleUrl && <a href={googleUrl} target="_blank" rel="noreferrer"><span>Googleカレンダー</span><b>↗</b><small>自分のカレンダーに追加</small></a>}
                 {icsUrl && <a href={icsUrl} target="_blank" rel="noreferrer"><span>iCal (.ics)</span><b>↗</b><small>iPhone・Outlookで購読</small></a>}
-                <p className="dcc-services__note">内容や持ち物などの詳細は、Discordでお知らせしています。予定は変わることがあります。</p>
+                {note && <p className="dcc-services__note">{note}</p>}
             </aside>
         </div>
     );

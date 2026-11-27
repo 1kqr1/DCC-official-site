@@ -4,6 +4,14 @@ on:
   push:
     branches:
       - main
+  # 部員ポータル（DCCadmin）の「HPに公開」ボタンから起動される
+  repository_dispatch:
+    types: [site-content-published]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
 
 permissions:
   contents: read
@@ -26,6 +34,9 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          # 部員ポータルで公開されたHPの文章・リンク・画像を取り込む
+          SITE_CONTENT_FETCH: '1'
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3

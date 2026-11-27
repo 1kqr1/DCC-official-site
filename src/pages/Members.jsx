@@ -6,6 +6,7 @@ import { useSeo } from '../seo';
 import EditorRouteFrame from '../components/EditorRouteFrame';
 import { siteNumber } from '../data/siteSections';
 import './Members.css';
+import { siteContent } from '../data/siteContent';
 
 const AvatarPlaceholder = () => (
     <span className="member-avatar-placeholder" aria-hidden="true">
@@ -34,8 +35,8 @@ const Members = () => {
             <div className="container">
                 <div className="members-header" data-reveal>
                     <span className="section-label">// MEMBERS</span>
-                    <h1 className="members-heading">部員紹介</h1>
-                    <p className="members-sub">// DCCで活動しているメンバーと、その作品を紹介します。</p>
+                    <h1 className="members-heading">{siteContent.pages.members.heading}</h1>
+                    <p className="members-sub">// {siteContent.pages.members.lead}</p>
                     <a href={PORTFOLIO_EDIT_URL} className="members-edit-link" target="_blank" rel="noreferrer">
                         $ 自分のプロフィールを編集する →
                     </a>

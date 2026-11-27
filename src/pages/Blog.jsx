@@ -5,6 +5,7 @@ import { useSeo } from '../seo';
 import EditorRouteFrame from '../components/EditorRouteFrame';
 import { siteNumber } from '../data/siteSections';
 import './Blog.css';
+import { siteContent } from '../data/siteContent';
 
 const formatDate = (d) => {
     const date = new Date(d);
@@ -37,8 +38,8 @@ const Blog = () => {
             <div className="container">
                 <div className="blog-header" data-reveal>
                     <span className="section-label">// BLOG</span>
-                    <h1 className="blog-heading">活動ブログ</h1>
-                    <p className="blog-sub">// DCCの日々の活動やイベントの様子をお届けします。</p>
+                    <h1 className="blog-heading">{siteContent.pages.blog.heading}</h1>
+                    <p className="blog-sub">// {siteContent.pages.blog.lead}</p>
                 </div>
 
                 {error && <p className="blog-empty">読み込みに失敗しました（{error}）。時間を置いて再度お試しください。</p>}

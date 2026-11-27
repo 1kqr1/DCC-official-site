@@ -2,6 +2,8 @@ import React from 'react';
 import Link from './NavigationLink';
 import logo from '../assets/logo-white.png';
 import { DISCORD_INVITE, SHOW_HOME_MEMBERS } from '../config';
+import { siteContent } from '../data/siteContent';
+import { RichText } from './RichText';
 import './Footer.css';
 
 const footerLinks = [
@@ -31,7 +33,7 @@ const Footer = () => (
         <div className="site-footer__body">
             <div className="site-footer__brand">
                 <img src={logo} alt="DCC" />
-                <p>つくるで、世界をひらく。<br />周南公立大学発のクリエイターコミュニティ。</p>
+                <p><RichText text={siteContent.footer.tagline} /></p>
             </div>
 
             <nav className="site-footer__nav" aria-label="フッターナビゲーション">
